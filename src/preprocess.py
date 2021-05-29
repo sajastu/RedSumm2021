@@ -1,4 +1,7 @@
-#encoding=utf-8
+#encodimport glob
+import hashlib
+import itertools
+ing=utf-8
 
 
 import argparse
