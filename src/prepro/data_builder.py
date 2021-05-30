@@ -109,7 +109,7 @@ def tokenize(args):
     tokenized_stories_dir = os.path.abspath(args.save_path)
 
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
-    stories = os.listdir(stories_dir)
+    stories = os.listdir(stories_dir)[:3]
     # make IO list file
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
