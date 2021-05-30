@@ -1,7 +1,7 @@
 #encodimport glob
 import hashlib
 import itertools
-ing=utf-8
+# ing=utf-8
 
 
 import argparse
