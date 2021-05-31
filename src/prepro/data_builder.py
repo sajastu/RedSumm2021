@@ -130,8 +130,10 @@ def tokenize(args):
     os.remove("mapping_for_corenlp.txt")
 
     # Check that the tokenized stories directory contains the same number of files as the original directory
-    # num_orig = len(os.listdir(stories_dir))
-    num_orig = len(stories)
+    num_orig = 0
+    for set in ['train', 'validation', 'test']:
+        num_orig = len(os.listdir(os.path.abspath(args.raw_path + '/' + set)))
+    # num_orig = len(stories)
     num_tokenized = len(os.listdir(tokenized_stories_dir))
     if num_orig != num_tokenized:
         raise Exception(
