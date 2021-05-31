@@ -112,12 +112,16 @@ def tokenize(args):
     for set in ['train', 'validation', 'test']:
         stories.extend(os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/')))
     # make IO list file
+    prev_tokenized = [s.replace('.instance.json', '') for s in os.listdir(args.save_path)]
+
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in stories:
             if (not s.endswith('instance')):
                 continue
-            f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
+            import pdb;pdb.set_trace()
+            if s not in prev_tokenized:
+                f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
                'json', '-outputDirectory', tokenized_stories_dir]
