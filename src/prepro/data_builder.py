@@ -110,7 +110,7 @@ def tokenize(args):
     stories = []
 
     for set in ['train', 'validation', 'test']:
-        stories.extend(os.listdir(stories_dir + '/' + set + '/'))
+        stories.extend(os.listdir( os.path.abspath(args.raw_path+ '/' + set + '/')))
 
     # make IO list file
     print("Making list of files to tokenize...")
