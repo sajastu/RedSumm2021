@@ -119,8 +119,7 @@ def tokenize(args):
         for s in stories:
             if (not s.endswith('instance')):
                 continue
-            import pdb;pdb.set_trace()
-            if s not in prev_tokenized:
+            if s.replace('.instance','') not in prev_tokenized:
                 f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
