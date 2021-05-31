@@ -27,7 +27,6 @@ def recover_from_corenlp(s):
     s = re.sub(r'\'\' {\w}', '\'\'\g<1>', s)
 
 
-
 def load_json(p, lower):
     source = []
     tgt = []
@@ -48,7 +47,6 @@ def load_json(p, lower):
     source = [clean(' '.join(sent)).split() for sent in source]
     tgt = [clean(' '.join(sent)).split() for sent in tgt]
     return source, tgt
-
 
 
 def load_xml(p):
@@ -107,14 +105,18 @@ def load_xml(p):
 def tokenize(args):
     stories_dir = os.path.abspath(args.raw_path)
     tokenized_stories_dir = os.path.abspath(args.save_path)
-
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
-    stories = os.listdir(stories_dir)
+
+    stories = []
+
+    for set in ['train', 'validation', 'test']:
+        stories.extend(os.listdir(stories_dir + '/' + set + '/'))
+
     # make IO list file
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in stories:
-            if (not s.endswith('story')):
+            if (not s.endswith('instance')):
                 continue
             f.write("%s\n" % (os.path.join(stories_dir, s)))
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
@@ -133,6 +135,7 @@ def tokenize(args):
             "The tokenized stories directory %s contains %i files, but it should contain the same number as %s (which has %i files). Was there an error during tokenization?" % (
                 tokenized_stories_dir, num_tokenized, stories_dir, num_orig))
     print("Successfully finished tokenizing %s to %s.\n" % (stories_dir, tokenized_stories_dir))
+
 
 def cal_rouge(evaluated_ngrams, reference_ngrams):
     reference_count = len(reference_ngrams)
@@ -256,7 +259,8 @@ class BertData():
         sent_labels = sent_labels[:len(cls_ids)]
 
         tgt_subtokens_str = '[unused0] ' + ' [unused2] '.join(
-            [' '.join(self.tokenizer.tokenize(' '.join(tt), use_bert_basic_tokenizer=use_bert_basic_tokenizer)) for tt in tgt]) + ' [unused1]'
+            [' '.join(self.tokenizer.tokenize(' '.join(tt), use_bert_basic_tokenizer=use_bert_basic_tokenizer)) for tt
+             in tgt]) + ' [unused1]'
         tgt_subtoken = tgt_subtokens_str.split()[:self.args.max_tgt_ntokens]
         if ((not is_test) and len(tgt_subtoken) < self.args.min_tgt_ntokens):
             return None
@@ -376,8 +380,6 @@ def _format_to_lines(params):
     print(f)
     source, tgt = load_json(f, args.lower)
     return {'src': source, 'tgt': tgt}
-
-
 
 
 def format_xsum_to_lines(args):
