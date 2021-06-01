@@ -7,4 +7,4 @@ export BERT_DATA_PATH=/home/code-base/user_space/datasets/reddit-tifu/bert-data/
 
 #python preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
 python preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 20 -use_bert_basic_tokenizer false
-python preprocess.py -mode format_to_bert -raw_path JSON_PATH -save_path BERT_DATA_PATH  -lower -n_cpus 20 -log_file ../logs/preprocess.log
+python preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 20 -log_file ../logs/preprocess.log
