@@ -118,13 +118,14 @@ class Bert(nn.Module):
         if(large):
             self.model = BertModel.from_pretrained('bert-large-uncased', cache_dir=temp_dir)
         else:
-            import pdb;pdb.set_trace()
             self.model = BertModel.from_pretrained('bert-base-uncased', cache_dir=temp_dir)
 
         self.finetune = finetune
 
     def forward(self, x, segs, mask):
         if(self.finetune):
+            import pdb;pdb.set_trace()
+
             top_vec, _ = self.model(x, segs, attention_mask=mask)
         else:
             self.eval()
