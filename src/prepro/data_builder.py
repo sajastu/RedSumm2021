@@ -351,7 +351,7 @@ def format_to_lines(args):
         import pdb;
         pdb.set_trace()
 
-        for f in glob.glob(pjoin(args.save_path + '/' + corpus_type, '/*.json')):
+        for f in glob.glob(pjoin(args.raw_path, corpus_type, '/*.json')):
             import pdb;pdb.set_trace()
 
             eval(f'{corpus_type}_files').append(f)
