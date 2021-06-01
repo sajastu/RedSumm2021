@@ -119,7 +119,7 @@ class Bert(nn.Module):
             self.model = BertModel.from_pretrained('bert-large-uncased', cache_dir=temp_dir)
         else:
             configuration = BertConfig()
-            configuration.max_position_ids = 1024
+            configuration.max_position_embeddings = 1024
             self.model = BertModel.from_pretrained('bert-base-uncased', cache_dir=temp_dir, config=configuration)
             if(args.max_pos>512):
                 my_pos_embeddings = nn.Embedding(args.max_pos, self.model.config.hidden_size)
@@ -127,7 +127,6 @@ class Bert(nn.Module):
                 my_pos_embeddings.weight.data[512:] = self.model.embeddings.position_embeddings.weight.data[-1][None,
                                                       :].repeat(args.max_pos - 512, 1)
                 self.model.embeddings.position_embeddings = my_pos_embeddings
-                self.model.config.max_position_embeddings = 1024
 
         self.finetune = finetune
 
