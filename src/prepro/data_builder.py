@@ -348,7 +348,6 @@ def format_to_lines(args):
     for f in glob.glob(pjoin(args.raw_path + '/*.json')):
 
         corpus_type = f.split('/')[-1].split('-')[0]
-        import pdb;pdb.set_trace()
 
         eval(f'{corpus_type}_files').append(f)
         # real_name = f.split('/')[-1].split('.')[0]
@@ -367,6 +366,8 @@ def format_to_lines(args):
         pool = Pool(args.n_cpus)
         dataset = []
         p_ct = 0
+        import pdb;pdb.set_trace()
+
         for d in pool.imap_unordered(_format_to_lines, a_lst):
             dataset.append(d)
             if (len(dataset) > args.shard_size):
