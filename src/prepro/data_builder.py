@@ -367,14 +367,15 @@ def format_to_lines(args):
         dataset = []
         p_ct = 0
         for d in pool.imap_unordered(_format_to_lines, a_lst):
-            dataset.append(d)
-            if (len(dataset) > args.shard_size):
-                pt_file = "{:s}.{:s}.{:d}.json".format(args.save_path, corpus_type, p_ct)
-                with open(pt_file, 'w') as save:
-                    # save.write('\n'.join(dataset))
-                    save.write(json.dumps(dataset))
-                    p_ct += 1
-                    dataset = []
+            if d is not None:
+                dataset.append(d)
+                if (len(dataset) > args.shard_size):
+                    pt_file = "{:s}.{:s}.{:d}.json".format(args.save_path, corpus_type, p_ct)
+                    with open(pt_file, 'w') as save:
+                        # save.write('\n'.join(dataset))
+                        save.write(json.dumps(dataset))
+                        p_ct += 1
+                        dataset = []
 
         pool.close()
         pool.join()
@@ -390,7 +391,14 @@ def format_to_lines(args):
 def _format_to_lines(params):
     f, args = params
     print(f)
-    source, tgt = load_json(f, args.lower)
+    try:
+        source, tgt = load_json(f, args.lower)
+    except:
+        with open('not_parsed_tokenized.txt', mode='a') as aF:
+            aF.write(f)
+            aF.write('\n')
+        return None
+
     return {'src': source, 'tgt': tgt}
 
 
