@@ -343,15 +343,13 @@ def format_to_lines(args):
     #         temp.append(hashhex(line.strip()))
     #     corpus_mapping[corpus_type] = {key.strip(): 1 for key in temp}
 
-
-
     train_files, valid_files, test_files = [], [], []
 
     for corpus_type in ['valid', 'test', 'train']:
         for f in glob.glob(pjoin(args.raw_path + '/*.json')):
 
-            eval(f'{corpus_type}_files').append(f)
             import pdb;pdb.set_trace()
+            eval(f'{corpus_type}_files').append(f)
             # real_name = f.split('/')[-1].split('.')[0]
             # if (real_name in corpus_mapping['valid']):
             #     valid_files.append(f)
