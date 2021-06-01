@@ -370,7 +370,7 @@ def format_to_lines(args):
             if d is not None:
                 dataset.append(d)
                 if (len(dataset) > args.shard_size):
-                    pt_file = "{:s}.{:s}.{:d}.json".format(args.save_path, corpus_type, p_ct)
+                    pt_file = "{:s}{:s}.{:d}.json".format(args.save_path, corpus_type, p_ct)
                     with open(pt_file, 'w') as save:
                         # save.write('\n'.join(dataset))
                         save.write(json.dumps(dataset))
@@ -380,7 +380,7 @@ def format_to_lines(args):
         pool.close()
         pool.join()
         if (len(dataset) > 0):
-            pt_file = "{:s}.{:s}.{:d}.json".format(args.save_path, corpus_type, p_ct)
+            pt_file = "{:s}{:s}.{:d}.json".format(args.save_path, corpus_type, p_ct)
             with open(pt_file, 'w') as save:
                 # save.write('\n'.join(dataset))
                 save.write(json.dumps(dataset))
