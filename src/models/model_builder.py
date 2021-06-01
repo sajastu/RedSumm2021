@@ -2,7 +2,7 @@ import copy
 
 import torch
 import torch.nn as nn
-from pytorch_transformers import BertModel, BertConfig
+from transformers import BertModel, BertConfig
 from torch.nn.init import xavier_uniform_
 
 from models.decoder import TransformerDecoder
@@ -118,6 +118,7 @@ class Bert(nn.Module):
         if(large):
             self.model = BertModel.from_pretrained('bert-large-uncased', cache_dir=temp_dir)
         else:
+            import pdb;pdb.set_trace()
             self.model = BertModel.from_pretrained('bert-base-uncased', cache_dir=temp_dir)
 
         self.finetune = finetune

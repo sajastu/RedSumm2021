@@ -18,6 +18,7 @@ class Batch(object):
 
     def __init__(self, data=None, device=None, is_test=False):
         """Create a Batch from a list of examples."""
+        self.PAD_ID = -1
         if data is not None:
             self.batch_size = len(data)
             pre_src = [x[0] for x in data]
@@ -30,13 +31,14 @@ class Batch(object):
             tgt = torch.tensor(self._pad(pre_tgt, 0))
 
             segs = torch.tensor(self._pad(pre_segs, 0))
-            mask_src = 1 - (src == 0)
-            mask_tgt = 1 - (tgt == 0)
+            mask_src = ~(src == self.PAD_ID)
+            mask_tgt = ~(tgt == self.PAD_ID)
 
 
             clss = torch.tensor(self._pad(pre_clss, -1))
             src_sent_labels = torch.tensor(self._pad(pre_src_sent_labels, 0))
-            mask_cls = 1 - (clss == -1)
+            mask_cls = ~(clss == self.PAD_ID)
+
             clss[clss == -1] = 0
             setattr(self, 'clss', clss.to(device))
             setattr(self, 'mask_cls', mask_cls.to(device))
