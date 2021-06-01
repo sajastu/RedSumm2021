@@ -343,7 +343,7 @@ def format_to_lines(args):
     #         temp.append(hashhex(line.strip()))
     #     corpus_mapping[corpus_type] = {key.strip(): 1 for key in temp}
 
-    train_files, valid_files, test_files = [], [], []
+    train_files, validation_files, test_files = [], [], []
 
     for f in glob.glob(pjoin(args.raw_path + '/*.json')):
 
@@ -352,7 +352,7 @@ def format_to_lines(args):
         eval(f'{corpus_type}_files').append(f)
         # real_name = f.split('/')[-1].split('.')[0]
         # if (real_name in corpus_mapping['valid']):
-        #     valid_files.append(f)
+        #     validation_files.append(f)
         # elif (real_name in corpus_mapping['test']):
         #     test_files.append(f)
         # elif (real_name in corpus_mapping['train']):
@@ -360,7 +360,7 @@ def format_to_lines(args):
     # else:
     #     train_files.append(f)
 
-    corpora = {'train': train_files, 'valid': valid_files, 'test': test_files}
+    corpora = {'train': train_files, 'valid': validation_files, 'test': test_files}
     for corpus_type in ['train', 'valid', 'test']:
         a_lst = [(f, args) for f in corpora[corpus_type]]
         pool = Pool(args.n_cpus)
