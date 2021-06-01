@@ -125,6 +125,7 @@ class Bert(nn.Module):
                 my_pos_embeddings.weight.data[512:] = self.model.embeddings.position_embeddings.weight.data[-1][None,
                                                       :].repeat(args.max_pos - 512, 1)
                 self.model.embeddings.position_embeddings = my_pos_embeddings
+                self.model.config.max_position_embeddings = 1024
 
         self.finetune = finetune
 
