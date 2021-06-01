@@ -120,6 +120,7 @@ class Bert(nn.Module):
         else:
             configuration = BertConfig()
             configuration.max_position_embeddings = 1024
+            import pdb;pdb.set_trace()
             self.model = BertModel.from_pretrained('bert-base-uncased', cache_dir=temp_dir, config=configuration)
             if(args.max_pos>512):
                 my_pos_embeddings = nn.Embedding(args.max_pos, self.model.config.hidden_size)
