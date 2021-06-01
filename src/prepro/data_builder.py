@@ -36,7 +36,7 @@ def load_json(p, lower):
         tokens = [t['word'] for t in sent['tokens']]
         if (lower):
             tokens = [t.lower() for t in tokens]
-        if (tokens[0] == '@highlight'):
+        if (tokens[0] == '@highlights'):
             flag = True
             tgt.append([])
             continue
