@@ -10,4 +10,5 @@ MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024/
                   -sep_optim true -use_interval true \
                   -visible_gpus 0,1 -max_pos 1024 -max_length 500 -alpha 0.95 \
                   -min_length 50 \
-                  -result_path $MODEL_PATH/results/
+                  -result_path $MODEL_PATH/results/ \
+                  -large
