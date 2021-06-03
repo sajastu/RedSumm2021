@@ -31,6 +31,7 @@ class Batch(object):
             tgt = torch.tensor(self._pad(pre_tgt, 0))
 
             segs = torch.tensor(self._pad(pre_segs, 0))
+            import pdb;pdb.set_trace()
             mask_src = ~(src == self.PAD_ID)
             mask_tgt = ~(tgt == self.PAD_ID)
 
