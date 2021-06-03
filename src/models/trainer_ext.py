@@ -298,7 +298,7 @@ class Trainer(object):
         # if (step != -1 and self.args.report_rouge):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
-        # import pdb;pdb.set_trace()
+        import pdb;pdb.set_trace()
         r1, r2, rl = evaluate_rouge_avg(pred, gold, use_progress_bar=True)
         logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)))
 
