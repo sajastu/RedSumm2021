@@ -173,7 +173,7 @@ class Translator(object):
                         # pred_str = ' '.join(pred_str.split()[:len(gold_str.split())])
                     # self.raw_can_out_file.write(' '.join(pred).strip() + '\n')
                     # self.raw_gold_out_file.write(' '.join(gold).strip() + '\n')
-                    # import pdb;pdb.set_trace()
+                    import pdb;pdb.set_trace()
                     self.can_out_file.write(pred_str + '\n')
                     preds.append(pred_str)
                     self.gold_out_file.write(gold_str + '\n')
@@ -244,7 +244,6 @@ class Translator(object):
         mask_src = batch.mask_src
 
         src_features = self.model.bert(src, segs, mask_src)
-        import pdb;pdb.set_trace()
         dec_states = self.model.decoder.init_decoder_state(src, src_features, with_cache=True)
         device = src_features.device
 
@@ -324,7 +323,7 @@ class Translator(object):
 
             curr_scores = curr_scores.reshape(-1, beam_size * vocab_size)
             topk_scores, topk_ids = curr_scores.topk(beam_size, dim=-1)
-            import pdb;pdb.set_trace()
+            # import pdb;pdb.set_trace()
             # Recover log probs.
             topk_log_probs = topk_scores * length_penalty
 
