@@ -42,7 +42,10 @@ def build_trainer(args, device_id, model, optims,loss):
 
     print('gpu_rank %d' % gpu_rank)
 
-    tensorboard_log_dir = args.model_path
+    tensorboard_log_dir = args.model_path + '/tesnor_logs/'
+
+    if not os.path.exists(tensorboard_log_dir):
+        os.makedirs(tensorboard_log_dir)
 
     writer = SummaryWriter(tensorboard_log_dir, comment="Unmt")
 

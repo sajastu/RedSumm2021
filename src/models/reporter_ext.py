@@ -236,6 +236,9 @@ class Statistics(object):
             return 0
         return self.loss / self.n_docs
 
+    def set_rgL(self, rgL):
+        self.rgL = rgL
+
     def elapsed_time(self):
         """ compute elapsed time """
         return time.time() - self.start_time

@@ -8,6 +8,7 @@ import distributed
 from models.reporter_ext import ReportMgr, Statistics
 from others.logging import logger
 from others.utils import test_rouge, rouge_results_to_str
+from utils.rouge_score import evaluate_rouge_avg
 
 
 def _tally_parameters(model):
@@ -40,7 +41,10 @@ def build_trainer(args, device_id, model, optim):
 
     print('gpu_rank %d' % gpu_rank)
 
-    tensorboard_log_dir = args.model_path
+    tensorboard_log_dir = args.model_path + '/tesnor_logs/'
+
+    if not os.path.exists(tensorboard_log_dir):
+        os.makedirs(tensorboard_log_dir)
 
     writer = SummaryWriter(tensorboard_log_dir, comment="Unmt")
 
@@ -169,7 +173,7 @@ class Trainer(object):
 
         return total_stats
 
-    def validate(self, valid_iter, step=0):
+    def validate(self, valid_iter, step=0, return_rg=False):
         """ Validate model.
             valid_iter: validate data iterator
         Returns:
@@ -195,9 +199,14 @@ class Trainer(object):
                 batch_stats = Statistics(float(loss.cpu().data.numpy()), len(labels))
                 stats.update(batch_stats)
             self._report_step(0, step, valid_stats=stats)
+
+            if return_rg:
+                _, rgL = self.test(valid_iter, step=step, return_rouge=return_rg)[1]
+                stats.set_rgL(rgL)
+
             return stats
 
-    def test(self, test_iter, step, cal_lead=False, cal_oracle=False):
+    def test(self, test_iter, step, cal_lead=False, cal_oracle=False, return_rouge=False):
         """ Validate model.
             valid_iter: validate data iterator
         Returns:
@@ -286,10 +295,16 @@ class Trainer(object):
                             save_gold.write(gold[i].strip() + '\n')
                         for i in range(len(pred)):
                             save_pred.write(pred[i].strip() + '\n')
-        if (step != -1 and self.args.report_rouge):
-            rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
-            logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
+        # if (step != -1 and self.args.report_rouge):
+        #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
+        #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
+        r1, r2, rl = evaluate_rouge_avg(pred, gold, use_progress_bar=True)
+        logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1,r2,rl)))
+
         self._report_step(0, step, valid_stats=stats)
+
+        if return_rouge:
+            return stats, rl
 
         return stats
 
