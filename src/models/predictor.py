@@ -340,6 +340,7 @@ class Translator(object):
             select_indices = batch_index.view(-1)
 
             # Append last prediction.
+            import pdb;pdb.set_trace()
             alive_seq = torch.cat(
                 [alive_seq.index_select(0, select_indices),
                  topk_ids.view(-1, 1)], -1)
