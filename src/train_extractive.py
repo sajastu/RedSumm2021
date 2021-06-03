@@ -188,7 +188,7 @@ def validate(args, device_id, pt, step, return_rouge=False):
 
     valid_iter = data_loader.Dataloader(args, load_dataset(args, 'valid', shuffle=False),
                                         args.batch_size, device,
-                                        shuffle=False, is_test=False)
+                                        shuffle=False, is_test=True)
     trainer = build_trainer(args, device_id, model, None)
     stats = trainer.validate(valid_iter, step, return_rg=return_rouge)
 

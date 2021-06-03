@@ -200,7 +200,6 @@ class Trainer(object):
                     batch_stats = Statistics(float(loss.cpu().data.numpy()), len(labels))
                     stats.update(batch_stats)
                 self._report_step(0, step, valid_stats=stats)
-
             else:
                 _, rgL = self.test(valid_iter, step=step, return_rouge=return_rg)[1]
                 stats.set_rgL(rgL)
