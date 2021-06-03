@@ -27,11 +27,10 @@ class Batch(object):
             pre_clss = [x[3] for x in data]
             pre_src_sent_labels = [x[4] for x in data]
 
-            src = torch.tensor(self._pad(pre_src, 0))
-            tgt = torch.tensor(self._pad(pre_tgt, 0))
+            src = torch.tensor(self._pad(pre_src, self.PAD_ID))
+            tgt = torch.tensor(self._pad(pre_tgt, self.PAD_ID))
 
             segs = torch.tensor(self._pad(pre_segs, 0))
-            import pdb;pdb.set_trace()
             mask_src = ~(src == self.PAD_ID)
             mask_tgt = ~(tgt == self.PAD_ID)
 
@@ -41,6 +40,9 @@ class Batch(object):
             mask_cls = ~(clss == self.PAD_ID)
 
             clss[clss == -1] = 0
+            src[clss == -1] = 0
+            tgt[clss == -1] = 0
+            import pdb;pdb.set_trace()
             setattr(self, 'clss', clss.to(device))
             setattr(self, 'mask_cls', mask_cls.to(device))
             setattr(self, 'src_sent_labels', src_sent_labels.to(device))
