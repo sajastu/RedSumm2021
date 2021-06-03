@@ -139,13 +139,13 @@ class Bert(nn.Module):
 
     def forward(self, x, segs, mask):
         if(self.finetune):
-            top_vec = self.model(input_ids=x, token_type_ids=segs, attention_mask=mask)['last_hidden_state']
-            # top_vec, _ = self.model(x, token_type_ids=segs, attention_mask=mask)
+            # top_vec = self.model(input_ids=x, token_type_ids=segs, attention_mask=mask)['last_hidden_state']
+            top_vec, _ = self.model(x, token_type_ids=segs, attention_mask=mask)
         else:
             self.eval()
             with torch.no_grad():
-                top_vec = self.model(input_ids=x, token_type_ids=segs, attention_mask=mask)['last_hidden_state']
-                # top_vec, _ = self.model(x, token_type_ids=segs, attention_mask=mask)
+                # top_vec = self.model(input_ids=x, token_type_ids=segs, attention_mask=mask)['last_hidden_state']
+                top_vec, _ = self.model(x, token_type_ids=segs, attention_mask=mask)
         return top_vec
 
 
