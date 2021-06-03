@@ -19,7 +19,7 @@ from models import data_loader, model_builder
 from models.data_loader import load_dataset
 from models.loss import abs_loss
 from models.model_builder import AbsSummarizer
-from models.predictor import build_predictor
+# from models.predictor import build_predictor
 from models.trainer import build_trainer
 from others.logging import logger, init_logger
 
