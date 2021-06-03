@@ -170,8 +170,6 @@ class Translator(object):
                                 gap = can_gap
                                 _pred_str = can_pred_str
 
-
-
                         # pred_str = ' '.join(pred_str.split()[:len(gold_str.split())])
                     # self.raw_can_out_file.write(' '.join(pred).strip() + '\n')
                     # self.raw_gold_out_file.write(' '.join(gold).strip() + '\n')
@@ -332,8 +330,8 @@ class Translator(object):
             # Resolve beam origin and true word ids.
             # topk_beam_index = topk_ids.div(vocab_size)
             # topk_beam_index = topk_ids.true_divide(vocab_size)
-            topk_beam_index = topk_ids.floor_divide(vocab_size)
-            # topk_beam_index = topk_ids // vocab_size
+            # topk_beam_index = topk_ids.floor_divide(vocab_size)
+            topk_beam_index = topk_ids // vocab_size
             topk_ids = topk_ids.fmod(vocab_size)
 
             # Map beam_index to batch_index in the flat representation.
