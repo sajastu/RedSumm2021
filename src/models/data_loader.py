@@ -42,7 +42,6 @@ class Batch(object):
             clss[clss == -1] = 0
             src[src == -1] = 0
             tgt[tgt == -1] = 0
-            import pdb;pdb.set_trace()
             setattr(self, 'clss', clss.to(device))
             setattr(self, 'mask_cls', mask_cls.to(device))
             setattr(self, 'src_sent_labels', src_sent_labels.to(device))
