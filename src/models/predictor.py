@@ -323,7 +323,7 @@ class Translator(object):
 
             curr_scores = curr_scores.reshape(-1, beam_size * vocab_size)
             topk_scores, topk_ids = curr_scores.topk(beam_size, dim=-1)
-
+            import pdb;pdb.set_trace()
             # Recover log probs.
             topk_log_probs = topk_scores * length_penalty
 
