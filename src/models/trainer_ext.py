@@ -233,14 +233,14 @@ class Trainer(object):
         if (not cal_lead and not cal_oracle):
             self.model.eval()
         stats = Statistics()
-        counter = 0
+        all_preds = []
+        all_golds = []
         can_path = '%s_step%d.candidate' % (self.args.result_path, step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
         with open(can_path, 'w') as save_pred:
             with open(gold_path, 'w') as save_gold:
                 with torch.no_grad():
                     for batch in test_iter:
-                        counter += 1
                         src = batch.src
                         labels = batch.src_sent_labels
                         segs = batch.segs
@@ -294,13 +294,15 @@ class Trainer(object):
 
                         for i in range(len(gold)):
                             save_gold.write(gold[i].strip() + '\n')
+                            all_golds.append(gold[i].strip() + '\n')
+
                         for i in range(len(pred)):
                             save_pred.write(pred[i].strip() + '\n')
+                            all_preds.append(pred[i].strip() + '\n')
         # if (step != -1 and self.args.report_rouge):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
-        import pdb;pdb.set_trace()
-        r1, r2, rl = evaluate_rouge_avg(pred, gold, use_progress_bar=True)
+        r1, r2, rl = evaluate_rouge_avg(all_preds, all_golds, use_progress_bar=True)
         logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)))
 
         self._report_step(0, step, valid_stats=stats)
