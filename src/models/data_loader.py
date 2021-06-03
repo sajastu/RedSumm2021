@@ -40,8 +40,8 @@ class Batch(object):
             mask_cls = ~(clss == self.PAD_ID)
 
             clss[clss == -1] = 0
-            src[clss == -1] = 0
-            tgt[clss == -1] = 0
+            src[src == -1] = 0
+            tgt[tgt == -1] = 0
             import pdb;pdb.set_trace()
             setattr(self, 'clss', clss.to(device))
             setattr(self, 'mask_cls', mask_cls.to(device))
