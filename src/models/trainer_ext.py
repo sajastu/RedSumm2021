@@ -184,23 +184,24 @@ class Trainer(object):
         stats = Statistics()
 
         with torch.no_grad():
-            for batch in valid_iter:
-                src = batch.src
-                labels = batch.src_sent_labels
-                segs = batch.segs
-                clss = batch.clss
-                mask = batch.mask_src
-                mask_cls = batch.mask_cls
+            if not return_rg:
+                for batch in valid_iter:
+                    src = batch.src
+                    labels = batch.src_sent_labels
+                    segs = batch.segs
+                    clss = batch.clss
+                    mask = batch.mask_src
+                    mask_cls = batch.mask_cls
 
-                sent_scores, mask = self.model(src, segs, clss, mask, mask_cls)
+                    sent_scores, mask = self.model(src, segs, clss, mask, mask_cls)
 
-                loss = self.loss(sent_scores, labels.float())
-                loss = (loss * mask.float()).sum()
-                batch_stats = Statistics(float(loss.cpu().data.numpy()), len(labels))
-                stats.update(batch_stats)
-            self._report_step(0, step, valid_stats=stats)
+                    loss = self.loss(sent_scores, labels.float())
+                    loss = (loss * mask.float()).sum()
+                    batch_stats = Statistics(float(loss.cpu().data.numpy()), len(labels))
+                    stats.update(batch_stats)
+                self._report_step(0, step, valid_stats=stats)
 
-            if return_rg:
+            else:
                 _, rgL = self.test(valid_iter, step=step, return_rouge=return_rg)[1]
                 stats.set_rgL(rgL)
 
@@ -298,7 +299,7 @@ class Trainer(object):
         # if (step != -1 and self.args.report_rouge):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
-        import pdb;pdb.set_trace()
+        # import pdb;pdb.set_trace()
         r1, r2, rl = evaluate_rouge_avg(pred, gold, use_progress_bar=True)
         logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1,r2,rl)))
 
