@@ -4,7 +4,7 @@ MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-Be
 
 
  python train.py -task abs -mode validate \
-                -batch_size 10 -test_batch_size 1 \
+                -batch_size 1000 -test_batch_size 20 \
                 -bert_data_path $BERT_DATA_PATH \
                 -log_file ../logs/val_abs_bert_cnndm \
                 -model_path $MODEL_PATH -sep_optim true \
