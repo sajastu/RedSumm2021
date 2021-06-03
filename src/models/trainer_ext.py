@@ -206,7 +206,7 @@ class Trainer(object):
 
             return stats
 
-    def test(self, test_iter, step, cal_lead=False, cal_oracle=True, return_rouge=False):
+    def test(self, test_iter, step, cal_lead=False, cal_oracle=False, return_rouge=False):
         """ Validate model.
             valid_iter: validate data iterator
         Returns:
@@ -282,7 +282,7 @@ class Trainer(object):
                                 else:
                                     _pred.append(candidate)
 
-                                if ((not cal_oracle) and (not self.args.recall_eval) and len(_pred) == 3):
+                                if ((not cal_oracle) and (not self.args.recall_eval) and len(_pred) == 2):
                                     break
 
                             _pred = '<q>'.join(_pred)
