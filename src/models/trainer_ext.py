@@ -201,7 +201,7 @@ class Trainer(object):
                     stats.update(batch_stats)
                 self._report_step(0, step, valid_stats=stats)
             else:
-                _, rgL = self.test(valid_iter, step=step, return_rouge=return_rg)[1]
+                _, rgL = self.test(valid_iter, step=step, return_rouge=return_rg)
                 stats.set_rgL(rgL)
 
             return stats
@@ -300,7 +300,7 @@ class Trainer(object):
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
         # import pdb;pdb.set_trace()
         r1, r2, rl = evaluate_rouge_avg(pred, gold, use_progress_bar=True)
-        logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1,r2,rl)))
+        logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)))
 
         self._report_step(0, step, valid_stats=stats)
 
