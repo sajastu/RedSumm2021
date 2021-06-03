@@ -140,7 +140,8 @@ def validate_abs(args, device_id):
             test_abs(args, device_id, cp, step)
     else:
         while (True):
-            cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))[:2]
+            # cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))[:2]
+            cp_files = ["/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-BertAbs/model_step_50000.pt"]
             cp_files.sort(key=os.path.getmtime)
             if (cp_files):
                 cp = cp_files[-1]
