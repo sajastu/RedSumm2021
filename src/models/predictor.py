@@ -244,6 +244,7 @@ class Translator(object):
         mask_src = batch.mask_src
 
         src_features = self.model.bert(src, segs, mask_src)
+        import pdb;pdb.set_trace()
         dec_states = self.model.decoder.init_decoder_state(src, src_features, with_cache=True)
         device = src_features.device
 
