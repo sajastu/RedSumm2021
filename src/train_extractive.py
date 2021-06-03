@@ -117,6 +117,7 @@ def validate_ext(args, device_id, load_best_model=False, log=True):
             rg_scores.append((rgL, cp))
             max_step = rg_scores.index(max(rg_scores))
             if (i - max_step > 10):
+                print('The scores did not get better. Breakout happens! Best step %s' % (max_step))
                 break
 
         rg_lst = sorted(rg_scores, key=lambda x: x[0])[:3]  # extract top 3 models in terms of higher RG-L score

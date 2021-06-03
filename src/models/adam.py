@@ -78,10 +78,16 @@ class Adam(Optimizer):
                 next_m, next_v = state['next_m'], state['next_v']
                 beta1, beta2 = group['betas']
 
+
                 # Decay the first and second moment running average coefficient
                 # In-place operations to update the averages at the same time
-                next_m.mul_(beta1).add_(1 - beta1, grad)
-                next_v.mul_(beta2).addcmul_(1 - beta2, grad, grad)
+
+                # next_m.mul_(beta1).add_(1 - beta1, grad)
+                # next_v.mul_(beta2).addcmul_(1 - beta2, grad, grad)
+                # update = next_m / (next_v.sqrt() + group['eps'])
+
+                next_m.mul_(beta1).add_(grad, alpha=1 - beta1)
+                next_v.mul_(beta2).addcmul_(grad, grad, value=1 - beta2)
                 update = next_m / (next_v.sqrt() + group['eps'])
 
                 # Just adding the square of the weights to the loss function is *not*
