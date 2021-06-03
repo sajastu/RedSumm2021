@@ -11,6 +11,7 @@ from tensorboardX import SummaryWriter
 
 from others.utils import rouge_results_to_str, test_rouge, tile
 from translate.beam import GNMTGlobalScorer
+from utils.rouge_score import evaluate_rouge_avg
 
 
 def build_predictor(args, tokenizer, symbols, model, logger=None):
@@ -140,6 +141,8 @@ class Translator(object):
 
         # pred_results, gold_results = [], []
         ct = 0
+        preds = []
+        golds = []
         with torch.no_grad():
             for batch in data_iter:
                 if(self.args.recall_eval):
@@ -173,7 +176,9 @@ class Translator(object):
                     # self.raw_can_out_file.write(' '.join(pred).strip() + '\n')
                     # self.raw_gold_out_file.write(' '.join(gold).strip() + '\n')
                     self.can_out_file.write(pred_str + '\n')
+                    preds.append(pred_str)
                     self.gold_out_file.write(gold_str + '\n')
+                    golds.append(gold_str)
                     self.src_out_file.write(src.strip() + '\n')
                     ct += 1
                 self.can_out_file.flush()
@@ -185,12 +190,19 @@ class Translator(object):
         self.src_out_file.close()
 
         if (step != -1):
-            rouges = self._report_rouge(gold_path, can_path)
-            self.logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
-            if self.tensorboard_writer is not None:
-                self.tensorboard_writer.add_scalar('test/rouge1-F', rouges['rouge_1_f_score'], step)
-                self.tensorboard_writer.add_scalar('test/rouge2-F', rouges['rouge_2_f_score'], step)
-                self.tensorboard_writer.add_scalar('test/rougeL-F', rouges['rouge_l_f_score'], step)
+            # rouges = self._report_rouge(gold_path, can_path)
+            # self.logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
+
+            r1, r2, rl = evaluate_rouge_avg(preds, golds, use_progress_bar=True)
+            self.logger.info('Rouges at step %d \n%s' % (step,
+                                                         '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)
+                                                         )
+                             )
+
+            # if self.tensorboard_writer is not None:
+            #     self.tensorboard_writer.add_scalar('test/rouge1-F', rouges['rouge_1_f_score'], step)
+            #     self.tensorboard_writer.add_scalar('test/rouge2-F', rouges['rouge_2_f_score'], step)
+            #     self.tensorboard_writer.add_scalar('test/rougeL-F', rouges['rouge_l_f_score'], step)
 
     def _report_rouge(self, gold_path, can_path):
         self.logger.info("Calculating Rouge")
