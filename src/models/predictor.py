@@ -330,20 +330,18 @@ class Translator(object):
 
             # Resolve beam origin and true word ids.
             # topk_beam_index = topk_ids.div(vocab_size)
-            topk_beam_index = topk_ids.true_divide(vocab_size)
+            # topk_beam_index = topk_ids.true_divide(vocab_size)
+            topk_beam_index = topk_ids.floor_divide(vocab_size)
+            # topk_beam_index = topk_ids // vocab_size
             topk_ids = topk_ids.fmod(vocab_size)
 
             # Map beam_index to batch_index in the flat representation.
-            batch_index = (
-                    topk_beam_index
-                    + beam_offset[:topk_beam_index.size(0)].unsqueeze(1))
+            batch_index = ( topk_beam_index + beam_offset[:topk_beam_index.size(0)].unsqueeze(1))
             select_indices = batch_index.view(-1)
 
             # Append last prediction.
-            import pdb;pdb.set_trace()
-            alive_seq = torch.cat(
-                [alive_seq.index_select(0, select_indices),
-                 topk_ids.view(-1, 1)], -1)
+            # import pdb;pdb.set_trace()
+            alive_seq = torch.cat([alive_seq.index_select(0, select_indices), topk_ids.view(-1, 1)], -1)
 
             is_finished = topk_ids.eq(self.end_token)
             if step + 1 == max_length:
