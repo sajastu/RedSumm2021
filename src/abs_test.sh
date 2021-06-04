@@ -12,5 +12,5 @@ MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-be
                 -use_interval true -visible_gpus 5,6,7 \
                 -max_pos 1024 -max_length 128 \
                 -alpha 0.95 -min_length 50 \
-                -result_path ../logs/abs_bert_cnndm \
+                -result_path $MODEL_PATH/results/redditExtAbs \
                 -test_all
