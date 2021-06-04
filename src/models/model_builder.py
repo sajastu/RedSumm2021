@@ -172,7 +172,7 @@ class ExtSummarizer(nn.Module):
         #     import pdb;pdb.set_trace()
 
         if checkpoint is not None:
-            # import pdb;pdb.set_trace()
+            import pdb;pdb.set_trace()
             self.load_state_dict(checkpoint['model'], strict=True)
         else:
             if args.param_init != 0.0:
