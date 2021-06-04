@@ -216,6 +216,7 @@ def test_abs(args, device_id, pt, step):
     print(args)
 
     model = AbsSummarizer(args, device, checkpoint)
+    import pdb;pdb.set_trace()
     model.eval()
 
     test_iter = data_loader.Dataloader(args, load_dataset(args, 'test', shuffle=False),

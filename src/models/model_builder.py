@@ -228,7 +228,6 @@ class AbsSummarizer(nn.Module):
 
 
         if checkpoint is not None:
-            import pdb;pdb.set_trace()
             self.load_state_dict(checkpoint['model'], strict=True)
         else:
             for module in self.decoder.modules():
@@ -249,6 +248,8 @@ class AbsSummarizer(nn.Module):
                 tgt_embeddings.weight = copy.deepcopy(self.bert.model.embeddings.word_embeddings.weight)
                 self.decoder.embeddings = tgt_embeddings
                 self.generator[0].weight = self.decoder.embeddings.weight
+        import pdb;
+        pdb.set_trace()
 
         self.to(device)
 
