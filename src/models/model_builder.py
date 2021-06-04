@@ -201,9 +201,7 @@ class AbsSummarizer(nn.Module):
 
         if bert_from_extractive is not None:
             import pdb;pdb.set_trace()
-
-            self.bert.model.load_state_dict(
-                dict([(n[11:], p) for n, p in bert_from_extractive.items() if n.startswith('bert.model')]), strict=True)
+            self.bert.model.load_state_dict(dict([(n[11:], p) for n, p in bert_from_extractive.items() if n.startswith('bert.model')]), strict=True)
 
         if (args.encoder == 'baseline'):
             bert_config = BertConfig(self.bert.model.config.vocab_size, hidden_size=args.enc_hidden_size,
