@@ -9,6 +9,6 @@ MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-Be
                 -log_file ../logs/val_abs_bert_cnndm \
                 -model_path $MODEL_PATH -sep_optim true \
                 -use_interval true -visible_gpus 4,5,6,7 \
-                -max_pos 1024 -max_length 50 \
-                -alpha 0.95 -min_length 10 \
+                -max_pos 1024 -max_length 128 \
+                -alpha 0.95 -min_length 50 \
                 -result_path ../logs/abs_bert_cnndm

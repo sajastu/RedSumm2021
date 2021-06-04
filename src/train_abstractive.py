@@ -133,6 +133,9 @@ def validate_abs(args, device_id):
             max_step = xent_lst.index(min(xent_lst))
             if (i - max_step > 10):
                 break
+
+        logger.info("\n--------------------------\nNow performing 5 top checkpoints on test set...\n\n")
+
         xent_lst = sorted(xent_lst, key=lambda x: x[0])[:5]
         logger.info('PPL %s' % str(xent_lst))
         for xent, cp in xent_lst:
