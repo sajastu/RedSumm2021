@@ -135,7 +135,6 @@ def validate_abs(args, device_id):
                 break
 
         logger.info("\n--------------------------\nNow performing 5 top checkpoints on test set...\n\n")
-        import pdb;pdb.set_trace()
         xent_lst = sorted(xent_lst, key=lambda x: x[0])[:5]
         logger.info('PPL %s' % str(xent_lst))
         for xent, cp in xent_lst:
@@ -225,6 +224,7 @@ def test_abs(args, device_id, pt, step):
     symbols = {'BOS': tokenizer.vocab['[unused0]'], 'EOS': tokenizer.vocab['[unused1]'],
                'PAD': tokenizer.vocab['[PAD]'], 'EOQ': tokenizer.vocab['[unused2]']}
     predictor = build_predictor(args, tokenizer, symbols, model, logger)
+    import pdb;pdb.set_trace()
     predictor.translate(test_iter, step)
 
 
