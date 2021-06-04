@@ -235,8 +235,8 @@ class Trainer(object):
         stats = Statistics()
         all_preds = []
         all_golds = []
-        can_path = '%s_step%d_1sent.candidate' % (self.args.result_path, step)
-        gold_path = '%s_step%d_1sent.gold' % (self.args.result_path, step)
+        can_path = '%s_step%d.candidate' % (self.args.result_path, step)
+        gold_path = '%s_step%d.gold' % (self.args.result_path, step)
         with open(can_path, 'w') as save_pred:
             with open(gold_path, 'w') as save_gold:
                 with torch.no_grad():
