@@ -123,6 +123,10 @@ def validate_ext(args, device_id, load_best_model=False, log=True):
         logger.info("\n--------------------------\nNow performing 3 top checkpoints on test set...\n\n")
 
         rg_lst = sorted(rg_scores, key=lambda x: x[0])[:3]  # extract top 3 models in terms of higher RG-L score
+
+        # logger.info('Performance on validation sets:')
+        # logger.info('-Step %s: Rg')
+
         for rgL, cp in rg_lst:
             step = int(cp.split('.')[-2].split('_')[-1])
             test_ext(args, device_id, cp, step)
