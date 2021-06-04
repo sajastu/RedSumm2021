@@ -223,8 +223,9 @@ def test_abs(args, device_id, pt, step):
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True, cache_dir=args.temp_dir)
     symbols = {'BOS': tokenizer.vocab['[unused0]'], 'EOS': tokenizer.vocab['[unused1]'],
                'PAD': tokenizer.vocab['[PAD]'], 'EOQ': tokenizer.vocab['[unused2]']}
-    predictor = build_predictor(args, tokenizer, symbols, model, logger)
     import pdb;pdb.set_trace()
+
+    predictor = build_predictor(args, tokenizer, symbols, model, logger)
     predictor.translate(test_iter, step)
 
 
