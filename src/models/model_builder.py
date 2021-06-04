@@ -228,6 +228,7 @@ class AbsSummarizer(nn.Module):
 
 
         if checkpoint is not None:
+            import pdb;pdb.set_trace()
             self.load_state_dict(checkpoint['model'], strict=True)
         else:
             for module in self.decoder.modules():

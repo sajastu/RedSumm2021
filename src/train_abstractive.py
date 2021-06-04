@@ -214,7 +214,6 @@ def test_abs(args, device_id, pt, step):
         if (k in model_flags):
             setattr(args, k, opt[k])
     print(args)
-    import pdb;pdb.set_trace()
 
     model = AbsSummarizer(args, device, checkpoint)
     model.eval()
