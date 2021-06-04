@@ -135,7 +135,7 @@ def validate_abs(args, device_id):
                 break
 
         logger.info("\n--------------------------\nNow performing 5 top checkpoints on test set...\n\n")
-
+        import pdb;pdb.set_trace()
         xent_lst = sorted(xent_lst, key=lambda x: x[0])[:5]
         logger.info('PPL %s' % str(xent_lst))
         for xent, cp in xent_lst:
