@@ -120,9 +120,9 @@ class ErrorHandler(object):
 def validate_abs(args, device_id):
     timestep = 0
     if (args.test_all):
-        import pdb;pdb.set_trace()
-        cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))[0]
-        # cp_files.sort(key=os.path.getmtime)
+        # import pdb;pdb.set_trace()
+        cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))[:1]
+        cp_files.sort(key=os.path.getmtime)
         xent_lst = []
         for i, cp in enumerate(cp_files):
             step = int(cp.split('.')[-2].split('_')[-1])
