@@ -120,6 +120,8 @@ def validate_ext(args, device_id, load_best_model=False, log=True):
                 print('The scores did not get better. Breakout happens! Best step %s' % (max_step))
                 break
 
+        logger.info("\n--------------------------\nNow performing 3 top checkpoints on test set...\n\n")
+
         rg_lst = sorted(rg_scores, key=lambda x: x[0])[:3]  # extract top 3 models in terms of higher RG-L score
         for rgL, cp in rg_lst:
             step = int(cp.split('.')[-2].split('_')[-1])
@@ -190,12 +192,12 @@ def validate(args, device_id, pt, step, return_rouge=False):
     valid_iter = data_loader.Dataloader(args, load_dataset(args, 'valid', shuffle=False),
                                         args.batch_size, device,
                                         shuffle=False, is_test=True)
-    test_iter = data_loader.Dataloader(args, load_dataset(args, 'test', shuffle=False),
-                                        args.batch_size, device,
-                                        shuffle=False, is_test=True)
+    # test_iter = data_loader.Dataloader(args, load_dataset(args, 'test', shuffle=False),
+    #                                     args.batch_size, device,
+    #                                     shuffle=False, is_test=True)
     trainer = build_trainer(args, device_id, model, None)
-    # stats = trainer.validate(valid_iter, step, return_rg=return_rouge)
-    stats = trainer.validate(test_iter, step, return_rg=return_rouge)
+    stats = trainer.validate(valid_iter, step, return_rg=return_rouge)
+    # stats = trainer.validate(test_iter, step, return_rg=return_rouge)
 
     return stats
 
