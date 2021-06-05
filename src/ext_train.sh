@@ -2,7 +2,7 @@
 
 export BERT_DATA_PATH=/home/code-base/user_space/datasets/reddit-tifu/bert-data/
 #export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-cnnFinetuned
-export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertExt-large
+export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertExt-large/
 
 
 python train.py -task ext -mode train \
