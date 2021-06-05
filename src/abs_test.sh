@@ -1,7 +1,7 @@
 
 BERT_DATA_PATH=/home/code-base/user_space/datasets/reddit-tifu/bert-data/
 #MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-BertAbs/
-MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertAbsExt/
+MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertAbsExt-base/
 
 
  python train.py -task abs -mode validate \
