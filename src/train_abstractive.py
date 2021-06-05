@@ -121,7 +121,7 @@ def validate_abs(args, device_id):
     timestep = 0
     if (args.test_all):
         # import pdb;pdb.set_trace()
-        cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))[:1]
+        cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))[1:]
         cp_files.sort(key=os.path.getmtime)
         xent_lst = []
         for i, cp in enumerate(cp_files):
@@ -225,7 +225,6 @@ def test_abs(args, device_id, pt, step):
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True, cache_dir=args.temp_dir)
     symbols = {'BOS': tokenizer.vocab['[unused0]'], 'EOS': tokenizer.vocab['[unused1]'],
                'PAD': tokenizer.vocab['[PAD]'], 'EOQ': tokenizer.vocab['[unused2]']}
-    # import pdb;pdb.set_trace()
 
     predictor = build_predictor(args, tokenizer, symbols, model, logger)
     predictor.translate(test_iter, step)
