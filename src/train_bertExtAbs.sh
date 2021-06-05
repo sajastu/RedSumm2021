@@ -19,5 +19,4 @@ python train.py  -task abs -mode train \
                  -warmup_steps_bert 20000 -warmup_steps_dec 10000 \
                  -max_pos 1024 -visible_gpus 0,1,2,3,4 \
                  -log_file ../logs/extAbs_bert_reddit\
-                 -load_from_extractive $EXT_CKPT \
-                 -large
+                 -load_from_extractive $EXT_CKPT
