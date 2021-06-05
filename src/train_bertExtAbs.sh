@@ -4,7 +4,7 @@
 
 export BERT_DATA_PATH=/home/code-base/user_space/datasets/reddit-tifu/bert-data/
 #export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-cnnFinetuned
-export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertAbsExt
+export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertAbsExt-large
 export EXT_CKPT=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertExt/model_step_10000.pt
 
 
@@ -19,4 +19,5 @@ python train.py  -task abs -mode train \
                  -warmup_steps_bert 20000 -warmup_steps_dec 10000 \
                  -max_pos 1024 -visible_gpus 0,1,2,3,4 \
                  -log_file ../logs/extAbs_bert_reddit\
-                 -load_from_extractive $EXT_CKPT
+                 -load_from_extractive $EXT_CKPT \
+                 -large
