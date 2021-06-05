@@ -4,7 +4,7 @@
 
 export BERT_DATA_PATH=/home/code-base/user_space/datasets/reddit-tifu/bert-data/
 #export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-cnnFinetuned
-export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertAbsExt-large
+export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertAbsExt-base
 export EXT_CKPT=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertExt/model_step_10000.pt
 
 
