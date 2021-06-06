@@ -1,7 +1,7 @@
 
 BERT_DATA_PATH=/home/code-base/user_space/datasets/reddit-tifu/bert-data/
 #MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-cnnFinetuned/
-MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertExt/
+MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-bertExt-large/
 
  python train.py -task ext -mode validate \
                   -batch_size 3000 -test_batch_size 1000 \
@@ -11,4 +11,4 @@ MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-be
                   -sep_optim true -use_interval true \
                   -visible_gpus 0,1,2,3 -max_pos 1024 -max_length 500 -alpha 0.95 \
                   -min_length 50 \
-                  -result_path $MODEL_PATH/results/
+                  -result_path $MODEL_PATH/results-3/
