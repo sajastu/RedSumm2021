@@ -133,7 +133,7 @@ def get_top_checkpoints(args, device_id, validate_all=True):
             if (i - max_step > 10):
                 break
     else:
-        for step in ["6000", "8000", "4000"]:
+        for step in ["6000", "8000"]:
             xent_lst.append((None, os.path.join(args.model_path, f'model_step_{step}.pt')))
 
     return xent_lst
@@ -141,7 +141,9 @@ def get_top_checkpoints(args, device_id, validate_all=True):
 def validate_abs(args, device_id):
     timestep = 0
     if (args.test_all):
+
         xent_lst = get_top_checkpoints(args, device_id, validate_all=False)
+
         logger.info("\n--------------------------\nNow performing 5 top checkpoints on test set...\n\n")
         xent_lst = sorted(xent_lst, key=lambda x: x[0])[:5]
         logger.info('PPL %s' % str(xent_lst))
