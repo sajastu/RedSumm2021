@@ -206,9 +206,9 @@ class Translator(object):
             all_ents = sorted(all_ents, key=lambda tup: tup[2])
 
             for s, p, gold in all_ents:
-                self.can_out_file.write(pred_str + '\n')
-                self.gold_out_file.write(gold_str + '\n')
-                self.src_out_file.write(src.strip() + '\n')
+                self.can_out_file.write(p + '\n')
+                self.gold_out_file.write(g + '\n')
+                self.src_out_file.write(s.strip() + '\n')
             self.can_out_file.close()
             self.gold_out_file.close()
             self.src_out_file.close()
