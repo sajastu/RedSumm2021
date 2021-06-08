@@ -14,13 +14,13 @@ def ensure_lines(arr_1,arr_2):
 ext_summaries = {}
 with open('../results/presum-reddit-1024-bertExt/bertExt_step8000.json') as F:
     for l in F:
-        ent = json.loads(l.strip())
+        ent = json.load(l.strip())
         ext_summaries[ent['id']] = [(ent['pred'], ent['gold'])]
 
 all_summaries = {}
 with open('../results/presum-reddit-1024-bertExtAbs-base/redditExtAbs.128.8000.gold') as F:
     for l in F:
-        ent = json.loads(l.strip())
+        ent = json.load(l.strip())
         id = ent['id']
         try:
             all_summaries[id] = {
