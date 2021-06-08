@@ -12,13 +12,13 @@ def ensure_lines(arr_1,arr_2):
 
 
 ext_summaries = {}
-with open('results/presum-reddit-1024-bertExt/bertExt_step8000.json') as F:
+with open('../results/presum-reddit-1024-bertExt/bertExt_step8000.json') as F:
     for l in F:
         ent = json.loads(l.strip())
         ext_summaries[ent['id']] = [(ent['pred'], ent['gold'])]
 
 all_summaries = {}
-with open('results/presum-reddit-1024-bertExtAbs-base/redditExtAbs.128.8000.gold') as F:
+with open('../results/presum-reddit-1024-bertExtAbs-base/redditExtAbs.128.8000.gold') as F:
     for l in F:
         ent = json.loads(l.strip())
         id = ent['id']
@@ -59,4 +59,4 @@ for id, value in all_summaries.items():
     rg_dict['gold'].append(gold)
 
 df = pd.DataFrame(rg_dict, columns= ['raw_src', 'pred_ext', 'rg_l_ext', 'pred_abs', 'rg_l_abs', 'gold'])
-df.to_csv (r'results/bertsum_ext_vs_abs.csv', index=False, header=True)
+df.to_csv (r'../results/bertsum_ext_vs_abs.csv', index=False, header=True)
