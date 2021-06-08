@@ -103,10 +103,9 @@ class ErrorHandler(object):
         raise Exception(msg)
 
 
-def validate_ext(args, device_id, load_best_model=False, log=True):
-    load_best_model = True
-
-    if load_best_model:
+def get_top_checkpoints(args, device_id, validate_all=True):
+    xent_lst = []
+    if validate_all:
         cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))
         cp_files.sort(key=os.path.getmtime)
 
@@ -119,13 +118,21 @@ def validate_ext(args, device_id, load_best_model=False, log=True):
             if (i - max_step > 10):
                 print('The scores did not get better. Breakout happens! Best step %s' % (max_step))
                 break
-
-        logger.info("\n--------------------------\nNow performing 3 top checkpoints on test set...\n\n")
-
         rg_lst = sorted(rg_scores, key=lambda x: x[0], reverse=True)[:3]  # extract top 3 models in terms of higher RG-L score
 
-        # logger.info('Performance on validation sets:')
-        # logger.info('-Step %s: Rg')
+    else:
+            for step in ["8000", "10000", "12000"]:
+                xent_lst.append((None, os.path.join(args.model_path, f'model_step_{step}.pt')))
+
+    return rg_lst
+
+def validate_ext(args, device_id, load_best_model=False, log=True):
+    load_best_model = True
+
+    if load_best_model:
+        rg_lst = get_top_checkpoints(args, device_id, validate_all=False)
+
+        logger.info("\n--------------------------\nNow performing 3 top checkpoints on test set...\n\n")
 
         for rgL, cp in rg_lst:
             step = int(cp.split('.')[-2].split('_')[-1])
@@ -136,6 +143,8 @@ def validate_ext(args, device_id, load_best_model=False, log=True):
         if (args.test_all):
             cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))
             cp_files.sort(key=os.path.getmtime)
+
+
             xent_lst = []
             for i, cp in enumerate(cp_files):
                 step = int(cp.split('.')[-2].split('_')[-1])
