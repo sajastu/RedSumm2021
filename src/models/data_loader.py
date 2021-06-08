@@ -79,7 +79,7 @@ def load_dataset(args, corpus_type, shuffle):
     assert corpus_type in ["train", "valid", "test"]
 
     def _lazy_dataset_loader(pt_file, corpus_type):
-        dataset = torch.load(pt_file)[:10]
+        dataset = torch.load(pt_file)
         logger.info('Loading %s dataset from %s, number of examples: %d' %
                     (corpus_type, pt_file, len(dataset)))
         return dataset
