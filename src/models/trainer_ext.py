@@ -238,8 +238,8 @@ class Trainer(object):
         all_ents = []
         can_path = '%s_step%d.candidate' % (self.args.result_path, step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
-        save_pred = open(can_path)
-        save_gold = open(gold_path)
+        save_pred = open(can_path, mode='w')
+        save_gold = open(gold_path, mode='w')
         # with open(can_path, 'w') as save_pred:
             # with open(gold_path, 'w') as save_gold:
         with torch.no_grad():
