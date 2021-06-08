@@ -60,6 +60,9 @@ class Batch(object):
                 tgt_str = [x[-2] for x in data]
                 setattr(self, 'tgt_str', tgt_str)
                 id = [x[-1] for x in data]
+                import pdb;
+                pdb.set_trace()
+
                 setattr(self, 'id', id)
 
     def __len__(self):
