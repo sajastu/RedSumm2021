@@ -143,6 +143,8 @@ class Translator(object):
         ct = 0
         preds = []
         golds = []
+        srcs = []
+        all_ents = []
         with torch.no_grad():
             for batch in tqdm(data_iter):
                 if(self.args.recall_eval):
@@ -174,19 +176,23 @@ class Translator(object):
                     # self.raw_can_out_file.write(' '.join(pred).strip() + '\n')
                     # self.raw_gold_out_file.write(' '.join(gold).strip() + '\n')
                     # import pdb;pdb.set_trace()
-                    self.can_out_file.write(pred_str + '\n')
-                    preds.append(pred_str)
-                    self.gold_out_file.write(gold_str + '\n')
-                    golds.append(gold_str)
-                    self.src_out_file.write(src.strip() + '\n')
-                    ct += 1
-                self.can_out_file.flush()
-                self.gold_out_file.flush()
-                self.src_out_file.flush()
 
-        self.can_out_file.close()
-        self.gold_out_file.close()
-        self.src_out_file.close()
+                    # self.can_out_file.write(pred_str + '\n')
+                    preds.append(pred_str)
+                    # self.gold_out_file.write(gold_str + '\n')
+                    golds.append(gold_str)
+                    # self.src_out_file.write(src.strip() + '\n')
+                    srcs.append(src.strip())
+                    all_ents.append((src.strip(), pred_str.strip(), gold_str.strip()))
+
+                    ct += 1
+        #         self.can_out_file.flush()
+        #         self.gold_out_file.flush()
+        #         self.src_out_file.flush()
+        #
+        # self.can_out_file.close()
+        # self.gold_out_file.close()
+        # self.src_out_file.close()
 
         if (step != -1):
             # rouges = self._report_rouge(gold_path, can_path)
@@ -197,6 +203,15 @@ class Translator(object):
                                                          '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)
                                                          )
                              )
+            all_ents = sorted(all_ents, key=lambda tup: tup[2])
+
+            for s, p, gold in all_ents:
+                self.can_out_file.write(pred_str + '\n')
+                self.gold_out_file.write(gold_str + '\n')
+                self.src_out_file.write(src.strip() + '\n')
+            self.can_out_file.close()
+            self.gold_out_file.close()
+            self.src_out_file.close()
 
             # if self.tensorboard_writer is not None:
             #     self.tensorboard_writer.add_scalar('test/rouge1-F', rouges['rouge_1_f_score'], step)

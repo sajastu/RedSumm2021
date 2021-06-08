@@ -133,7 +133,7 @@ def get_top_checkpoints(args, device_id, validate_all=True):
             if (i - max_step > 10):
                 break
     else:
-        for step in ["6000", "8000"]:
+        for step in ["8000"]:
             xent_lst.append((None, os.path.join(args.model_path, f'model_step_{step}.pt')))
 
     return xent_lst
