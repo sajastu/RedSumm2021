@@ -14,13 +14,16 @@ def ensure_lines(arr_1,arr_2):
 ext_summaries = {}
 with open('../results/presum-reddit-1024-bertExt/bertExt_step8000.json') as F:
     for l in F:
-        ent = json.load(l.strip())
+        try:
+            ent = json.loads(l.strip())
+        except:
+            import pdb;pdb.set_trace()
         ext_summaries[ent['id']] = [(ent['pred'], ent['gold'])]
 
 all_summaries = {}
 with open('../results/presum-reddit-1024-bertExtAbs-base/redditExtAbs.128.8000.gold') as F:
     for l in F:
-        ent = json.load(l.strip())
+        ent = json.loads(l.strip())
         id = ent['id']
         try:
             all_summaries[id] = {
