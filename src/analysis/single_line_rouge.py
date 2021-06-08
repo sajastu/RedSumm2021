@@ -3,7 +3,7 @@ import json
 import pandas as pd
 
 # from utils.rouge_score import evaluate_rouge
-from analysis.analysis_utils.rouge_score import evaluate_rouge
+from analysis_utils.rouge_score import evaluate_rouge
 
 
 def ensure_lines(arr_1,arr_2):
