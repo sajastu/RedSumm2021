@@ -207,7 +207,7 @@ class Translator(object):
 
             for s, p, gold in all_ents:
                 self.can_out_file.write(p + '\n')
-                self.gold_out_file.write(g + '\n')
+                self.gold_out_file.write(gold + '\n')
                 self.src_out_file.write(s.strip() + '\n')
             self.can_out_file.close()
             self.gold_out_file.close()
