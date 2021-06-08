@@ -2,6 +2,7 @@
 """ Translator Class and builder """
 from __future__ import print_function
 import codecs
+import json
 import os
 import math
 from tqdm import tqdm
@@ -15,7 +16,7 @@ from utils.rouge_score import evaluate_rouge_avg
 
 
 def build_predictor(args, tokenizer, symbols, model, logger=None):
-    scorer = GNMTGlobalScorer(args.alpha,length_penalty='wu')
+    scorer = GNMTGlobalScorer(args.alpha, length_penalty='wu')
 
     translator = Translator(args, model, tokenizer, symbols, global_scorer=scorer, logger=logger)
     return translator
@@ -101,12 +102,13 @@ class Translator(object):
                 len(translation_batch["predictions"]))
         batch_size = batch.batch_size
 
-        preds, pred_score, gold_score, tgt_str, src =  translation_batch["predictions"],translation_batch["scores"],translation_batch["gold_score"],batch.tgt_str, batch.src
+        preds, pred_score, gold_score, tgt_str, src = translation_batch["predictions"], translation_batch["scores"], \
+                                                      translation_batch["gold_score"], batch.tgt_str, batch.src
 
         translations = []
         for b in range(batch_size):
             pred_sents = self.vocab.convert_ids_to_tokens([int(n) for n in preds[b][0]])
-            pred_sents = ' '.join(pred_sents).replace(' ##','')
+            pred_sents = ' '.join(pred_sents).replace(' ##', '')
             gold_sent = ' '.join(tgt_str[b].split())
             # translation = Translation(fname[b],src[:, b] if src is not None else None,
             #                           src_raw, pred_sents,
@@ -139,6 +141,9 @@ class Translator(object):
         raw_src_path = self.args.result_path + '.%d.raw_src' % step
         self.src_out_file = codecs.open(raw_src_path, 'w', 'utf-8')
 
+        json_output_path = self.args.result_path + '.%d.json' % step
+        self.json_output_file = codecs.open(json_output_path, 'w', 'utf-8')
+
         # pred_results, gold_results = [], []
         ct = 0
         preds = []
@@ -147,27 +152,28 @@ class Translator(object):
         all_ents = []
         with torch.no_grad():
             for batch in tqdm(data_iter):
-                if(self.args.recall_eval):
+                if (self.args.recall_eval):
                     gold_tgt_len = batch.tgt.size(1)
                     self.min_length = gold_tgt_len + 20
                     self.max_length = gold_tgt_len + 60
                 batch_data = self.translate_batch(batch)
                 ids = batch.id
                 translations = self.from_batch(batch_data)
-                import pdb;pdb.set_trace()
 
-                for trans in translations:
+                for idx, trans in enumerate(translations):
                     pred, gold, src = trans
-                    pred_str = pred.replace('[unused0]', '').replace('[unused3]', '').replace('[PAD]', '').replace('[unused1]', '').replace(r' +', ' ').replace(' [unused2] ', '<q>').replace('[unused2]', '').strip()
+                    pred_str = pred.replace('[unused0]', '').replace('[unused3]', '').replace('[PAD]', '').replace(
+                        '[unused1]', '').replace(r' +', ' ').replace(' [unused2] ', '<q>').replace('[unused2]',
+                                                                                                   '').strip()
                     gold_str = gold.strip()
-                    if(self.args.recall_eval):
+                    if (self.args.recall_eval):
                         _pred_str = ''
                         gap = 1e3
                         for sent in pred_str.split('<q>'):
-                            can_pred_str = _pred_str+ '<q>'+sent.strip()
-                            can_gap = math.fabs(len(_pred_str.split())-len(gold_str.split()))
+                            can_pred_str = _pred_str + '<q>' + sent.strip()
+                            can_gap = math.fabs(len(_pred_str.split()) - len(gold_str.split()))
                             # if(can_gap>=gap):
-                            if(len(can_pred_str.split())>=len(gold_str.split())+10):
+                            if (len(can_pred_str.split()) >= len(gold_str.split()) + 10):
                                 pred_str = _pred_str
                                 break
                             else:
@@ -185,7 +191,7 @@ class Translator(object):
                     golds.append(gold_str)
                     # self.src_out_file.write(src.strip() + '\n')
                     srcs.append(src.strip())
-                    all_ents.append((src.strip(), pred_str.strip(), gold_str.strip()))
+                    all_ents.append((ids[idx], src.strip(), pred_str.strip(), gold_str.strip()))
 
                     ct += 1
         #         self.can_out_file.flush()
@@ -205,12 +211,15 @@ class Translator(object):
                                                          '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)
                                                          )
                              )
-            all_ents = sorted(all_ents, key=lambda tup: tup[2])
+            # all_ents = sorted(all_ents, key=lambda tup: tup[2])
 
-            for s, p, gold in all_ents:
+            for id, s, p, gold in all_ents:
                 self.can_out_file.write(p + '\n')
                 self.gold_out_file.write(gold + '\n')
                 self.src_out_file.write(s.strip() + '\n')
+                json.dump({"id": id, "raw_src": s.strip(), "pred": p, "gold": gold}, self.json_output_file)
+                self.json_output_file.write('\n')
+
             self.can_out_file.close()
             self.gold_out_file.close()
             self.src_out_file.close()
@@ -300,13 +309,13 @@ class Translator(object):
             decoder_input = alive_seq[:, -1].view(1, -1)
 
             # Decoder forward.
-            decoder_input = decoder_input.transpose(0,1)
+            decoder_input = decoder_input.transpose(0, 1)
 
             dec_out, dec_states = self.model.decoder(decoder_input, src_features, dec_states,
                                                      step=step)
 
             # Generator forward.
-            log_probs = self.generator.forward(dec_out.transpose(0,1).squeeze(0))
+            log_probs = self.generator.forward(dec_out.transpose(0, 1).squeeze(0))
             vocab_size = log_probs.size(-1)
 
             if step < min_length:
@@ -321,17 +330,17 @@ class Translator(object):
             # Flatten probs into a list of possibilities.
             curr_scores = log_probs / length_penalty
 
-            if(self.args.block_trigram):
+            if (self.args.block_trigram):
                 cur_len = alive_seq.size(1)
-                if(cur_len>3):
+                if (cur_len > 3):
                     for i in range(alive_seq.size(0)):
                         fail = False
                         words = [int(w) for w in alive_seq[i]]
                         words = [self.vocab.ids_to_tokens[w] for w in words]
-                        words = ' '.join(words).replace(' ##','').split()
-                        if(len(words)<=3):
+                        words = ' '.join(words).replace(' ##', '').split()
+                        if (len(words) <= 3):
                             continue
-                        trigrams = [(words[i-1],words[i],words[i+1]) for i in range(1,len(words)-1)]
+                        trigrams = [(words[i - 1], words[i], words[i + 1]) for i in range(1, len(words) - 1)]
                         trigram = tuple(trigrams[-1])
                         if trigram in trigrams[:-1]:
                             fail = True
@@ -352,7 +361,7 @@ class Translator(object):
             topk_ids = topk_ids.fmod(vocab_size)
 
             # Map beam_index to batch_index in the flat representation.
-            batch_index = ( topk_beam_index + beam_offset[:topk_beam_index.size(0)].unsqueeze(1))
+            batch_index = (topk_beam_index + beam_offset[:topk_beam_index.size(0)].unsqueeze(1))
             select_indices = batch_index.view(-1)
 
             # Append last prediction.
