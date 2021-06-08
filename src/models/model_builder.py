@@ -127,12 +127,12 @@ class Bert(nn.Module):
             # self.model = BertModel.from_pretrained('bert-base-uncased', cache_dir=temp_dir, config=configuration)
             self.model = BertModel.from_pretrained('bert-base-uncased', cache_dir=temp_dir)
 
-        # if(args.max_pos>512):
-        #     my_pos_embeddings = nn.Embedding(args.max_pos, self.model.config.hidden_size)
-        #     my_pos_embeddings.weight.data[:512] = self.model.embeddings.position_embeddings.weight.data
-        #     my_pos_embeddings.weight.data[512:] = self.model.embeddings.position_embeddings.weight.data[-1][None,
-        #                                           :].repeat(args.max_pos - 512, 1)
-        #     self.model.embeddings.position_embeddings = my_pos_embeddings
+        if(args.max_pos>512):
+            my_pos_embeddings = nn.Embedding(args.max_pos, self.model.config.hidden_size)
+            my_pos_embeddings.weight.data[:512] = self.model.embeddings.position_embeddings.weight.data
+            my_pos_embeddings.weight.data[512:] = self.model.embeddings.position_embeddings.weight.data[-1][None,
+                                                  :].repeat(args.max_pos - 512, 1)
+            self.model.embeddings.position_embeddings = my_pos_embeddings
 
         self.finetune = finetune
 
@@ -163,12 +163,12 @@ class ExtSummarizer(nn.Module):
             self.bert.model = BertModel(bert_config)
             self.ext_layer = Classifier(self.bert.model.config.hidden_size)
 
-        if(args.max_pos>512):
-            my_pos_embeddings = nn.Embedding(args.max_pos, self.bert.model.config.hidden_size)
-            # import pdb;pdb.set_trace()
-            my_pos_embeddings.weight.data[:512] = self.bert.model.embeddings.position_embeddings.weight.data
-            my_pos_embeddings.weight.data[512:] = self.bert.model.embeddings.position_embeddings.weight.data[-1][None,:].repeat(args.max_pos-512,1)
-            self.bert.model.embeddings.position_embeddings = my_pos_embeddings
+        # if(args.max_pos>512):
+        #     my_pos_embeddings = nn.Embedding(args.max_pos, self.bert.model.config.hidden_size)
+        #     # import pdb;pdb.set_trace()
+        #     my_pos_embeddings.weight.data[:512] = self.bert.model.embeddings.position_embeddings.weight.data
+        #     my_pos_embeddings.weight.data[512:] = self.bert.model.embeddings.position_embeddings.weight.data[-1][None,:].repeat(args.max_pos-512,1)
+        #     self.bert.model.embeddings.position_embeddings = my_pos_embeddings
 
         if checkpoint is not None:
             self.load_state_dict(checkpoint['model'], strict=True)
