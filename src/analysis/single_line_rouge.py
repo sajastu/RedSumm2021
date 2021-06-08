@@ -50,7 +50,7 @@ for id, value in all_summaries.items():
     pred_ext = value['pred_ext']
     pred_abs = value['pred_abs']
     gold = value['gold']
-
+    import pdb;pdb.set_trace()
     rg_l_ext = evaluate_rouge([pred_ext], [gold])[-1]
     rg_l_abs = evaluate_rouge([pred_abs], [gold])[-1]
 
