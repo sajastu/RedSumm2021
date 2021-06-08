@@ -235,6 +235,7 @@ class Trainer(object):
         stats = Statistics()
         all_preds = []
         all_golds = []
+        all_ents = []
         can_path = '%s_step%d.candidate' % (self.args.result_path, step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
         with open(can_path, 'w') as save_pred:
@@ -291,19 +292,28 @@ class Trainer(object):
 
                             pred.append(_pred)
                             gold.append(batch.tgt_str[i])
+                            all_ents.append((_pred.strip(), batch.tgt_str[i]))
 
                         for i in range(len(gold)):
-                            save_gold.write(gold[i].strip() + '\n')
+                            # save_gold.write(gold[i].strip() + '\n')
                             all_golds.append(gold[i].strip() + '\n')
 
                         for i in range(len(pred)):
-                            save_pred.write(pred[i].strip() + '\n')
+                            # save_pred.write(pred[i].strip() + '\n')
                             all_preds.append(pred[i].strip() + '\n')
         # if (step != -1 and self.args.report_rouge):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
-        r1, r2, rl = evaluate_rouge_avg(all_preds, all_golds, use_progress_bar=True)
+        all_ents = sorted(all_ents, key=lambda tup: tup[1])
+
+        for p, g in all_ents:
+            save_gold.write(g.strip() + '\n')
+            save_pred.write(p.strip() + '\n')
+
+        r1, r2, rl = evaluate_rouge_avg([p.replace('<q>', ' ') for p in all_preds], all_golds, use_progress_bar=True)
         logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)))
+
+
 
         self._report_step(0, step, valid_stats=stats)
 
