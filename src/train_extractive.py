@@ -104,7 +104,7 @@ class ErrorHandler(object):
 
 
 def get_top_checkpoints(args, device_id, validate_all=True):
-    xent_lst = []
+    rg_lst = []
     if validate_all:
         cp_files = sorted(glob.glob(os.path.join(args.model_path, 'model_step_*.pt')))
         cp_files.sort(key=os.path.getmtime)
@@ -121,8 +121,8 @@ def get_top_checkpoints(args, device_id, validate_all=True):
         rg_lst = sorted(rg_scores, key=lambda x: x[0], reverse=True)[:3]  # extract top 3 models in terms of higher RG-L score
 
     else:
-            for step in ["8000", "10000", "12000"]:
-                xent_lst.append((None, os.path.join(args.model_path, f'model_step_{step}.pt')))
+        for step in ["8000", "10000", "12000"]:
+            rg_lst.append((None, os.path.join(args.model_path, f'model_step_{step}.pt')))
 
     return rg_lst
 
