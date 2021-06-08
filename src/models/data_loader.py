@@ -55,10 +55,12 @@ class Batch(object):
 
 
             if (is_test):
-                src_str = [x[-2] for x in data]
+                src_str = [x[-3] for x in data]
                 setattr(self, 'src_str', src_str)
-                tgt_str = [x[-1] for x in data]
+                tgt_str = [x[-2] for x in data]
                 setattr(self, 'tgt_str', tgt_str)
+                id = [x[-1] for x in data]
+                setattr(self, 'id', id)
 
     def __len__(self):
         return self.batch_size
@@ -314,6 +316,7 @@ class TextDataloader(object):
         clss = ex['clss']
         src_txt = ex['src_txt']
         tgt_txt = ex['tgt_txt']
+        instance_id = ex['id']
 
         end_id = [src[-1]]
         src = src[:-1][:self.args.max_pos - 1] + end_id
@@ -324,7 +327,7 @@ class TextDataloader(object):
         # src_txt = src_txt[:max_sent_id]
 
         if (is_test):
-            return src, tgt, segs, clss, src_sent_labels, src_txt, tgt_txt
+            return src, tgt, segs, clss, src_sent_labels, src_txt, tgt_txt, instance_id
         else:
             return src, tgt, segs, clss, src_sent_labels
 

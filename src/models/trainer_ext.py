@@ -1,3 +1,4 @@
+import json
 import os
 
 import numpy as np
@@ -238,8 +239,10 @@ class Trainer(object):
         all_ents = []
         can_path = '%s_step%d.candidate' % (self.args.result_path, step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
+        output = '%s_step%d.json' % (self.args.result_path, step)
         save_pred = open(can_path, mode='w')
         save_gold = open(gold_path, mode='w')
+        outputF = open(output, mode='w')
         # with open(can_path, 'w') as save_pred:
             # with open(gold_path, 'w') as save_gold:
         with torch.no_grad():
@@ -248,6 +251,7 @@ class Trainer(object):
                 labels = batch.src_sent_labels
                 segs = batch.segs
                 clss = batch.clss
+                ids = batch.id
                 mask = batch.mask_src
                 mask_cls = batch.mask_cls
 
@@ -270,6 +274,7 @@ class Trainer(object):
                     sent_scores = sent_scores + mask.float()
                     sent_scores = sent_scores.cpu().data.numpy()
                     selected_ids = np.argsort(-sent_scores, 1)
+
                 # selected_ids = np.sort(selected_ids,1)
                 for i, idx in enumerate(selected_ids):
                     _pred = []
@@ -294,7 +299,7 @@ class Trainer(object):
 
                     pred.append(_pred)
                     gold.append(batch.tgt_str[i])
-                    all_ents.append((_pred.strip(), batch.tgt_str[i]))
+                    all_ents.append((ids[i], _pred.strip(), batch.tgt_str[i]))
 
                 for i in range(len(gold)):
                     # save_gold.write(gold[i].strip() + '\n')
@@ -306,11 +311,13 @@ class Trainer(object):
         # if (step != -1 and self.args.report_rouge):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
-        all_ents = sorted(all_ents, key=lambda tup: tup[1])
+        # all_ents = sorted(all_ents, key=lambda tup: tup[1])
 
-        for p, g in all_ents:
-            save_gold.write(g.strip() + '\n')
-            save_pred.write(p.strip() + '\n')
+        for id, p, g in all_ents:
+            # save_gold.write(g.strip() + '\n')
+            # save_pred.write(p.strip() + '\n')
+            json.dump({"id":id, "pred": p, "gold":g}, outputF)
+            outputF.write('\n')
 
         r1, r2, rl = evaluate_rouge_avg([p.replace('<q>', ' ') for p in all_preds], all_golds, use_progress_bar=True)
         logger.info('Rouges at step %d \n%s' % (step, '{:.2f} / {:.2f} / {:.2f}'.format(r1 * 100, r2 * 100, rl * 100)))
