@@ -283,6 +283,7 @@ class Trainer(object):
                     for j in selected_ids[i][:len(batch.src_str[i])]:
                         if (j >= len(batch.src_str[i])):
                             continue
+                        import pdb;pdb.set_trace()
                         candidate = batch.src_str[i][j].strip()
                         if (self.args.block_trigram):
                             if (not _block_tri(candidate, _pred)):
