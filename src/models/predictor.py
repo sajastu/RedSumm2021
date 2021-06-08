@@ -152,7 +152,9 @@ class Translator(object):
                     self.min_length = gold_tgt_len + 20
                     self.max_length = gold_tgt_len + 60
                 batch_data = self.translate_batch(batch)
+                ids = batch.id
                 translations = self.from_batch(batch_data)
+                import pdb;pdb.set_trace()
 
                 for trans in translations:
                     pred, gold, src = trans
