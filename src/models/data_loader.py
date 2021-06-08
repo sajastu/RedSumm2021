@@ -209,6 +209,7 @@ class DataIterator(object):
         clss = ex['clss']
         src_txt = ex['src_txt']
         tgt_txt = ex['tgt_txt']
+        instance_id = ex['id']
 
         end_id = [src[-1]]
         src = src[:-1][:self.args.max_pos - 1] + end_id
@@ -221,7 +222,7 @@ class DataIterator(object):
 
 
         if(is_test):
-            return src, tgt, segs, clss, src_sent_labels, src_txt, tgt_txt
+            return src, tgt, segs, clss, src_sent_labels, src_txt, tgt_txt, instance_id
         else:
             return src, tgt, segs, clss, src_sent_labels
 
@@ -330,10 +331,8 @@ class TextDataloader(object):
         # src_txt = src_txt[:max_sent_id]
 
         if (is_test):
-            import pdb;pdb.set_trace()
             return src, tgt, segs, clss, src_sent_labels, src_txt, tgt_txt, instance_id
         else:
-            import pdb;pdb.set_trace()
             return src, tgt, segs, clss, src_sent_labels
 
     def batch_buffer(self, data, batch_size):
