@@ -21,7 +21,7 @@ with open('../results/presum-reddit-1024-bertExt/bertExt_step8000.json') as F:
         ext_summaries[ent['id']] = [(ent['pred'], ent['gold'])]
 
 all_summaries = {}
-with open('../results/presum-reddit-1024-bertExtAbs-base/redditExtAbs.128.8000.gold') as F:
+with open('../results/presum-reddit-1024-bertExtAbs-base/redditExtAbs.128.8000.json') as F:
     for l in F:
         ent = json.loads(l.strip())
         id = ent['id']
