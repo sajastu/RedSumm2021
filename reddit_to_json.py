@@ -10,6 +10,7 @@ for set in ['val', 'test']:
 
     with open(f'{BASE_DIR}/{set}.source') as fS:
         for l in fS:
+            i+=1
             s = l.replace('\n', ' ').strip()
             srcs.append(s)
 
