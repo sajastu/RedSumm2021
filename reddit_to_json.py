@@ -2,7 +2,7 @@ import json
 
 BASE_DIR = '/home/code-base/user_space/packages/summarization_datasets/datasets/'
 
-for set in ['train', 'validation', 'test']:
+for set in ['train', 'val', 'test']:
     i = 0
     json_file = open(f'{BASE_DIR}/{set}.json', mode='a')
     with open(f'{BASE_DIR}/{set}.source') as fS, open(
