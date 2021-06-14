@@ -8,5 +8,7 @@ for set in ['train', 'val', 'test']:
     with open(f'{BASE_DIR}/{set}.source') as fS, open(
             f'{BASE_DIR}/{set}.target') as fT:
         for s, t in zip(fS, fT):
-            json.dump({'id': f'{set}-{i}', 'text': s.strip(), 'summary': t.strip()}, json_file)
+            json.dump(
+                {'id': f'{set}-{i}', 'text': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
+                json_file)
             json_file.write('\n')
