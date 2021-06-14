@@ -21,6 +21,15 @@ for set in ['val', 'test']:
                 import pdb;pdb.set_trace()
             srcs.append(l)
 
+    with open(f'{BASE_DIR}/{set}.source') as fS:
+        for j, l in enumerate(fS):
+            if  ''.join(srcs[j].split(' ')[:3]) == ''.join(l.split(' ')[:3]):
+                continue
+            else:
+                print(f'file {j} / src {i}')
+                import pdb;
+                pdb.set_trace()
+
     import pdb;pdb.set_trace()
 
     # with open(f'{BASE_DIR}/{set}.source') as fS, open(
