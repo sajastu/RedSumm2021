@@ -35,7 +35,9 @@ for set in ['val', 'test']:
                 # tgts.append(t.replace('\n', ' ').strip())
         #
         #     import pdb;pdb.set_trace()
-                json.dump(
-                    {'id': f'{set}-{i}', 'text': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
-                    json_file)
-                json_file.write('\n')
+                if len(s.strip()) > 0:
+
+                    json.dump(
+                        {'id': f'{set}-{i}', 'text': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
+                        json_file)
+                    json_file.write('\n')
