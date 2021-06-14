@@ -11,14 +11,15 @@ for set in ['val', 'test']:
     with open(f'{BASE_DIR}/{set}.source') as fS:
         for l in fS:
             i+=1
+            l = l.replace('\n', ' ').strip()
+
             if '\n' in l:
                 print('n')
                 import pdb;pdb.set_trace()
             if '\r' in l:
                 print('r')
                 import pdb;pdb.set_trace()
-            s = l.replace('\n', ' ').strip()
-            srcs.append(s)
+            srcs.append(l)
 
     import pdb;pdb.set_trace()
 
