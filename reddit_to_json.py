@@ -10,7 +10,8 @@ for set in ['val', 'test']:
 
     with open(f'{BASE_DIR}/{set}.source') as fS:
         for l in fS:
-            srcs.append(l.strip())
+            s = s.replace('\n', ' ').strip()
+            srcs.append(s)
 
     import pdb;pdb.set_trace()
 
