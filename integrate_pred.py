@@ -1,6 +1,6 @@
 import json
 
-pred_file = '/home/code-base/user_space/saved_models/pegasus1/prediction_results.txt'
+pred_file = '/home/code-base/user_space/saved_models/pegasus1/generated_predictions.txt'
 
 BASE_DIR = '/home/code-base/user_space/datasets/reddit-tifu/json-line/'
 
