@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import random
 
-from utils.rouge_score import evaluate_rouge
+from src.utils.rouge_score import evaluate_rouge
 
 df = pd.read_csv('../results/bertsum_ext_vs_abs.csv')
 
