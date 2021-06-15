@@ -28,8 +28,8 @@ iter = 0
 while i < len(preds):
     start_idx = i
     end_idx = (iter * bin_size) + (i + bin_size)
-    if end_idx > len(df):
-        end_idx = len(df)
+    if end_idx > len(preds):
+        end_idx = len(preds)
 
     rand_int = random.randint(start_idx, end_idx)
 
