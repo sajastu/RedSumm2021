@@ -5,7 +5,6 @@ import random
 
 from src.utils.rouge_score import evaluate_rouge
 
-df = pd.read_csv('../results/bertsum_ext_vs_abs.csv')
 
 rg_dict_sample = {
     'id': [],
