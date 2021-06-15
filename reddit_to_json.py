@@ -17,3 +17,4 @@ for set in ['train', 'validation', 'test']:
                     {'id': f'{set}-{i}', 'text': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
                     json_file)
                 json_file.write('\n')
+                i+=1
