@@ -2,7 +2,7 @@ import json
 
 pred_file = '/home/code-base/user_space/saved_models/pegasus1/generated_predictions.txt'
 
-BASE_DIR = '/home/code-base/user_space/datasets/reddit-tifu/json-line/'
+BASE_DIR = '/home/code-base/user_space/packages/summarization_datasets/datasets/'
 
 test_file = f'{BASE_DIR}/test.json'
 

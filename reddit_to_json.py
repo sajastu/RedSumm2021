@@ -1,9 +1,9 @@
 import json
 
-# BASE_DIR = '/home/code-base/user_space/packages/summarization_datasets/datasets/'
-BASE_DIR = '/home/code-base/user_space/datasets/reddit-tifu/json-line/'
+BASE_DIR = '/home/code-base/user_space/packages/summarization_datasets/datasets/'
+# BASE_DIR = '/home/code-base/user_space/datasets/reddit-tifu/json-line/'
 
-for set in ['train', 'validation', 'test']:
+for set in ['train', 'val', 'test']:
     i = 0
     json_file = open(f'{BASE_DIR}/{set}.json', mode='a')
     srcs = []
