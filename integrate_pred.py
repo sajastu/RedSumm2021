@@ -18,5 +18,6 @@ with open(test_file) as fJ:
     for j, l in enumerate(fJ):
         ent = json.loads(l.strip())
         ent['pred'] = preds[j]
+        import pdb;pdb.set_trace()
         json.dump(ent, json_with_pred_file)
         json_with_pred_file.write('\n')
