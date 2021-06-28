@@ -13,17 +13,21 @@ for set in ['train', 'val', 'test']:
             f'{BASE_DIR}/{set}.target') as fT:
         for s, t in zip(fS, fT):
             if len(s.strip()) > 0:
-                import pdb;pdb.set_trace()
+                src = s.replace('<n>', '').replace('\n', '').strip()
+                tgt = t.replace('<n>', '').replace('\n', '').strip()
+
                 if 'test' in set:
                     json.dump(
-                        {'id': f'{set}-{i}', 'document': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
+                        {'id': f'{set}-{i}', 'document': src, 'summary': tgt},
                         json_file)
                     json_file.write('\n')
                 else:
                     json.dump(
-                        {'document': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
+                        {'document': src, 'summary': tgt},
                         json_file)
-                    import pdb;pdb.set_trace()
+                    import pdb;
+
+                    pdb.set_trace()
                     json_file.write('\n')
 
-                i+=1
+                i += 1
