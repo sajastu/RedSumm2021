@@ -5,9 +5,8 @@ BASE_DIR = '/home/code-base/user_space/packages/datasets/reddit_tifu/'
 
 for set in ['train', 'val', 'test']:
     i = 0
-    json_file = open(f'{BASE_DIR}/{set}.json', mode='a')
-    srcs = []
-    tgts = []
+    json_file = open(f'{BASE_DIR}/{set}.json', mode='w')
+    instances = []
 
     with open(f'{BASE_DIR}/{set}.source') as fS, open(
             f'{BASE_DIR}/{set}.target') as fT:
@@ -17,17 +16,11 @@ for set in ['train', 'val', 'test']:
                 tgt = t.replace('<n>', '').replace('\n', '').strip()
 
                 if 'test' in set:
-                    json.dump(
-                        {'id': f'{set}-{i}', 'document': src, 'summary': tgt},
-                        json_file)
-                    json_file.write('\n')
+                    instances.append({'id': f'{set}-{i}', 'document': src, 'summary': tgt})
                 else:
-                    json.dump(
-                        {'document': src, 'summary': tgt},
-                        json_file)
-                    import pdb;
-
-                    pdb.set_trace()
-                    json_file.write('\n')
-
+                    instances.append({'document': src, 'summary': tgt})
                 i += 1
+
+    for inst in instances:
+        json.dump(inst, json_file)
+        json_file.write('\n')
