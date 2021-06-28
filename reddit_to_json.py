@@ -14,8 +14,16 @@ for set in ['train', 'val', 'test']:
         for s, t in zip(fS, fT):
             if len(s.strip()) > 0:
                 import pdb;pdb.set_trace()
-                json.dump(
-                    {'id': f'{set}-{i}', 'text': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
-                    json_file)
-                # json_file.write('\n')
+                if 'test' in set:
+                    json.dump(
+                        {'id': f'{set}-{i}', 'document': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
+                        json_file)
+                    json_file.write('\n')
+                else:
+                    json.dump(
+                        {'document': s.replace('\n', ' ').strip(), 'summary': t.replace('\n', ' ').strip()},
+                        json_file)
+                    import pdb;pdb.set_trace()
+                    json_file.write('\n')
+
                 i+=1
