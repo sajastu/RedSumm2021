@@ -6,7 +6,7 @@ steps_score = {}
 
 with open(BASE_DIR + 'trainer_state.json') as F:
 
-    all_logs = json.load(f)
+    all_logs = json.load(F)
 
 
 for a in all_logs['log_history']:
