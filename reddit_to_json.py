@@ -1,13 +1,13 @@
+import codecs
 import json
 
-BASE_DIR = '/home/code-base/user_space/packages/datasets/reddit_tifu/'
-# BASE_DIR = '/home/code-base/user_space/datasets/reddit-tifu/json-line/'
+# BASE_DIR = '/home/code-base/user_space/packages/datasets/reddit_tifu/'
+BASE_DIR = '/home/code-base/user_space/packages/summarization_datasets/datasets/'
 
-for set in ['train', 'validation', 'test']:
+for set in ['train', 'val', 'test']:
     i = 0
-    json_file = open(f'{BASE_DIR}/{set}.json', mode='w')
+    json_file = codecs.open(f'{BASE_DIR}/{set}.json', "w", "utf-8")
     instances = []
-
     with open(f'{BASE_DIR}/{set}.source') as fS, open(
             f'{BASE_DIR}/{set}.target') as fT:
         for s, t in zip(fS, fT):
@@ -22,5 +22,7 @@ for set in ['train', 'validation', 'test']:
                 i += 1
 
     for inst in instances:
-        json.dump(inst, json_file)
-        json_file.write('\n')
+        json.dump(inst, json_file,ensure_ascii=False)
+        json_file.write(u'\n')
+
+    json_file.close()
