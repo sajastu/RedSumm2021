@@ -11,8 +11,8 @@ with open(BASE_DIR + 'trainer_state.json') as F:
 
 for a in all_logs['log_history']:
     if 'eval_rougeL' in a.keys():
-        steps_score['step'] = a['eval_rougeL']
-
+        steps_score[a['step']] = a['eval_rougeL']
+# import pdb;pdb.set_trace()
 
 sorted = sorted(steps_score.items(), key=lambda item: item[1], reverse=True)
 
