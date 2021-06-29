@@ -5,6 +5,7 @@ import random
 
 from src.utils.rouge_score import evaluate_rouge
 
+BASE_DIR = '/home/code-base/user_space/saved_models/bart/reddit-xsum-1024-tuned/'
 
 rg_dict_sample = {
     'id': [],
@@ -17,7 +18,7 @@ rg_dict_sample = {
 }
 
 preds = []
-with open('/home/code-base/user_space/saved_models/pegasus1/full_pred.json', mode='r') as f:
+with open(BASE_DIR + 'full_pred.json', mode='r') as f:
     for l in f:
         preds.append(json.loads(l.strip()))
 
