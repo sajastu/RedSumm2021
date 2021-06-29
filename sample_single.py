@@ -35,7 +35,7 @@ while i < len(preds):
     rand_int = random.randint(start_idx, end_idx)
 
     rg_dict_sample['id'].append(preds[rand_int]['id'])
-    rg_dict_sample['src'].append(preds[rand_int]['text'])
+    rg_dict_sample['src'].append(preds[rand_int]['document'])
     rg_dict_sample['gold'].append(preds[rand_int]['summary'])
     rg_dict_sample['pred_pegasus'].append(preds[rand_int]['pred'])
     rg_dict_sample['rg1'].append(evaluate_rouge([preds[rand_int]['pred']], [preds[rand_int]['summary']])[0])
