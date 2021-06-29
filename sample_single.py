@@ -45,4 +45,4 @@ while i < len(preds):
     iter += 1
 
 df = pd.DataFrame(rg_dict_sample, columns=['id', 'src', 'gold', 'pred_pegasus', 'rg1', 'rg2', 'rgL'])
-df.to_csv(r'pegasus_sample.csv', index=False, header=True)
+df.to_csv(r'bart_sample.csv', index=False, header=True)
