@@ -197,6 +197,7 @@ class Trainer(object):
                     sent_scores, mask = self.model(src, segs, clss, mask, mask_cls)
 
                     loss = self.loss(sent_scores, labels.float())
+                    import pdb;pdb.set_trace()
                     loss = (loss * mask.float()).sum()
                     batch_stats = Statistics(float(loss.cpu().data.numpy()), len(labels))
                     stats.update(batch_stats)
