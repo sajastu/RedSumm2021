@@ -105,7 +105,6 @@ def load_xml(p):
         return None, None
 
 def _add_set_to_filemaes(base_dir):
-    import pdb;pdb.set_trace()
     for set in ['test', 'validation', 'train']:
         for f in tqdm(glob.glob(pjoin(base_dir, set, "*")), total=len(glob.glob(pjoin(base_dir, set, "*")))):
             if not f.split('/')[-1].startswith(set):
