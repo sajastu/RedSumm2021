@@ -10,6 +10,7 @@ from os.path import join as pjoin
 
 import torch
 from multiprocess import Pool
+from tqdm import tqdm
 
 from others.logging import logger
 from others.tokenization import BertTokenizer
@@ -106,10 +107,10 @@ def load_xml(p):
 def _add_set_to_filemaes(base_dir):
     import pdb;pdb.set_trace()
     for set in ['test', 'validation', 'train']:
-        for f in glob.glob(pjoin(base_dir, set, "*")):
-            if not f.startswith(set):
+        for f in tqdm(glob.glob(pjoin(base_dir, set, "*")), total=len(glob.glob(pjoin(base_dir, set, "*")))):
+            if not f.split('/')[-1].startswith(set):
                 new_file_name = set + '-' + f.split('/')[-1]
-                os.rename(f, base_dir + set + new_file_name)
+                os.rename(f, base_dir + '/' + set + '/'+ new_file_name)
 
 
 
