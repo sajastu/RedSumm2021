@@ -103,26 +103,40 @@ def load_xml(p):
     else:
         return None, None
 
+def _add_set_to_filemaes(base_dir):
+
+    for set in ['test', 'validation', 'train']:
+        for f in glob.glob(pjoin(base_dir, set, "*")):
+            if not f.startswith(set):
+                new_file_name = set + '-' + f.split('/')[-1]
+                os.rename(f, base_dir + set + new_file_name)
+
+
 
 def tokenize(args):
     stories_dir = os.path.abspath(args.raw_path)
+    _add_set_to_filemaes(stories_dir)
+
     tokenized_stories_dir = os.path.abspath(args.save_path)
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
 
     stories = []
 
     for set in ['train', 'validation', 'test']:
+        # stories.extend([(f_name, set) for f_name in os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/'))])
         stories.extend(os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/')))
     # make IO list file
-    prev_tokenized = [s.replace('.instance.json', '') for s in os.listdir(args.save_path)]
+    prev_tokenized = [s.replace('.json', '') for s in os.listdir(args.save_path)]
 
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in stories:
-            if (not s.endswith('instance')):
-                continue
-            if s.replace('.instance','') not in prev_tokenized:
+            # if (not s.startswith('instance')):
+            #     continue
+            # if s.replace('.instance','') not in prev_tokenized:
+            if s[0] not in prev_tokenized:
                 f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
+                # f.write("%s\n" % (os.path.join(stories_dir, s[1], s[0])))
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
                'json', '-outputDirectory', tokenized_stories_dir]
@@ -284,7 +298,7 @@ def format_to_bert(args):
     if (args.dataset != ''):
         datasets = [args.dataset]
     else:
-        datasets = ['train', 'valid', 'test']
+        datasets = ['train', 'validation', 'test']
     for corpus_type in datasets:
         a_lst = []
         for json_f in glob.glob(pjoin(args.raw_path, '*' + corpus_type + '.*.json')):
@@ -361,8 +375,8 @@ def format_to_lines(args):
     # else:
     #     train_files.append(f)
 
-    corpora = {'train': train_files, 'valid': validation_files, 'test': test_files}
-    for corpus_type in ['train', 'valid', 'test']:
+    corpora = {'train': train_files, 'validation': validation_files, 'test': test_files}
+    for corpus_type in ['train', 'validation', 'test']:
         a_lst = [(f, args) for f in corpora[corpus_type]]
         pool = Pool(args.n_cpus)
         dataset = []
