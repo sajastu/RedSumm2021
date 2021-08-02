@@ -115,7 +115,7 @@ def _add_set_to_filemaes(base_dir):
 
 def tokenize(args):
     stories_dir = os.path.abspath(args.raw_path)
-    _add_set_to_filemaes(stories_dir)
+    # _add_set_to_filemaes(stories_dir)
 
     tokenized_stories_dir = os.path.abspath(args.save_path)
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
