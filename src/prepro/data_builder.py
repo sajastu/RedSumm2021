@@ -114,6 +114,13 @@ def _add_set_to_filemaes(base_dir):
 
 
 def tokenize(args):
+
+    def _mp_tokenize(param):
+        command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
+                   '-ssplit.newlineIsSentenceBreak', 'always', '-file', f'{param}', '-outputFormat',
+                   'json', '-outputDirectory', tokenized_stories_dir]
+        subprocess.call(command)
+
     stories_dir = os.path.abspath(args.raw_path)
     # _add_set_to_filemaes(stories_dir)
 
@@ -130,21 +137,32 @@ def tokenize(args):
     prev_tokenized = [s.replace('.json', '') for s in os.listdir(args.save_path)]
 
     print("Making list of files to tokenize...")
-    with open("mapping_for_corenlp.txt", "w") as f:
-        for s in stories:
-            # if (not s.startswith('instance')):
-            #     continue
-            # if s.replace('.instance','') not in prev_tokenized:
-            if s[0] not in prev_tokenized:
-                f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
+    to_be_tokenized = []
+    # with open("mapping_for_corenlp.txt", "w") as f:
+    for s in stories:
+        # if (not s.startswith('instance')):
+        #     continue
+        # if s.replace('.instance','') not in prev_tokenized:
+        if s[0] not in prev_tokenized:
+            to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
+                # f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
+
                 # f.write("%s\n" % (os.path.join(stories_dir, s[1], s[0])))
-    command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
-               '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
-               'json', '-threads','60', '-outputDirectory', tokenized_stories_dir]
+
     print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
-    subprocess.call(command)
+    pool = Pool(60)
+
+    for _ in tqdm(pool(_mp_tokenize, to_be_tokenized), total=len(to_be_tokenized)):
+        pass
+
+    # command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
+    #            '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
+    #            'json', '-outputDirectory', tokenized_stories_dir]
+    # print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
+    # subprocess.call(command)
+
     print("Stanford CoreNLP Tokenizer has finished.")
-    os.remove("mapping_for_corenlp.txt")
+    # os.remove("mapping_for_corenlp.txt")
 
     # Check that the tokenized stories directory contains the same number of files as the original directory
     num_orig = 0
