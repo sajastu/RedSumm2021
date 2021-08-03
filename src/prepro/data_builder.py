@@ -121,12 +121,6 @@ def tokenize(args):
                    'json', '-outputDirectory', tokenized_stories_dir]
         subprocess.call(command)
 
-    def _mp_read(s):
-        if s in prev_tokenized:
-            return False
-        else:
-            return os.path.join(stories_dir, s.split('-')[0], s)
-
     stories_dir = os.path.abspath(args.raw_path)
     # _add_set_to_filemaes(stories_dir)
 
@@ -146,19 +140,19 @@ def tokenize(args):
     to_be_tokenized = []
     # with open("mapping_for_corenlp.txt", "w") as f:
 
-    pool_read = Pool(60)
+    # pool_read = Pool(60)
 
-    for res in tqdm(pool_read.imap_unordered(_mp_read, stories[:1000]), total=len(stories[:1000])):
-        if res != False:
-            to_be_tokenized.append(res)
+    # for res in tqdm(pool_read.imap_unordered(_mp_read, stories[:1000]), total=len(stories[:1000])):
+    #     if res != False:
+    #         to_be_tokenized.append(res)
+    #
+    # pool_read.close()
+    # import pdb;pdb.set_trace()
 
-    pool_read.close()
-    import pdb;pdb.set_trace()
-
-    # for s in tqdm(stories[:1000], total=len(stories[:1000])):
-    #     if s not in prev_tokenized:
-    #         to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
-                # f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
+    for s in tqdm(stories, total=len(stories)):
+        if s not in prev_tokenized:
+            to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
+    #             f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
                 # f.write("%s\n" % (os.path.join(stories_dir, s[1], s[0])))
 
