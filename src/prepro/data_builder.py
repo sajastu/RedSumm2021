@@ -139,7 +139,7 @@ def tokenize(args):
     print("Making list of files to tokenize...")
     to_be_tokenized = []
     # with open("mapping_for_corenlp.txt", "w") as f:
-    for s in stories:
+    for s in tqdm(stories[:1000], total=len(stories[:1000])):
         # if (not s.startswith('instance')):
         #     continue
         # if s.replace('.instance','') not in prev_tokenized:
