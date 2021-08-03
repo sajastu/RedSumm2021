@@ -148,9 +148,10 @@ def tokenize(args):
 
     pool_read = Pool(60)
 
-    for res in tqdm(pool_read.imap_unordered(_mp_read, stories[:1000]), total=len(stories)):
+    for res in tqdm(pool_read.imap_unordered(_mp_read, stories[:1000]), total=len(stories[:1000])):
         if res != False:
             to_be_tokenized.append(res)
+
     pool_read.close()
     import pdb;pdb.set_trace()
 
