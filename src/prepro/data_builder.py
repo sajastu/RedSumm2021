@@ -126,6 +126,7 @@ def tokenize(args):
         # stories.extend([(f_name, set) for f_name in os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/'))])
         stories.extend(os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/')))
     # make IO list file
+
     prev_tokenized = [s.replace('.json', '') for s in os.listdir(args.save_path)]
 
     print("Making list of files to tokenize...")
@@ -139,7 +140,7 @@ def tokenize(args):
                 # f.write("%s\n" % (os.path.join(stories_dir, s[1], s[0])))
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
-               'json', '-outputDirectory', tokenized_stories_dir]
+               'json', '-threads','60', '-outputDirectory', tokenized_stories_dir]
     print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
     subprocess.call(command)
     print("Stanford CoreNLP Tokenizer has finished.")
