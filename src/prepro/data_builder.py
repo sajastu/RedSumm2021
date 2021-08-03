@@ -143,7 +143,7 @@ def tokenize(args):
         # if (not s.startswith('instance')):
         #     continue
         # if s.replace('.instance','') not in prev_tokenized:
-        if s not in prev_tokenized:
+        # if s not in prev_tokenized:
             to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
                 # f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
