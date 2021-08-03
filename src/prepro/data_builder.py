@@ -6,6 +6,7 @@ import random
 import re
 import subprocess
 from collections import Counter
+from itertools import filterfalse
 from os.path import join as pjoin
 
 import torch
@@ -116,6 +117,7 @@ def _add_set_to_filemaes(base_dir):
 def tokenize(args):
 
     def _mp_tokenize(param):
+        param = stories_dir + '/' + param.split('-')[0] +'/'+ param
         command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                    '-ssplit.newlineIsSentenceBreak', 'always', '-file', f'{param}', '-outputFormat',
                    'json', '-outputDirectory', tokenized_stories_dir]
@@ -149,11 +151,13 @@ def tokenize(args):
     # pool_read.close()
     # import pdb;pdb.set_trace()
 
-    for s in tqdm(stories, total=len(stories)):
-        if s not in prev_tokenized:
-            to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
+    for s in tqdm(stories[:1000], total=len(stories[:1000])):
+        # if s not in prev_tokenized:
+        to_be_tokenized.append(s)
+        # to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
     #             f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
+    to_be_tokenized = list(filterfalse(to_be_tokenized.__contains__, prev_tokenized))
                 # f.write("%s\n" % (os.path.join(stories_dir, s[1], s[0])))
 
     print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
