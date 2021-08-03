@@ -151,13 +151,13 @@ def tokenize(args):
     # pool_read.close()
     # import pdb;pdb.set_trace()
 
-    for s in tqdm(stories[:1000], total=len(stories[:1000])):
+    for s in tqdm(stories, total=len(stories)):
         # if s not in prev_tokenized:
         to_be_tokenized.append(s)
         # to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
     #             f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
-    to_be_tokenized = list(filterfalse(to_be_tokenized.__contains__, prev_tokenized))
+    # to_be_tokenized = list(filterfalse(to_be_tokenized.__contains__, prev_tokenized))
                 # f.write("%s\n" % (os.path.join(stories_dir, s[1], s[0])))
 
     print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
