@@ -152,7 +152,7 @@ def tokenize(args):
     print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
     pool = Pool(60)
 
-    for _ in tqdm(pool(_mp_tokenize, to_be_tokenized), total=len(to_be_tokenized)):
+    for _ in tqdm(pool.imap_unordered(_mp_tokenize, to_be_tokenized), total=len(to_be_tokenized)):
         pass
 
     # command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
