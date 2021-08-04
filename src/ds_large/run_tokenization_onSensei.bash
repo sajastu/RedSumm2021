@@ -2,25 +2,22 @@
 id=m_0
 
 # m0
-file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 
-pip install gdown
-current=pwd
-mkdir -p /home/code-base/mashine_split_lrg_reddit/
-cd /home/code-base/mashine_split_lrg_reddit/
-# fill_out id for $id
-gdown --id $file_id /home/code-base/mashine_split_lrg_reddit/
-tar -xf /home/code-base/mashine_split_lrg_reddit/$id.tar
-
-cd $current
-# java, do this manually
-# conda install -c anaconda openjdk
-
-
-# set up Stanford coreNlp
-
-
-
+#pip install gdown
+#current=pwd
+#mkdir -p /home/code-base/mashine_split_lrg_reddit/
+#cd /home/code-base/mashine_split_lrg_reddit/
+## fill_out id for $id
+#gdown --id $file_id /home/code-base/mashine_split_lrg_reddit/
+#tar -xf /home/code-base/mashine_split_lrg_reddit/$id.tar
+#
+#cd $current
+## java, do this manually
+## conda install -c anaconda openjdk
+#
+#
+## set up Stanford coreNlp
 
 #wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
 #unzip stanford-corenlp-4.2.2.zip
@@ -38,10 +35,10 @@ cd $current
 #
 #
 #DS_BASE_DIR=/home/code-base/lrg_split_s/$id/
-#export RAW_PATH=$DS_BASE_DIR/splits/
-#export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
-#export JSON_PATH=$DS_BASE_DIR/jsons/
-#export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
+export RAW_PATH=$DS_BASE_DIR/splits/
+export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
+export JSON_PATH=$DS_BASE_DIR/jsons/
+export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
 
 # PREPARING DATA
 python ../preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
