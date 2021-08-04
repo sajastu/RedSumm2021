@@ -255,8 +255,8 @@ def tokenize(args):
     # import pdb;pdb.set_trace()
 
     for s in tqdm(stories, total=len(stories)):
-        if s not in prev_tokenized:
-            to_be_tokenized.append(_read_file(s))
+        # if s not in prev_tokenized:
+        to_be_tokenized.append(_read_file(s))
         # to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
     #             f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
