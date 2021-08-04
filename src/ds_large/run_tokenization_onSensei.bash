@@ -52,7 +52,7 @@ DS_BASE_DIR=/home/code-base/lrg_split_s/
 #mkdir -p /home/code-base/toolkits/
 #mv stanford-corenlp-4.2.2 /home/code-base/toolkits
 export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
-source /root/.bashrc
+#source /root/.bashrc
 
 
 ### now preprocessing
