@@ -4,48 +4,48 @@ pip3 install spacy
 python3 -m spacy download en_core_web_sm
 
 
-id=m_1
-
-# m0
-#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
-
-# m1
-file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
-
-# m2
-#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
-
-# m3
-#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
-
-# m4
-#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
-
+#id=m_0
 #
-#pip install gdown
-current=pwd
-mkdir -p /home/code-base/mashine_split_lrg_reddit/
-cd /home/code-base/mashine_split_lrg_reddit/
-## fill_out id for $id
-gdown --id $file_id -O /home/code-base/mashine_split_lrg_reddit/
-echo "uncompressing"
-tar -xf /home/code-base/mashine_split_lrg_reddit/$id.tar
-
-##
-#cd $current
-### java, do this manually
-### conda install -c anaconda openjdk
-##
-##
-### set up Stanford coreNlp
+## m0
+##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 #
-
-wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-unzip stanford-corenlp-4.2.2.zip
-mkdir -p /home/code-base/toolkits/
-mv stanford-corenlp-4.2.2 /home/code-base/toolkits
-export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
-source /root/.bashrc
+## m1
+#file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
+#
+## m2
+##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+#
+## m3
+##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+#
+## m4
+##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+#
+##
+##pip install gdown
+#current=pwd
+#mkdir -p /home/code-base/mashine_split_lrg_reddit/
+#cd /home/code-base/mashine_split_lrg_reddit/
+### fill_out id for $id
+#gdown --id $file_id -O /home/code-base/mashine_split_lrg_reddit/
+#echo "uncompressing"
+#tar -xf /home/code-base/mashine_split_lrg_reddit/$id.tar
+#
+###
+##cd $current
+#### java, do this manually
+#### conda install -c anaconda openjdk
+###
+###
+#### set up Stanford coreNlp
+##
+#
+#wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
+#unzip stanford-corenlp-4.2.2.zip
+#mkdir -p /home/code-base/toolkits/
+#mv stanford-corenlp-4.2.2 /home/code-base/toolkits
+#export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
+#source /root/.bashrc
 
 
 ### now preprocessing
