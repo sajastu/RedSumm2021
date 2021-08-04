@@ -302,7 +302,6 @@ def tokenize(args):
     #     for sent in doc.sents:
     #         docs_tokens.append([tok.text.lower() for tok in sent])
 
-    import pdb;pdb.set_trace()
 
     # for _ in tqdm(pool.imap_unordered(_mp_tokenize, to_be_tokenized), total=len(to_be_tokenized)):
     #     pass
