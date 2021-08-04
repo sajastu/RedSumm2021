@@ -7,7 +7,7 @@ python3 -m spacy download en_core_web_sm
 id=m_0
 
 # m0
-#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 
 #pip install gdown
 current=pwd
