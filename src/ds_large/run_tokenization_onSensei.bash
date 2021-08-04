@@ -37,9 +37,8 @@ id=m_0
 #mkdir -p /home/code-base/lrg_split_s/$id/tokenized
 #mkdir -p /home/code-base/lrg_split_s/$id/jsons
 #mkdir -p /home/code-base/lrg_split_s/$id/bert-data
-#
-#
-#DS_BASE_DIR=/home/code-base/lrg_split_s/$id/
+
+DS_BASE_DIR=/home/code-base/lrg_split_s/$id/
 export RAW_PATH=$DS_BASE_DIR/splits/
 export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
 export JSON_PATH=$DS_BASE_DIR/jsons/
