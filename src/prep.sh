@@ -3,7 +3,7 @@
 DS_BASE_DIR=/trainman-mount/trainman-k8s-storage-06a4f11e-8e1a-4301-8f5d-8b8b9e41ce4d/large_tldr_dataset/
 
 export RAW_PATH=/home/code-base/tldr_dataset/splits/
-export TOKENIZED_PATH=$DS_BASE_DIR/tokenized-all/
+export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
 #export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-large-reddit-1024
