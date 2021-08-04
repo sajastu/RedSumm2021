@@ -294,7 +294,6 @@ def tokenize(args):
             else:
                 src_tokens.append(tokens)
 
-        import pdb;pdb.set_trace()
         json.dump({'src': src_tokens, 'tgt': tgt_tokens}, open(tokenized_stories_dir + '/' + file_id.strip() + '.json', mode='w'))
 
 
