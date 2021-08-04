@@ -267,7 +267,7 @@ def tokenize(args):
     # pool = Pool(64)
 
     # do it for src
-    for doc in nlp.pipe([k['src'] for k,v in to_be_tokenized], batch_size=50000, n_threads=24):
+    for doc in nlp.pipe([dict['src'] for dict in to_be_tokenized], batch_size=50000, n_threads=24):
         docs_tokens = []
         for sent in doc.sents:
             docs_tokens.append([tok.text.lower() for tok in sent])
