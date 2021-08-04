@@ -440,8 +440,9 @@ def _format_to_bert(params):
     datasets = []
     for d in jobs:
         source, tgt, id = d['src'], d['tgt'], d['id']
+        print(source)
+
         sent_labels = greedy_selection(source[:args.max_src_nsents], tgt, 3)
-        print(sent_labels)
         if (args.lower):
             source = [' '.join(s).lower().split() for s in source]
             tgt = [' '.join(s).lower().split() for s in tgt]
