@@ -417,7 +417,6 @@ def format_to_bert(args):
             real_name = json_f.split('/')[-1]
             a_lst.append((corpus_type, json_f, args, pjoin(args.save_path, real_name.replace('json', 'bert.pt'))))
         print(a_lst)
-        import pdb;pdb.set_trace()
         pool = Pool(args.n_cpus)
         for d in pool.imap(_format_to_bert, a_lst):
             pass
@@ -440,7 +439,6 @@ def _format_to_bert(params):
     datasets = []
     for d in jobs:
         source, tgt, id = d['src'], d['tgt'], d['id']
-
         sent_labels = greedy_selection(source[:args.max_src_nsents], tgt, 3)
         if (args.lower):
             source = [' '.join(s).lower().split() for s in source]
@@ -450,6 +448,7 @@ def _format_to_bert(params):
         # b_data = bert.preprocess(source, tgt, sent_labels, use_bert_basic_tokenizer=args.use_bert_basic_tokenizer)
 
         if (b_data is None):
+            print('continue')
             continue
         src_subtoken_idxs, sent_labels, tgt_subtoken_idxs, segments_ids, cls_ids, src_txt, tgt_txt = b_data
         b_data_dict = {"src": src_subtoken_idxs, "tgt": tgt_subtoken_idxs,
