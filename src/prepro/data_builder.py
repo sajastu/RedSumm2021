@@ -24,7 +24,7 @@ import spacy
 
 import xml.etree.ElementTree as ET
 
-nlp = spacy.load("en_core_web_lg")
+nlp = spacy.load("en_core_web_md")
 nlp.disable_pipe("parser")
 nlp.enable_pipe("senter")
 tokenizer = SoMaJo("en_PTB")
