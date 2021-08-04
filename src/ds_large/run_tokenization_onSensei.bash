@@ -6,10 +6,11 @@ file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 
 pip install gdown
 
+mkdir -p /home/code-base/mashine_split_lrg_reddit/
 
 # fill_out id for $id
-gdown --id $file_id
-tar -xf $id.tar
+gdown --id $file_id /home/code-base/mashine_split_lrg_reddit/
+tar -xf /home/code-base/mashine_split_lrg_reddit/$id.tar
 
 # java, do this manually
 # conda install -c anaconda openjdk
