@@ -268,11 +268,11 @@ def tokenize(args):
 
     # do it for src
     for doc in nlp.pipe([k['src'] for k,v in to_be_tokenized], batch_size=50000, n_threads=24):
-        import pdb;pdb.set_trace()
         docs_tokens = []
         for sent in doc.sents:
             docs_tokens.append([tok.text.lower() for tok in sent])
 
+    import pdb;pdb.set_trace()
 
     # for _ in tqdm(pool.imap_unordered(_mp_tokenize, to_be_tokenized), total=len(to_be_tokenized)):
     #     pass
