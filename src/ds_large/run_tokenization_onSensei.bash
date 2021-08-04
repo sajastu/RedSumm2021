@@ -1,4 +1,9 @@
 
+#some configs
+pip3 install spacy
+python3 -m spacy download en_core_web_sm
+
+
 id=m_0
 
 # m0
