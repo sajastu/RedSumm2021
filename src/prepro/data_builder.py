@@ -416,7 +416,8 @@ def format_to_bert(args):
         for json_f in glob.glob(pjoin(args.raw_path, '*' + corpus_type + '.*.json')):
             real_name = json_f.split('/')[-1]
             a_lst.append((corpus_type, json_f, args, pjoin(args.save_path, real_name.replace('json', 'bert.pt'))))
-        print(a_lst)
+            _format_to_bert(a_lst[-1])
+        # print(a_lst)
         pool = Pool(args.n_cpus)
         for d in pool.imap(_format_to_bert, a_lst):
             pass
@@ -440,7 +441,7 @@ def _format_to_bert(params):
     datasets = []
     for d in jobs:
         source, tgt, id = d['src'], d['tgt'], d['id']
-        print(source)
+        import pdb;pdb.set_trace()
 
         sent_labels = greedy_selection(source[:args.max_src_nsents], tgt, 3)
         if (args.lower):
