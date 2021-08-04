@@ -71,5 +71,5 @@ python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_P
 
 
 echo "Compressing bert-files"
-tar -cvf $id_bertfiles.tar $BERT_DATA_PATH
+tar -cf $id_bertfiles.tar $BERT_DATA_PATH
 
