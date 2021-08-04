@@ -36,6 +36,8 @@ id=m_0
 ### now preprocessing
 DS_BASE_DIR=/home/code-base/lrg_split_s/
 
+mkdir -p /tmp/RedSumm2021/src/logs/
+
 mkdir -p $DS_BASE_DIR/splits
 mkdir -p $DS_BASE_DIR/tokenized
 mkdir -p $DS_BASE_DIR/jsons
