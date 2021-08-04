@@ -273,6 +273,8 @@ def tokenize(args):
         id_flg = False
         for sent in doc.sents:
             tokens = [t.text.lower() for t in sent]
+            import pdb;
+            pdb.set_trace()
 
             if ('@highlights' in tokens[1]):
                 tgt_flg = True
