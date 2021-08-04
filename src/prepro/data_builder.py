@@ -200,7 +200,6 @@ def tokenize(args):
                         tgt_txt += ' '
         src = sentencizer(src_txt.strip())
         tgt = sentencizer(tgt_txt.strip())
-        json.dump({'src': src, 'tgt': tgt}, open(tokenized_stories_dir + '/' + param + '.json', mode='w'))
 
     def _read_file(param):
         param_abs = stories_dir + '/' + param.split('-')[0] + '/' + param
@@ -221,10 +220,8 @@ def tokenize(args):
                         tgt_txt += l.strip()
                         tgt_txt += ' '
 
-        return {
-            'src': src_txt,
-            'tgt': tgt_txt
-        }
+        return src_txt + '\n@highlights\n' + tgt_txt + '\n@file_id\n}' + param
+
 
     stories_dir = os.path.abspath(args.raw_path)
     # _add_set_to_filemaes(stories_dir)
@@ -239,7 +236,7 @@ def tokenize(args):
         stories.extend(os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/')))
     # make IO list file
 
-    prev_tokenized = [s.replace('.json', '') for s in os.listdir(args.save_path)]
+    # prev_tokenized = [s.replace('.json', '') for s in os.listdir(args.save_path)]
 
     print("Making list of files to tokenize...")
     to_be_tokenized = []
@@ -253,10 +250,11 @@ def tokenize(args):
     #
     # pool_read.close()
     # import pdb;pdb.set_trace()
-
+    file_ids = []
     for s in tqdm(stories[:1000], total=len(stories[:1000])):
         # if s not in prev_tokenized:
         to_be_tokenized.append(_read_file(s))
+        file_ids.append(s)
         # to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
     #             f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
@@ -267,10 +265,41 @@ def tokenize(args):
     # pool = Pool(64)
 
     # do it for src
-    for doc in nlp.pipe([dict['src'] for dict in to_be_tokenized], batch_size=50000, n_process=60):
-        docs_tokens = []
+
+    for doc in nlp.pipe(to_be_tokenized, batch_size=50000, n_process=60):
+        src_tokens = []
+        tgt_tokens = []
+        tgt_flg = False
+        id_flg = False
         for sent in doc.sents:
-            docs_tokens.append([tok.text.lower() for tok in sent])
+            tokens = [t.text.lower() for t in sent]
+
+            if ('@highlights' in tokens[0]):
+                tgt_flg = True
+                tgt_tokens.append([])
+                continue
+
+            if ('@file_id' in tokens[0]):
+                tgt_flg = False
+                id_flg = True
+                continue
+
+            if (tgt_flg):
+                tgt_tokens[-1].extend(tokens)
+            elif (id_flg):
+                file_id = ''.join(tokens)
+                break
+            else:
+                src_tokens.append(tokens)
+
+        import pdb;pdb.set_trace()
+        json.dump({'src': src_tokens, 'tgt': tgt_tokens}, open(tokenized_stories_dir + '/' + file_id + '.json', mode='w'))
+
+
+    # for doc in nlp.pipe([dict['tgt'] for dict in to_be_tokenized], batch_size=50000, n_process=60):
+    #     docs_tokens = []
+    #     for sent in doc.sents:
+    #         docs_tokens.append([tok.text.lower() for tok in sent])
 
     import pdb;pdb.set_trace()
 
