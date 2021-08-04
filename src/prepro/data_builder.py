@@ -24,10 +24,10 @@ import spacy
 
 import xml.etree.ElementTree as ET
 
-nlp = spacy.load("en_core_web_md")
-nlp.disable_pipe("parser")
-nlp.enable_pipe("senter")
-tokenizer = SoMaJo("en_PTB")
+nlp = spacy.load("en_core_web_md", disable=['ner', "parser"])
+# nlp.disable_pipe("parser")
+# nlp.enable_pipe("senter")
+nlp.add_pipe(nlp.create_pipe('sentencizer'))
 
 nyt_remove_words = ["photo", "graph", "chart", "map", "table", "drawing"]
 
@@ -153,32 +153,32 @@ def tokenize(args):
             sents.append(sent.text)
         return sents
 
-    def _tokenize(src_sents):
-        src_tkns = []
-        for sent in src_sents:
-            src_sentences_tkns = tokenizer.tokenize_text([sent])
-            ctr = 0
-            for _ in src_sentences_tkns: ctr += 1
-            src_sentences_tkns_tmp = []
-            if ctr > 1:
-                src_sentences_tkns = tokenizer.tokenize_text([sent])
-                for sT in src_sentences_tkns:
-                    for tkn in sT:
-                        src_sentences_tkns_tmp.append(tkn.text)
-                src_sentences_tkns = src_sentences_tkns_tmp
-            else:
-                src_sentences_tkns = tokenizer.tokenize_text([sent])
-                for sT in src_sentences_tkns:
-                    for tkn in sT:
-                        src_sentences_tkns_tmp.append(tkn.text)
-                src_sentences_tkns = src_sentences_tkns_tmp
-
-            sent_tkns = []
-            for token in src_sentences_tkns:
-                sent_tkns.append(token)
-            src_tkns.append(sent_tkns)
-
-        return src_tkns
+    # def _tokenize(src_sents):
+    #     src_tkns = []
+    #     for sent in src_sents:
+    #         src_sentences_tkns = tokenizer.tokenize_text([sent])
+    #         ctr = 0
+    #         for _ in src_sentences_tkns: ctr += 1
+    #         src_sentences_tkns_tmp = []
+    #         if ctr > 1:
+    #             src_sentences_tkns = tokenizer.tokenize_text([sent])
+    #             for sT in src_sentences_tkns:
+    #                 for tkn in sT:
+    #                     src_sentences_tkns_tmp.append(tkn.text)
+    #             src_sentences_tkns = src_sentences_tkns_tmp
+    #         else:
+    #             src_sentences_tkns = tokenizer.tokenize_text([sent])
+    #             for sT in src_sentences_tkns:
+    #                 for tkn in sT:
+    #                     src_sentences_tkns_tmp.append(tkn.text)
+    #             src_sentences_tkns = src_sentences_tkns_tmp
+    #
+    #         sent_tkns = []
+    #         for token in src_sentences_tkns:
+    #             sent_tkns.append(token)
+    #         src_tkns.append(sent_tkns)
+    #
+    #     return src_tkns
 
     def _mp_tokenize(param):
         param_abs = stories_dir + '/' + param.split('-')[0] +'/'+ param
@@ -198,11 +198,33 @@ def tokenize(args):
                     if tgt_flag:
                         tgt_txt += l.strip()
                         tgt_txt += ' '
-        src = _tokenize(sentencizer(src_txt.strip()))
-        tgt = _tokenize(sentencizer(tgt_txt.strip()))
+        src = sentencizer(src_txt.strip())
+        tgt = sentencizer(tgt_txt.strip())
         json.dump({'src': src, 'tgt': tgt}, open(tokenized_stories_dir + '/' + param + '.json', mode='w'))
 
+    def _read_file(param):
+        param_abs = stories_dir + '/' + param.split('-')[0] + '/' + param
+        src_txt = ''
+        tgt_txt = ''
+        tgt_flag = False
+        with open(param_abs) as fR:
+            for l in fR:
+                if len(l.strip()) > 0:
+                    if not tgt_flag and '@highlights' not in l:
+                        src_txt += l.strip()
+                        src_txt += ' '
+                    elif '@highlights' in l:
+                        tgt_flag = True
+                        continue
 
+                    if tgt_flag:
+                        tgt_txt += l.strip()
+                        tgt_txt += ' '
+
+        return {
+            'src': src_txt,
+            'tgt': tgt_txt
+        }
 
     stories_dir = os.path.abspath(args.raw_path)
     # _add_set_to_filemaes(stories_dir)
@@ -233,8 +255,8 @@ def tokenize(args):
     # import pdb;pdb.set_trace()
 
     for s in tqdm(stories, total=len(stories)):
-        # if s not in prev_tokenized:
-        to_be_tokenized.append(s)
+        if s not in prev_tokenized:
+            to_be_tokenized.append(_read_file(s))
         # to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
     #             f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
@@ -242,10 +264,18 @@ def tokenize(args):
                 # f.write("%s\n" % (os.path.join(stories_dir, s[1], s[0])))
 
     print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
-    pool = Pool(64)
+    # pool = Pool(64)
 
-    for _ in tqdm(pool.imap_unordered(_mp_tokenize, to_be_tokenized), total=len(to_be_tokenized)):
-        pass
+    # do it for src
+    for doc in nlp.pipe([k['src'] for k,v in to_be_tokenized], batch_size=50000, n_threads=24):
+        import pdb;pdb.set_trace()
+        docs_tokens = []
+        for sent in doc.sents:
+            docs_tokens.append([tok.text.lower() for tok in sent])
+
+
+    # for _ in tqdm(pool.imap_unordered(_mp_tokenize, to_be_tokenized), total=len(to_be_tokenized)):
+    #     pass
 
     # command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
     #            '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
