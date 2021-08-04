@@ -14,7 +14,7 @@ current=pwd
 mkdir -p /home/code-base/mashine_split_lrg_reddit/
 cd /home/code-base/mashine_split_lrg_reddit/
 ## fill_out id for $id
-gdown --id $file_id /home/code-base/mashine_split_lrg_reddit/
+gdown --id $file_id -O /home/code-base/mashine_split_lrg_reddit/
 #tar -xf /home/code-base/mashine_split_lrg_reddit/$id.tar
 #
 #cd $current
