@@ -266,7 +266,7 @@ def tokenize(args):
 
     # do it for src
 
-    for doc in nlp.pipe(to_be_tokenized, batch_size=50000, n_process=60):
+    for doc in tqdm(nlp.pipe(to_be_tokenized, batch_size=50000, n_process=60), total=len(to_be_tokenized)):
         src_tokens = []
         tgt_tokens = []
         tgt_flg = False
