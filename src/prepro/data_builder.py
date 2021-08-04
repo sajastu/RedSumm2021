@@ -220,7 +220,7 @@ def tokenize(args):
                         tgt_txt += l.strip()
                         tgt_txt += ' '
 
-        return src_txt + '\n@highlights\n' + tgt_txt + '\n@file_id\n}' + param
+        return src_txt + '@highlights\n' + tgt_txt + '@file_id\n}' + param
 
 
     stories_dir = os.path.abspath(args.raw_path)
