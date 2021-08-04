@@ -30,10 +30,10 @@ cd /home/code-base/mashine_split_lrg_reddit/
 ## fill_out id for $id
 gdown --id $file_id -O /home/code-base/mashine_split_lrg_reddit/
 echo "uncompressing"
-tar -xf /home/code-base/mashine_split_lrg_reddit/$id.tar
+tar -xf $id.tar
+cd $current
 
 ##
-#cd $current
 ### java, do this manually
 ### conda install -c anaconda openjdk
 ##
