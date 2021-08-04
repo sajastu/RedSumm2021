@@ -24,7 +24,7 @@ import spacy
 
 import xml.etree.ElementTree as ET
 
-nlp = spacy.load("en_core_web_md", disable=['ner', "parser"])
+nlp = spacy.load("en_core_web_sm", disable=['ner', "parser"])
 # nlp.disable_pipe("parser")
 # nlp.enable_pipe("senter")
 nlp.add_pipe('sentencizer')
