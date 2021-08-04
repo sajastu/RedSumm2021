@@ -190,7 +190,7 @@ def tokenize(args):
                 if not tgt_flag and '@highlights' not in l:
                     src_txt += l.strip()
                     src_txt += ' '
-                else:
+                elif '@highlights' in l:
                     tgt_flag = True
                     continue
 
@@ -441,7 +441,7 @@ def _format_to_bert(params):
     datasets = []
     for d in jobs:
         source, tgt, id = d['src'], d['tgt'], d['id']
-        import pdb;pdb.set_trace()
+        # import pdb;pdb.set_trace()
 
         sent_labels = greedy_selection(source[:args.max_src_nsents], tgt, 3)
         if (args.lower):
