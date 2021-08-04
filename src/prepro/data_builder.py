@@ -220,7 +220,7 @@ def tokenize(args):
                         tgt_txt += l.strip()
                         tgt_txt += ' '
 
-        return src_txt + '@highlights\n' + tgt_txt + '@file_id\n}' + param
+        return src_txt.strip() + '\n@highlights\n' + tgt_txt.strip() + '\n@file_id\n}' + param
 
 
     stories_dir = os.path.abspath(args.raw_path)
@@ -274,12 +274,12 @@ def tokenize(args):
         for sent in doc.sents:
             tokens = [t.text.lower() for t in sent]
 
-            if ('@highlights' in tokens[0]):
+            if ('@highlights' in tokens[1]):
                 tgt_flg = True
                 tgt_tokens.append([])
                 continue
 
-            if ('@file_id' in tokens[0]):
+            if ('@file_id' in tokens[1]):
                 tgt_flg = False
                 id_flg = True
                 continue
