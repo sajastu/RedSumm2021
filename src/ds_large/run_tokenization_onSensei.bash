@@ -23,12 +23,11 @@ file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 ##
 id=m_1
 DS_BASE_DIR=/home/code-base/lrg_split_s/
-mkdir -p DS_BASE_DIR
+mkdir -p $DS_BASE_DIR
 
 pip install gdown
 current=pwd
-mkdir -p /home/code-base/mashine_split_lrg_reddit/
-cd /home/code-base/mashine_split_lrg_reddit/
+cd $DS_BASE_DIR
 ## fill_out id for $id
 gdown --id $file_id -O $DS_BASE_DIR/
 
