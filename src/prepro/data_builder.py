@@ -440,6 +440,8 @@ def _format_to_bert(params):
     for d in jobs:
         source, tgt, id = d['src'], d['tgt'], d['id']
         sent_labels = greedy_selection(source[:args.max_src_nsents], tgt, 3)
+        print(sent_labels)
+
         if (args.lower):
             source = [' '.join(s).lower().split() for s in source]
             tgt = [' '.join(s).lower().split() for s in tgt]
@@ -448,7 +450,6 @@ def _format_to_bert(params):
         # b_data = bert.preprocess(source, tgt, sent_labels, use_bert_basic_tokenizer=args.use_bert_basic_tokenizer)
 
         if (b_data is None):
-            print('continue')
             continue
         src_subtoken_idxs, sent_labels, tgt_subtoken_idxs, segments_ids, cls_ids, src_txt, tgt_txt = b_data
         b_data_dict = {"src": src_subtoken_idxs, "tgt": tgt_subtoken_idxs,
