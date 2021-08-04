@@ -22,7 +22,7 @@ cd $current
 
 
 
-wget https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
+wget https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip stanford-corenlp-4.2.2.zip
 unzip stanford-corenlp-4.2.2.zip
 mkdir -p /home/code-base/toolkits/
 mv stanford-corenlp-4.2.2 /home/code-base/toolkits
