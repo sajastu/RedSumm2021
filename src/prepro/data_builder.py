@@ -27,7 +27,7 @@ import xml.etree.ElementTree as ET
 nlp = spacy.load("en_core_web_md", disable=['ner', "parser"])
 # nlp.disable_pipe("parser")
 # nlp.enable_pipe("senter")
-nlp.add_pipe(nlp.create_pipe('sentencizer'))
+nlp.add_pipe('sentencizer')
 
 nyt_remove_words = ["photo", "graph", "chart", "map", "table", "drawing"]
 
