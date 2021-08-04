@@ -286,6 +286,7 @@ def tokenize(args):
                 continue
 
             if (tgt_flg):
+                tokens = [t for t in tokens if len(t.strip())>0]
                 tgt_tokens[-1].extend(tokens)
             elif (id_flg):
                 file_id = ''.join(tokens)
@@ -294,7 +295,7 @@ def tokenize(args):
                 src_tokens.append(tokens)
 
         import pdb;pdb.set_trace()
-        json.dump({'src': src_tokens, 'tgt': tgt_tokens}, open(tokenized_stories_dir + '/' + file_id + '.json', mode='w'))
+        json.dump({'src': src_tokens, 'tgt': tgt_tokens}, open(tokenized_stories_dir + '/' + file_id.strip() + '.json', mode='w'))
 
 
     # for doc in nlp.pipe([dict['tgt'] for dict in to_be_tokenized], batch_size=50000, n_process=60):
