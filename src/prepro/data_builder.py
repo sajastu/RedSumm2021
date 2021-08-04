@@ -40,6 +40,27 @@ def recover_from_corenlp(s):
 def load_json(p, lower):
     source = []
     tgt = []
+    flag = False
+    for sent in json.load(open(p))['sentences']:
+        tokens = [t['word'] for t in sent['tokens']]
+        if (lower):
+            tokens = [t.lower() for t in tokens]
+        if (tokens[0] == '@highlights'):
+            flag = True
+            tgt.append([])
+            continue
+        if (flag):
+            tgt[-1].extend(tokens)
+        else:
+            source.append(tokens)
+
+    source = [clean(' '.join(sent)).split() for sent in source]
+    tgt = [clean(' '.join(sent)).split() for sent in tgt]
+    return source, tgt
+
+def load_json_1(p, lower):
+    source = []
+    tgt = []
     # flag = False
     # for sent in json.load(open(p))['sentences']:
     #     tokens = [t['word'] for t in sent['tokens']]
@@ -135,8 +156,38 @@ def _add_set_to_filemaes(base_dir):
                 os.rename(f, base_dir + '/' + set + '/'+ new_file_name)
 
 
-
 def tokenize(args):
+    stories_dir = os.path.abspath(args.raw_path)
+    tokenized_stories_dir = os.path.abspath(args.save_path)
+
+    print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
+    stories = os.listdir(stories_dir)
+    # make IO list file
+    print("Making list of files to tokenize...")
+    with open("mapping_for_corenlp.txt", "w") as f:
+        for s in stories:
+            f.write("%s\n" % (os.path.join(stories_dir, s)))
+
+    command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
+               '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
+               'json', '-outputDirectory', tokenized_stories_dir]
+
+    print("Tokenizing %i files in %s and saving in %s..." % (len(stories), stories_dir, tokenized_stories_dir))
+    subprocess.call(command)
+    print("Stanford CoreNLP Tokenizer has finished.")
+    os.remove("mapping_for_corenlp.txt")
+
+    # Check that the tokenized stories directory contains the same number of files as the original directory
+    num_orig = len(os.listdir(stories_dir))
+    num_tokenized = len(os.listdir(tokenized_stories_dir))
+    if num_orig != num_tokenized:
+        raise Exception(
+            "The tokenized stories directory %s contains %i files, but it should contain the same number as %s (which has %i files). Was there an error during tokenization?" % (
+                tokenized_stories_dir, num_tokenized, stories_dir, num_orig))
+    print("Successfully finished tokenizing %s to %s.\n" % (stories_dir, tokenized_stories_dir))
+
+
+def tokenize_spacy(args):
 
     def _mp_tokenize_stanford(param):
         param = stories_dir + '/' + param.split('-')[0] +'/'+ param
@@ -232,8 +283,8 @@ def tokenize(args):
     stories = []
 
     for set in ['train', 'validation', 'test']:
-        # stories.extend([(f_name, set) for f_name in os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/'))])
-        stories.extend(os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/')))
+        stories.extend([(f_name, set) for f_name in os.listdir(os.path.abspath(args.raw_path + '/'))])
+        # stories.extend(os.listdir(os.path.abspath(args.raw_path+ '/' + set + '/')))
     # make IO list file
 
     # prev_tokenized = [s.replace('.json', '') for s in os.listdir(args.save_path)]
@@ -241,6 +292,7 @@ def tokenize(args):
     print("Making list of files to tokenize...")
     to_be_tokenized = []
     # with open("mapping_for_corenlp.txt", "w") as f:
+    #     f.write("%s\n" % (os.path.join(stories_dir, s.split('-')[0], s)))
 
     # pool_read = Pool(60)
 
