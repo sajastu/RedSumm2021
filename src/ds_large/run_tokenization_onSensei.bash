@@ -24,7 +24,7 @@ cd $current
 
 wget https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
 unzip stanford-corenlp-4.2.2.zip
-mkdir -p /home/code-base/toolkits
+mkdir -p /home/code-base/toolkits/
 mv stanford-corenlp-4.2.2 /home/code-base/toolkits
 export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 source /root/.bashrc
