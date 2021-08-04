@@ -1,7 +1,7 @@
 
 #some configs
-pip3 install spacy
-python3 -m spacy download en_core_web_sm
+#pip3 install spacy
+#python3 -m spacy download en_core_web_sm
 
 
 #
@@ -12,7 +12,7 @@ file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 #file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 
 ## m2
-##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 
 ## m3
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
@@ -22,22 +22,20 @@ file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 
 ##
 
-id=m_0
-
+id=m_2
 
 DS_BASE_DIR=/home/code-base/lrg_split_s/
 #mkdir -p $DS_BASE_DIR
 
 
-#pip install gdown
-#current=pwd
-#cd $DS_BASE_DIR
-### fill_out id for $id
-#gdown --id $file_id -O $DS_BASE_DIR/
+pip install gdown
+current=pwd
+cd $DS_BASE_DIR
+gdown --id $file_id -O $DS_BASE_DIR/
 #
-#echo "uncompressing"
-#tar -xf $id.tar
-#cd $current
+echo "uncompressing"
+tar -xf $id.tar
+cd $current
 
 ##
 ### java, do this manually
@@ -47,10 +45,10 @@ DS_BASE_DIR=/home/code-base/lrg_split_s/
 ### set up Stanford coreNlp
 #
 
-#wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-#unzip stanford-corenlp-4.2.2.zip
-#mkdir -p /home/code-base/toolkits/
-#mv stanford-corenlp-4.2.2 /home/code-base/toolkits
+wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
+unzip stanford-corenlp-4.2.2.zip
+mkdir -p /home/code-base/toolkits/
+mv stanford-corenlp-4.2.2 /home/code-base/toolkits
 export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 #source /root/.bashrc
 
