@@ -34,17 +34,18 @@ id=m_0
 ##
 ##
 ### now preprocessing
-#mkdir -p /home/code-base/lrg_split_s/$id/splits
-#mkdir -p /home/code-base/lrg_split_s/$id/tokenized
-#mkdir -p /home/code-base/lrg_split_s/$id/jsons
-#mkdir -p /home/code-base/lrg_split_s/$id/bert-data
+DS_BASE_DIR=/home/code-base/lrg_split_s/
+
+mkdir -p $DS_BASE_DIR/splits
+mkdir -p $DS_BASE_DIR/tokenized
+mkdir -p $DS_BASE_DIR/jsons
+mkdir -p $DS_BASE_DIR/bert-data
 #
-DS_BASE_DIR=/home/code-base/lrg_split_s/$id/
-export RAW_PATH=$DS_BASE_DIR/splits/
+
+export RAW_PATH=$DS_BASE_DIR/$id/
 export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
-cd ../
 
 # PREPARING DATA
 python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
