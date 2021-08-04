@@ -187,17 +187,18 @@ def tokenize(args):
         tgt_flag = False
         with open(param_abs) as fR:
             for l in fR:
-                if not tgt_flag and '@highlights' not in l:
-                    src_txt += l.strip()
-                    src_txt += ' '
-                elif '@highlights' in l:
-                    tgt_flag = True
-                    continue
+                if len(l.strip())>0:
+                    if not tgt_flag and '@highlights' not in l:
+                        src_txt += l.strip()
+                        src_txt += ' '
+                    elif '@highlights' in l:
+                        tgt_flag = True
+                        continue
 
-                if tgt_flag:
-                    tgt_txt += l.strip()
-                    tgt_txt += ' '
-
+                    if tgt_flag:
+                        tgt_txt += l.strip()
+                        tgt_txt += ' '
+        print(tgt_txt)
         src = _tokenize(sentencizer(src_txt.strip()))
         tgt = _tokenize(sentencizer(tgt_txt.strip()))
         json.dump({'src': src, 'tgt': tgt}, open(tokenized_stories_dir + '/' + param + '.json', mode='w'))
