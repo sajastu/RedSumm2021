@@ -232,7 +232,7 @@ def tokenize(args):
     # pool_read.close()
     # import pdb;pdb.set_trace()
 
-    for s in tqdm(stories[:1000], total=len(stories[:1000])):
+    for s in tqdm(stories, total=len(stories)):
         # if s not in prev_tokenized:
         to_be_tokenized.append(s)
         # to_be_tokenized.append(os.path.join(stories_dir, s.split('-')[0], s))
