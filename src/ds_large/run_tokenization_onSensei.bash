@@ -21,19 +21,22 @@ file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 
 ##
-id=m_0
-DS_BASE_DIR=/home/code-base/lrg_split_s/
-mkdir -p $DS_BASE_DIR
 
-pip install gdown
-current=pwd
-cd $DS_BASE_DIR
-## fill_out id for $id
-gdown --id $file_id -O $DS_BASE_DIR/
+id=m_1
 
-echo "uncompressing"
-tar -xf $id.tar
-cd $current
+
+#DS_BASE_DIR=/home/code-base/lrg_split_s/
+#mkdir -p $DS_BASE_DIR
+#
+#pip install gdown
+#current=pwd
+#cd $DS_BASE_DIR
+### fill_out id for $id
+#gdown --id $file_id -O $DS_BASE_DIR/
+#
+#echo "uncompressing"
+#tar -xf $id.tar
+#cd $current
 
 ##
 ### java, do this manually
@@ -43,10 +46,10 @@ cd $current
 ### set up Stanford coreNlp
 #
 
-wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-unzip stanford-corenlp-4.2.2.zip
-mkdir -p /home/code-base/toolkits/
-mv stanford-corenlp-4.2.2 /home/code-base/toolkits
+#wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
+#unzip stanford-corenlp-4.2.2.zip
+#mkdir -p /home/code-base/toolkits/
+#mv stanford-corenlp-4.2.2 /home/code-base/toolkits
 export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 source /root/.bashrc
 
