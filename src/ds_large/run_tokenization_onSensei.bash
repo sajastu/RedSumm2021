@@ -6,10 +6,10 @@ python3 -m spacy download en_core_web_sm
 
 #
 ## m0
-##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 #
 ## m1
-file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
+#file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 #
 ## m2
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
@@ -21,14 +21,15 @@ file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 #
 ##
-id=m_1
+id=m_0
+DS_BASE_DIR=/home/code-base/lrg_split_s/
 
 pip install gdown
 current=pwd
 mkdir -p /home/code-base/mashine_split_lrg_reddit/
 cd /home/code-base/mashine_split_lrg_reddit/
 ## fill_out id for $id
-gdown --id $file_id -O /home/code-base/mashine_split_lrg_reddit/
+gdown --id $file_id -O $DS_BASE_DIR/
 
 echo "uncompressing"
 tar -xf $id.tar
@@ -51,7 +52,6 @@ source /root/.bashrc
 
 
 ### now preprocessing
-DS_BASE_DIR=/home/code-base/lrg_split_s/
 
 mkdir -p /tmp/RedSumm2021/src/logs/
 
@@ -61,7 +61,7 @@ mkdir -p $DS_BASE_DIR/jsons
 mkdir -p $DS_BASE_DIR/bert-data
 #
 
-export RAW_PATH=/home/code-base/mashine_split_lrg_reddit/$id/
+export RAW_PATH=$DS_BASE_DIR/$id/
 export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
