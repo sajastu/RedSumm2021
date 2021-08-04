@@ -19,8 +19,6 @@ from others.tokenization import BertTokenizer
 
 from others.utils import clean
 from prepro.utils import _get_word_ngrams
-from somajo import SoMaJo
-import spacy
 
 import xml.etree.ElementTree as ET
 
