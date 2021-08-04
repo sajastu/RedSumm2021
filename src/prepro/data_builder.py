@@ -436,11 +436,12 @@ def _format_to_bert(params):
 
     logger.info('Processing %s' % json_file)
     jobs = json.load(open(json_file))
+    print(jobs)
+
     datasets = []
     for d in jobs:
         source, tgt, id = d['src'], d['tgt'], d['id']
         sent_labels = greedy_selection(source[:args.max_src_nsents], tgt, 3)
-        print(sent_labels)
 
         if (args.lower):
             source = [' '.join(s).lower().split() for s in source]
