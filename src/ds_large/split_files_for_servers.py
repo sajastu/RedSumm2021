@@ -3,6 +3,7 @@ import os
 import shutil
 
 import numpy as np
+from tqdm import tqdm
 
 all_tldr = []
 
@@ -35,5 +36,5 @@ for key, files in {"m_0": m_0, "m_1": m_1, "m_2": m_2, "m_3": m_3, "m_4": m_4}.i
     if not os.path.exists(f'/home/code-base/tldr_dataset/machine_splits/{key}'):
         os.makedirs(f'/home/code-base/tldr_dataset/machine_splits/{key}')
 
-    for f in files:
+    for f in tqdm(files, total=len(files), desc=f'{key}'):
         shutil.move(f, f'/home/code-base/tldr_dataset/machine_splits/{key}')
