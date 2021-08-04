@@ -25,9 +25,10 @@ file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 id=m_1
 
 
-#DS_BASE_DIR=/home/code-base/lrg_split_s/
+DS_BASE_DIR=/home/code-base/lrg_split_s/
 #mkdir -p $DS_BASE_DIR
-#
+
+
 #pip install gdown
 #current=pwd
 #cd $DS_BASE_DIR
