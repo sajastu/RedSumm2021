@@ -4,7 +4,6 @@ pip3 install spacy
 python3 -m spacy download en_core_web_sm
 
 
-#id=m_0
 #
 ## m0
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
@@ -22,6 +21,7 @@ file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 #
 ##
+id=m_1
 
 pip install gdown
 current=pwd
@@ -29,6 +29,7 @@ mkdir -p /home/code-base/mashine_split_lrg_reddit/
 cd /home/code-base/mashine_split_lrg_reddit/
 ## fill_out id for $id
 gdown --id $file_id -O /home/code-base/mashine_split_lrg_reddit/
+
 echo "uncompressing"
 tar -xf $id.tar
 cd $current
