@@ -436,7 +436,6 @@ def _format_to_bert(params):
 
     logger.info('Processing %s' % json_file)
     jobs = json.load(open(json_file))
-    print(jobs)
 
     datasets = []
     for d in jobs:
@@ -451,6 +450,7 @@ def _format_to_bert(params):
         # b_data = bert.preprocess(source, tgt, sent_labels, use_bert_basic_tokenizer=args.use_bert_basic_tokenizer)
 
         if (b_data is None):
+            print('cont')
             continue
         src_subtoken_idxs, sent_labels, tgt_subtoken_idxs, segments_ids, cls_ids, src_txt, tgt_txt = b_data
         b_data_dict = {"src": src_subtoken_idxs, "tgt": tgt_subtoken_idxs,
