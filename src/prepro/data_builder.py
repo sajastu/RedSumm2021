@@ -19,8 +19,15 @@ from others.tokenization import BertTokenizer
 
 from others.utils import clean
 from prepro.utils import _get_word_ngrams
+from somajo import SoMaJo
+import spacy
 
 import xml.etree.ElementTree as ET
+
+nlp = spacy.load("en_core_web_lg")
+nlp.disable_pipe("parser")
+nlp.enable_pipe("senter")
+tokenizer = SoMaJo("en_PTB")
 
 nyt_remove_words = ["photo", "graph", "chart", "map", "table", "drawing"]
 
@@ -33,19 +40,34 @@ def recover_from_corenlp(s):
 def load_json(p, lower):
     source = []
     tgt = []
-    flag = False
-    for sent in json.load(open(p))['sentences']:
-        tokens = [t['word'] for t in sent['tokens']]
-        if (lower):
-            tokens = [t.lower() for t in tokens]
-        if (tokens[0] == '@highlights'):
-            flag = True
-            tgt.append([])
-            continue
-        if (flag):
-            tgt[-1].extend(tokens)
-        else:
-            source.append(tokens)
+    # flag = False
+    # for sent in json.load(open(p))['sentences']:
+    #     tokens = [t['word'] for t in sent['tokens']]
+    #     if (lower):
+    #         tokens = [t.lower() for t in tokens]
+    #     if (tokens[0] == '@highlights'):
+    #         flag = True
+    #         tgt.append([])
+    #         continue
+    #     if (flag):
+    #         tgt[-1].extend(tokens)
+    #     else:
+    #         source.append(tokens)
+    with open(p) as fR:
+        for l in fR:
+            doc = json.loads(l.strip())
+
+            for sent in doc['src']:
+                src_tokens = [t for t in sent]
+                if (lower):
+                    src_tokens = [t.lower() for t in src_tokens]
+                source.append(src_tokens)
+
+            for t_sent in doc['tgt']:
+                tgt_tokens = [t for t in t_sent]
+                if (lower):
+                    tgt_tokens = [t.lower() for t in tgt_tokens]
+                tgt.extend(tgt_tokens)
 
     source = [clean(' '.join(sent)).split() for sent in source]
     tgt = [clean(' '.join(sent)).split() for sent in tgt]
@@ -116,12 +138,71 @@ def _add_set_to_filemaes(base_dir):
 
 def tokenize(args):
 
-    def _mp_tokenize(param):
+    def _mp_tokenize_stanford(param):
         param = stories_dir + '/' + param.split('-')[0] +'/'+ param
         command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                    '-ssplit.newlineIsSentenceBreak', 'always', '-file', f'{param}', '-outputFormat',
                    'json', '-outputDirectory', tokenized_stories_dir]
         subprocess.call(command)
+
+    def sentencizer(text):
+        sents = []
+        doc = nlp(text)
+        sent_lst = doc.sents
+        for sent in sent_lst:
+            sents.append(sent.text)
+        return sents
+
+    def _tokenize(src_sents):
+        src_tkns = []
+        for sent in src_sents:
+            src_sentences_tkns = tokenizer.tokenize_text([sent])
+            ctr = 0
+            for _ in src_sentences_tkns: ctr += 1
+            src_sentences_tkns_tmp = []
+            if ctr > 1:
+                src_sentences_tkns = tokenizer.tokenize_text([sent])
+                for sT in src_sentences_tkns:
+                    for tkn in sT:
+                        src_sentences_tkns_tmp.append(tkn.text)
+                src_sentences_tkns = src_sentences_tkns_tmp
+            else:
+                src_sentences_tkns = tokenizer.tokenize_text([sent])
+                for sT in src_sentences_tkns:
+                    for tkn in sT:
+                        src_sentences_tkns_tmp.append(tkn.text)
+                src_sentences_tkns = src_sentences_tkns_tmp
+
+            sent_tkns = []
+            for token in src_sentences_tkns:
+                sent_tkns.append(token)
+            src_tkns.append(sent_tkns)
+
+        return src_tkns
+
+    def _mp_tokenize(param):
+        param_abs = stories_dir + '/' + param.split('-')[0] +'/'+ param
+        src_txt = ''
+        tgt_txt = ''
+        tgt_flag = False
+        with open(param_abs) as fR:
+            for l in fR:
+                if not tgt_flag and '@highlights' not in l:
+                    src_txt += l.strip()
+                    src_txt += ' '
+                else:
+                    tgt_flag = True
+                    continue
+
+                if tgt_flag:
+                    tgt_txt += l.strip()
+                    tgt_txt += ' '
+
+        src = sentencizer(_tokenize(src_txt.strip()))
+        tgt = sentencizer(_tokenize(tgt_txt.strip()))
+        json.dump({'src': src, 'tgt': tgt}, open(tokenized_stories_dir + '/' + param + '.json', mode='w'))
+
+
 
     stories_dir = os.path.abspath(args.raw_path)
     # _add_set_to_filemaes(stories_dir)
