@@ -38,13 +38,13 @@ DS_BASE_DIR=/home/code-base/lrg_split_s/
 
 mkdir -p /tmp/RedSumm2021/src/logs/
 
-mkdir -p $DS_BASE_DIR/splits
+#mkdir -p $DS_BASE_DIR/splits
 mkdir -p $DS_BASE_DIR/tokenized
 mkdir -p $DS_BASE_DIR/jsons
 mkdir -p $DS_BASE_DIR/bert-data
 #
 
-export RAW_PATH=$DS_BASE_DIR/$id/
+export RAW_PATH=/home/code-base/mashine_split_lrg_reddit/$id/
 export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
