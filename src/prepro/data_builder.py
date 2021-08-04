@@ -251,7 +251,7 @@ def tokenize(args):
     # pool_read.close()
     # import pdb;pdb.set_trace()
     file_ids = []
-    for s in tqdm(stories, total=len(stories)):
+    for s in tqdm(stories[:1500], total=len(stories[:1500])):
         # if s not in prev_tokenized:
         to_be_tokenized.append(_read_file(s))
         file_ids.append(s)
@@ -266,7 +266,7 @@ def tokenize(args):
 
     # do it for src
 
-    for doc in tqdm(nlp.pipe(to_be_tokenized, batch_size=50000, n_process=60), total=len(to_be_tokenized)):
+    for doc in tqdm(nlp.pipe(to_be_tokenized, batch_size=1000, n_process=60)):
         src_tokens = []
         tgt_tokens = []
         tgt_flg = False
