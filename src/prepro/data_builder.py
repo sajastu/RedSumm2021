@@ -198,7 +198,6 @@ def tokenize(args):
                     if tgt_flag:
                         tgt_txt += l.strip()
                         tgt_txt += ' '
-        print(tgt_txt)
         src = _tokenize(sentencizer(src_txt.strip()))
         tgt = _tokenize(sentencizer(tgt_txt.strip()))
         json.dump({'src': src, 'tgt': tgt}, open(tokenized_stories_dir + '/' + param + '.json', mode='w'))
