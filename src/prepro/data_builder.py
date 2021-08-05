@@ -22,7 +22,7 @@ from prepro.utils import _get_word_ngrams
 
 import xml.etree.ElementTree as ET
 
-nyt_remove_words = ["photo", "graph", "chart", "map", "table", "drawing"]
+format_to_linesnyt_remove_words = ["photo", "graph", "chart", "map", "table", "drawing"]
 
 
 def recover_from_corenlp(s):
@@ -580,10 +580,12 @@ def format_to_lines(args):
     train_files, validation_files, test_files = [], [], []
 
     for f in glob.glob(pjoin(args.raw_path + '/*.json')):
+        real_name = f.split('/')[-1]
 
-        corpus_type = f.split('/')[-1].split('-')[0]
+        if 'tldr' in real_name.lower():
+            corpus_type = real_name.split('-')[0]
 
-        eval(f'{corpus_type}_files').append(f)
+            eval(f'{corpus_type}_files').append(f)
         # real_name = f.split('/')[-1].split('.')[0]
         # if (real_name in corpus_mapping['valid']):
         #     validation_files.append(f)

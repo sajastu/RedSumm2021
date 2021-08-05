@@ -6,7 +6,7 @@ mkdir -p $DS_BASE_DIR
 
 ### file ids to be downloaded
 ## m0
-#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk # my_machine
+#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk # my_machine, finished
 #
 ## m1
 #file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
@@ -77,7 +77,7 @@ export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
 
 ### PREPARING DATA
-python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
+#python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
 python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
 python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
 
