@@ -1,5 +1,5 @@
 
-################# CONFIGS
+#################  CONFIGS  #############################
 id=m_1
 DS_BASE_DIR=/home/code-base/lrg_split_machines/
 mkdir -p $DS_BASE_DIR
@@ -22,9 +22,7 @@ file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 
 
 
-
-
-################ download from Google drive
+################ download from Google drive  #############################
 
 if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
     echo 'gdown found'
@@ -48,7 +46,7 @@ cd $current
 
 
 
-################### Set up Stanford coreNlp
+################### Set up Stanford coreNlp #############################
 #
 
 if ! [ -f stanford-corenlp-4.2.2.zip ]
