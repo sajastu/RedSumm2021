@@ -159,7 +159,8 @@ def tokenize(args):
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in stories:
-            f.write("%s\n" % (os.path.join(stories_dir, s)))
+            if '-tldr_' in s.lower():
+                f.write("%s\n" % (os.path.join(stories_dir, s)))
 
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
@@ -582,10 +583,9 @@ def format_to_lines(args):
     for f in glob.glob(pjoin(args.raw_path + '/*.json')):
         real_name = f.split('/')[-1]
 
-        if 'tldr' in real_name.lower():
-            corpus_type = real_name.split('-')[0]
+        corpus_type = real_name.split('-')[0]
 
-            eval(f'{corpus_type}_files').append(f)
+        eval(f'{corpus_type}_files').append(f)
         # real_name = f.split('/')[-1].split('.')[0]
         # if (real_name in corpus_mapping['valid']):
         #     validation_files.append(f)
