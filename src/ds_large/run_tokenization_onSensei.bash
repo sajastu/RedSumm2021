@@ -24,26 +24,21 @@ file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 
 ################ download from Google drive  #############################
 
-if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
-    echo 'gdown found'
-else
-    echo 'gdown not found... installing'
-    pip install gdown
-fi
-
-current=pwd
-cd $DS_BASE_DIR
-
-if ! [ -f $file_id.tar ]
-then
-  gdown --id $file_id
-fi
-
-
-echo "Uncompressing $id"
-tar -xf $id.tar
-cd $current
-
+#if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
+#    echo 'gdown found'
+#else
+#    echo 'gdown not found... installing'
+#    pip install gdown
+#fi
+#
+#if ! [ -f $DS_BASE_DIR/$file_id.tar ]
+#then
+#  gdown --id $file_id -O $DS_BASE_DIR
+#fi
+#
+#
+#echo "Uncompressing $id.tar"
+#tar -xf $DS_BASE_DIR/$id.tar
 
 
 ################### Set up Stanford coreNlp #############################
@@ -62,11 +57,9 @@ then
   rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
 fi
 
-
 mkdir -p /home/code-base/toolkits/
 mv stanford-corenlp-4.2.2 /home/code-base/toolkits
 export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
-
 
 
 
