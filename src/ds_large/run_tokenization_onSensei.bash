@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-id=m_3
+id=m_4
 DS_BASE_DIR=/home/code-base/lrg_split_machines/
 mkdir -p $DS_BASE_DIR
 
@@ -15,10 +15,10 @@ mkdir -p $DS_BASE_DIR
 #file_id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v # Franck's first
 
 ## m3
-file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd # Nicole's
+#file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd #
 
 ## m4
-##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+file_id=1GUoZGWuzIVQlefwUxW1Tc-KOaEfL5s84 # Nicole's
 
 
 
