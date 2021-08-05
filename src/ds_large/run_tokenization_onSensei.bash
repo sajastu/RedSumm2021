@@ -43,11 +43,12 @@ mkdir -p $DS_BASE_DIR
 
 ################### Set up Stanford coreNlp #############################
 
-if ! [ -f stanford-corenlp-4.2.2.zip ]
-then
-#  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-  /home/code-base/lrg_split_machines/gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
-fi
+#if ! [ -f stanford-corenlp-4.2.2.zip ]
+#then
+##  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
+#  /home/code-base/lrg_split_machines/gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
+#fi
+/home/code-base/lrg_split_machines/gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
 
 unzip stanford-corenlp-4.2.2.zip
 rm stanford-corenlp-4.2.2.zip
