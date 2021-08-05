@@ -602,7 +602,7 @@ def format_to_lines(args):
         pool = Pool(args.n_cpus)
         dataset = []
         p_ct = 0
-        for d in pool.imap_unordered(_format_to_lines, a_lst):
+        for d in tqdm(pool.imap_unordered(_format_to_lines, a_lst), total=len(a_lst)):
             if d is not None:
                 dataset.append(d)
                 if (len(dataset) > args.shard_size):
