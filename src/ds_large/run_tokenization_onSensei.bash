@@ -47,18 +47,20 @@ cur_dir=pwd
 if ! [ -f stanford-corenlp-4.2.2.zip ]
 then
 #  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-  cd /home/code-base/lrg_split_machines/gdown.pl/
-  perl gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit $cur_dir/stanford-corenlp-4.2.2.zip
+  perl /home/code-base/lrg_split_machines/gdown.pl/gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
   cd $cur_dir
 fi
 
-unzip stanford-corenlp-4.2.2.zip
-rm stanford-corenlp-4.2.2.zip
-
-if [ -d /home/code-base/toolkits/stanford-corenlp-4.2.2/ ]
+if ! [ -d stanford-corenlp-4.2.2/ ]
 then
-  rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
+  unzip stanford-corenlp-4.2.2.zip
+else
+  if [ -d /home/code-base/toolkits/stanford-corenlp-4.2.2/ ]
+  then
+    rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
+  fi
 fi
+
 
 mkdir -p /home/code-base/toolkits/
 mv stanford-corenlp-4.2.2 /home/code-base/toolkits
