@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-id=m_3
+id=m_0
 DS_BASE_DIR=/home/code-base/lrg_split_machines/
 mkdir -p $DS_BASE_DIR
 
@@ -24,40 +24,40 @@ file_id=1EeK3jfCbO-8r1_BBJWy-k7v_O0uB8IzO #
 
 ################ download from Google drive  #############################
 
-if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
-    echo 'gdown found'
-else
-    echo 'gdown not found... installing'
-    pip install gdown
-fi
-
-if ! [ -f $DS_BASE_DIR/$file_id.tar ]
-then
-  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
-fi
-
-
-echo "Uncompressing $id.tar"
-tar -xf $DS_BASE_DIR/$id.tar
+#if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
+#    echo 'gdown found'
+#else
+#    echo 'gdown not found... installing'
+#    pip install gdown
+#fi
+#
+#if ! [ -f $DS_BASE_DIR/$file_id.tar ]
+#then
+#  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
+#fi
+#
+#
+#echo "Uncompressing $id.tar"
+#tar -xf $DS_BASE_DIR/$id.tar
 
 
 ################### Set up Stanford coreNlp #############################
 
-if ! [ -f stanford-corenlp-4.2.2.zip ]
-then
-  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-fi
-
-unzip stanford-corenlp-4.2.2.zip
-rm stanford-corenlp-4.2.2.zip
-
-if [ -d /home/code-base/toolkits/stanford-corenlp-4.2.2/ ]
-then
-  rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
-fi
-
-mkdir -p /home/code-base/toolkits/
-mv stanford-corenlp-4.2.2 /home/code-base/toolkits
+#if ! [ -f stanford-corenlp-4.2.2.zip ]
+#then
+#  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
+#fi
+#
+#unzip stanford-corenlp-4.2.2.zip
+#rm stanford-corenlp-4.2.2.zip
+#
+#if [ -d /home/code-base/toolkits/stanford-corenlp-4.2.2/ ]
+#then
+#  rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
+#fi
+#
+#mkdir -p /home/code-base/toolkits/
+#mv stanford-corenlp-4.2.2 /home/code-base/toolkits
 export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 
 
