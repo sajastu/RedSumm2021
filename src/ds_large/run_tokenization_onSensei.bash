@@ -38,9 +38,11 @@ cur_dir=pwd
 #fi
 #
 #
-echo "Uncompressing $id.tar"
-tar -xf $DS_BASE_DIR/$id.tar
-
+if ! [ -d $DS_BASE_DIR/$id ]
+then
+  echo "Uncompressing $id.tar"
+  tar -xf $DS_BASE_DIR/$id.tar
+fi
 
 ################### Set up Stanford coreNlp #############################
 
