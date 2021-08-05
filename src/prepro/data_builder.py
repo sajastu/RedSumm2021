@@ -175,12 +175,10 @@ def tokenize(args):
 
     print('Making Prev Tokenized list by year')
     for f in tqdm(glob.glob(tokenized_stories_dir + '/*'), total=len(glob.glob(tokenized_stories_dir + '/*'))):
-
         year = f.split('/')[-1].split('-TLDR')[-1].replace('RC', '').replace('RS', '').replace('v2','').replace('_', '').strip().split('-')[0]
         prev_tokenized[year].append(f)
 
 
-    import pdb;pdb.set_trace()
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
     stories = os.listdir(stories_dir)
     # make IO list file
@@ -188,6 +186,9 @@ def tokenize(args):
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in stories:
             year = s.split('-TLDR')[-1].replace('RC', '').replace('RS', '').replace('v2','').replace('_', '').strip().split('-')[0]
+            import pdb;
+            pdb.set_trace()
+
             if '-tldr_' in s.lower() and s not in prev_tokenized[year]:
                 f.write("%s\n" % (os.path.join(stories_dir, s)))
 
