@@ -24,21 +24,21 @@ file_id=1EeK3jfCbO-8r1_BBJWy-k7v_O0uB8IzO #
 
 ################ download from Google drive  #############################
 
-#if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
-#    echo 'gdown found'
-#else
-#    echo 'gdown not found... installing'
-#    pip install gdown
-#fi
-#
-#if ! [ -f $DS_BASE_DIR/$file_id.tar ]
-#then
-#  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
-#fi
-#
-#
-#echo "Uncompressing $id.tar"
-#tar -xf $DS_BASE_DIR/$id.tar
+if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
+    echo 'gdown found'
+else
+    echo 'gdown not found... installing'
+    pip install gdown
+fi
+
+if ! [ -f $DS_BASE_DIR/$file_id.tar ]
+then
+  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
+fi
+
+
+echo "Uncompressing $id.tar"
+tar -xf $DS_BASE_DIR/$id.tar
 
 
 ################### Set up Stanford coreNlp #############################
