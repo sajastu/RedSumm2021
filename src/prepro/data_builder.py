@@ -49,7 +49,7 @@ def load_json(p, lower):
 
     source = [clean(' '.join(sent)).split() for sent in source]
     tgt = [clean(' '.join(sent)).split() for sent in tgt]
-    return source, tgt
+    return source, tgt, p.split('/')[-1]
 
 def load_json_1(p, lower):
     source = []
@@ -626,7 +626,7 @@ def format_to_lines(args):
 
 def _format_to_lines(params):
     f, args = params
-    print(f)
+    # print(f)
     try:
         source, tgt, id = load_json(f, args.lower)
     except:
