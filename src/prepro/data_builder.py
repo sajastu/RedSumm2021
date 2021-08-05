@@ -184,7 +184,7 @@ def tokenize(args):
     # make IO list file
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
-        for s in stories:
+        for s in tqdm(stories, total=len(stories)):
             year = s.split('-TLDR')[-1].replace('RC', '').replace('RS', '').replace('v2','').replace('_', '').strip().split('-')[0]
             if '-tldr_' in s.lower() and s not in prev_tokenized[year]:
                 f.write("%s\n" % (os.path.join(stories_dir, s)))
