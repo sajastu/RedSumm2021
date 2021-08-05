@@ -153,13 +153,42 @@ def tokenize(args):
     stories_dir = os.path.abspath(args.raw_path)
     tokenized_stories_dir = os.path.abspath(args.save_path)
 
+    prev_tokenized = {
+        '2005': [],
+        '2006': [],
+        '2007': [],
+        '2008': [],
+        '2009': [],
+        '2010': [],
+        '2011': [],
+        '2012': [],
+        '2013': [],
+        '2014': [],
+        '2015': [],
+        '2016': [],
+        '2017': [],
+        '2018': [],
+        '2019': [],
+        '2020': [],
+        '2021': []
+    }
+
+    print('Making Prev Tokenized list by year')
+    for f in tqdm(glob.glob(tokenized_stories_dir + '/*'), total=len(glob.glob(tokenized_stories_dir + '/*'))):
+
+        year = f.split('/')[-1].split('-TLDR')[-1].replace('RC', '').replace('RS', '').replace('v2','').replace('_', '').strip().split('-')[0]
+        prev_tokenized[year].append(f)
+
+
+    import pdb;pdb.set_trace()
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
     stories = os.listdir(stories_dir)
     # make IO list file
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in stories:
-            if '-tldr_' in s.lower():
+            year = s.split('-TLDR')[-1].replace('RC', '').replace('RS', '').replace('v2','').replace('_', '').strip().split('-')[0]
+            if '-tldr_' in s.lower() and s not in prev_tokenized[year]:
                 f.write("%s\n" % (os.path.join(stories_dir, s)))
 
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
