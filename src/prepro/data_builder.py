@@ -169,7 +169,6 @@ def tokenize(args):
     print('Sorting')
     prev_tokenized = sorted(prev_tokenized)
     print('Sorting done...')
-    import pdb;pdb.set_trace()
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
     stories = os.listdir(stories_dir)
     # make IO list file
