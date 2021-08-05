@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-id=m_0
+export id=m_4
 
 mkdir -p /tmp/RedSumm2021/src/logs/
 mkdir -p $DS_BASE_DIR/tokenized
@@ -78,7 +78,9 @@ mkdir -p $DS_BASE_DIR
 #
 #
 #
-#export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
+
+# don't comment
+export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 
 
 
@@ -90,12 +92,13 @@ mkdir -p $DS_BASE_DIR
 
 #
 #### PREPARING DATA
-#python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
-#python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
-#python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
+python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
+python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
+python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
 
+cd $DS_BASE_DIR
 echo "Compressing bert-files at $BERT_DATA_PATH"
-#tar -cf $id_bertfiles.tar $BERT_DATA_PATH
+tar -cf $id-bertfiles.tar bert-data-$id/
 
-#gupload
+gupload $DS_BASE_DIR/$id-bertfiles.tar
 
