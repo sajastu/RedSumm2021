@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-export id=m_4
+export id=m_3
 
 export DS_BASE_DIR=/home/code-base/lrg_split_machines/
 export RAW_PATH=$DS_BASE_DIR/$id/
