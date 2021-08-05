@@ -58,12 +58,13 @@ else
   if [ -d /home/code-base/toolkits/stanford-corenlp-4.2.2/ ]
   then
     rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
+    mkdir -p /home/code-base/toolkits/
+    mv stanford-corenlp-4.2.2 /home/code-base/toolkits
   fi
 fi
 
 
-mkdir -p /home/code-base/toolkits/
-mv stanford-corenlp-4.2.2 /home/code-base/toolkits
+
 export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 
 
