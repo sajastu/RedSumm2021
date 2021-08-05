@@ -12,18 +12,17 @@
 #file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 
 ## m2
-file_id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v #my_machine
+#file_id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v #my_machine
 
 ## m3
-##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd #my_machine
 
 ## m4
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 
 ##
 
-id=m_2
-
+id=m_3
 DS_BASE_DIR=/home/code-base/lrg_split_s/
 #mkdir -p $DS_BASE_DIR
 
@@ -31,8 +30,8 @@ DS_BASE_DIR=/home/code-base/lrg_split_s/
 pip install gdown
 current=pwd
 cd $DS_BASE_DIR
-#gdown --id $file_id -O $DS_BASE_DIR/
-wget --no-check-certificate 'https://drive.google.com/uc?id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v' -O $DS_BASE_DIR/
+gdown --id $file_id -O $DS_BASE_DIR/
+#wget --no-check-certificate 'https://drive.google.com/file/d/1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v/view?usp=sharing' -O $DS_BASE_DIR/$id.tar
 echo "uncompressing"
 tar -xf $id.tar
 cd $current
