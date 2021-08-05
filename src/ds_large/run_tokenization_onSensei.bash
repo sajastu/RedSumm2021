@@ -83,6 +83,6 @@ python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKEN
 python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
 
 
-#echo "Compressing bert-files"
-#tar -cf $id_bertfiles.tar $BERT_DATA_PATH
+echo "Compressing bert-files"
+tar -cf $id_bertfiles.tar $BERT_DATA_PATH
 
