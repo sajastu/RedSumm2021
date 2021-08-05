@@ -30,7 +30,7 @@ DS_BASE_DIR=/home/code-base/lrg_split_s/
 pip install gdown
 current=pwd
 cd $DS_BASE_DIR
-gdown --id $file_id -O $DS_BASE_DIR/
+gdown https://drive.google.com/uc?id=$file_id -O $DS_BASE_DIR/
 #wget --no-check-certificate 'https://drive.google.com/file/d/1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v/view?usp=sharing' -O $DS_BASE_DIR/$id.tar
 echo "uncompressing"
 tar -xf $id.tar
