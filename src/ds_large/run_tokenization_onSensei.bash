@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-id=m_3
+id=m_2
 DS_BASE_DIR=/home/code-base/lrg_split_machines/
 mkdir -p $DS_BASE_DIR
 
@@ -24,21 +24,21 @@ file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd # Franck's first
 
 ################ download from Google drive  #############################
 
-if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
-    echo 'gdown found'
-else
-    echo 'gdown not found... installing'
-    pip install gdown
-fi
-
-if ! [ -f $DS_BASE_DIR/$file_id.tar ]
-then
-  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
-fi
-
-
-echo "Uncompressing $id.tar"
-tar -xf $DS_BASE_DIR/$id.tar
+#if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
+#    echo 'gdown found'
+#else
+#    echo 'gdown not found... installing'
+#    pip install gdown
+#fi
+#
+#if ! [ -f $DS_BASE_DIR/$file_id.tar ]
+#then
+#  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
+#fi
+#
+#
+#echo "Uncompressing $id.tar"
+#tar -xf $DS_BASE_DIR/$id.tar
 
 
 ################### Set up Stanford coreNlp #############################
@@ -71,7 +71,8 @@ mkdir -p $DS_BASE_DIR/jsons
 mkdir -p $DS_BASE_DIR/bert-data
 
 
-export RAW_PATH=$DS_BASE_DIR/$id/
+export RAW_PATH=/home/code-base/tldr_dataset/machine_splits/$id
+#export RAW_PATH=$DS_BASE_DIR/$id/
 export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
