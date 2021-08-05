@@ -38,7 +38,7 @@ cur_dir=pwd
 #fi
 #
 #
-if ! [ -d $DS_BASE_DIR/$id ]
+if ! [ -d $DS_BASE_DIR/$id/ ]
 then
   echo "Uncompressing $id.tar"
   tar -xf $DS_BASE_DIR/$id.tar
