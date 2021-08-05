@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-export id=m_4
+export id=m_1
 
 mkdir -p /tmp/RedSumm2021/src/logs/
 mkdir -p $DS_BASE_DIR/tokenized
