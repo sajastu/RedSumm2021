@@ -150,43 +150,33 @@ def _add_set_to_filemaes(base_dir):
 
 
 def tokenize(args):
+    from bisect import bisect_left
+    def bi_contains(lst, item):
+        """ efficient `item in lst` for sorted lists """
+        # if item is larger than the last its not in the list, but the bisect would
+        # find `len(lst)` as the index to insert, so check that first. Else, if the
+        # item is in the list then it has to be at index bisect_left(lst, item)
+        return (item <= lst[-1]) and (lst[bisect_left(lst, item)] == item)
+
+
     stories_dir = os.path.abspath(args.raw_path)
     tokenized_stories_dir = os.path.abspath(args.save_path)
 
-    prev_tokenized = {
-        '2005': [],
-        '2006': [],
-        '2007': [],
-        '2008': [],
-        '2009': [],
-        '2010': [],
-        '2011': [],
-        '2012': [],
-        '2013': [],
-        '2014': [],
-        '2015': [],
-        '2016': [],
-        '2017': [],
-        '2018': [],
-        '2019': [],
-        '2020': [],
-        '2021': []
-    }
+    prev_tokenized = []
+    for f in glob.glob(tokenized_stories_dir + '/*'):
+        prev_tokenized.append(f.split('/')[-1].replace('.json', ''))
 
-    print('Making Prev Tokenized list by year')
-    for f in tqdm(glob.glob(tokenized_stories_dir + '/*'), total=len(glob.glob(tokenized_stories_dir + '/*'))):
-        year = f.split('/')[-1].split('-TLDR')[-1].replace('RC', '').replace('RS', '').replace('v2','').replace('_', '').strip().split('-')[0]
-        prev_tokenized[year].append(f)
-
-
+    print('Sorting')
+    prev_tokenized = sorted(prev_tokenized)
+    print('Sorting done...')
+    import pdb;pdb.set_trace()
     print("Preparing to tokenize %s to %s..." % (stories_dir, tokenized_stories_dir))
     stories = os.listdir(stories_dir)
     # make IO list file
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in tqdm(stories, total=len(stories)):
-            year = s.split('-TLDR')[-1].replace('RC', '').replace('RS', '').replace('v2','').replace('_', '').strip().split('-')[0]
-            if '-tldr_' in s.lower() and s not in prev_tokenized[year]:
+            if '-tldr_' in s.lower() and not bi_contains(prev_tokenized, s):
                 f.write("%s\n" % (os.path.join(stories_dir, s)))
 
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
