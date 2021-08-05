@@ -1,9 +1,20 @@
 
 #################  CONFIGS  #############################
-id=m_4
-DS_BASE_DIR=/home/code-base/lrg_split_machines/
+id=m_0
+
+mkdir -p /tmp/RedSumm2021/src/logs/
+mkdir -p $DS_BASE_DIR/tokenized
+mkdir -p $DS_BASE_DIR/jsons
+mkdir -p $DS_BASE_DIR/bert-data
+
+export DS_BASE_DIR=/home/code-base/lrg_split_machines/
+#export RAW_PATH=/home/code-base/tldr_dataset/machine_splits/$id
+export RAW_PATH=$DS_BASE_DIR/$id/
+export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
+export JSON_PATH=$DS_BASE_DIR/jsons/
+export BERT_DATA_PATH=$DS_BASE_DIR/bert-data-$id/
+
 mkdir -p $DS_BASE_DIR
-cur_dir=pwd
 
 ### file ids to be downloaded
 ## m0
@@ -38,59 +49,54 @@ cur_dir=pwd
 #fi
 #
 #
-if ! [ -d $DS_BASE_DIR/$id/ ]
-then
-  echo "Uncompressing $id.tar"
-  tar -xf $DS_BASE_DIR/$id.tar
-fi
-
-################### Set up Stanford coreNlp #############################
-
-if ! [ -f stanford-corenlp-4.2.2.zip ]
-then
-#  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-  perl /home/code-base/lrg_split_machines/gdown.pl/gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
-  cd $cur_dir
-fi
-
-if ! [ -d stanford-corenlp-4.2.2/ ]
-then
-  unzip stanford-corenlp-4.2.2.zip
-else
-  if [ -d /home/code-base/toolkits/stanford-corenlp-4.2.2/ ]
-  then
-    rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
-    mkdir -p /home/code-base/toolkits/
-    mv stanford-corenlp-4.2.2 /home/code-base/toolkits
-  fi
-fi
-
-
-
-export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
+#if ! [ -d $DS_BASE_DIR/$id/ ]
+#then
+#  echo "Uncompressing $id.tar"
+#  tar -xf $DS_BASE_DIR/$id.tar
+#fi
+#
+#################### Set up Stanford coreNlp #############################
+#
+#if ! [ -f stanford-corenlp-4.2.2.zip ]
+#then
+##  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
+#  perl /home/code-base/lrg_split_machines/gdown.pl/gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
+#  cd $cur_dir
+#fi
+#
+#if ! [ -d stanford-corenlp-4.2.2/ ]
+#then
+#  unzip stanford-corenlp-4.2.2.zip
+#else
+#  if [ -d /home/code-base/toolkits/stanford-corenlp-4.2.2/ ]
+#  then
+#    rm -rf /home/code-base/toolkits/stanford-corenlp-4.2.2/
+#    mkdir -p /home/code-base/toolkits/
+#    mv stanford-corenlp-4.2.2 /home/code-base/toolkits
+#  fi
+#fi
+#
+#
+#
+#export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 
 
 
 ##################### Now preprocessing
 
-mkdir -p /tmp/RedSumm2021/src/logs/
-mkdir -p $DS_BASE_DIR/tokenized
-mkdir -p $DS_BASE_DIR/jsons
-mkdir -p $DS_BASE_DIR/bert-data
 
+#
+#
 
-#export RAW_PATH=/home/code-base/tldr_dataset/machine_splits/$id
-export RAW_PATH=$DS_BASE_DIR/$id/
-export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
-export JSON_PATH=$DS_BASE_DIR/jsons/
-export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
-
-### PREPARING DATA
-python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
-python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
-python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
+#
+#### PREPARING DATA
+#python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
+#python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
+#python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
 
 
 echo "Compressing bert-files"
 tar -cf $id_bertfiles.tar $BERT_DATA_PATH
+
+#gupload
 
