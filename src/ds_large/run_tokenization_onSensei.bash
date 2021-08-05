@@ -1,21 +1,21 @@
 
 #################  CONFIGS  #############################
-id=m_2
+id=m_3
 DS_BASE_DIR=/home/code-base/lrg_split_machines/
 mkdir -p $DS_BASE_DIR
 
 ### file ids to be downloaded
 ## m0
-#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
+#file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk # my_machine
 #
 ## m1
 #file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 
 ## m2
-#file_id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v # skept
+#file_id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v # Franck's first
 
 ## m3
-file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd # Franck's first
+file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd # Nicole's
 
 ## m4
 ##file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
@@ -24,21 +24,21 @@ file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd # Franck's first
 
 ################ download from Google drive  #############################
 
-#if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
-#    echo 'gdown found'
-#else
-#    echo 'gdown not found... installing'
-#    pip install gdown
-#fi
-#
-#if ! [ -f $DS_BASE_DIR/$file_id.tar ]
-#then
-#  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
-#fi
-#
-#
-#echo "Uncompressing $id.tar"
-#tar -xf $DS_BASE_DIR/$id.tar
+if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
+    echo 'gdown found'
+else
+    echo 'gdown not found... installing'
+    pip install gdown
+fi
+
+if ! [ -f $DS_BASE_DIR/$file_id.tar ]
+then
+  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
+fi
+
+
+echo "Uncompressing $id.tar"
+tar -xf $DS_BASE_DIR/$id.tar
 
 
 ################### Set up Stanford coreNlp #############################
@@ -71,8 +71,8 @@ mkdir -p $DS_BASE_DIR/jsons
 mkdir -p $DS_BASE_DIR/bert-data
 
 
-export RAW_PATH=/home/code-base/tldr_dataset/machine_splits/$id
-#export RAW_PATH=$DS_BASE_DIR/$id/
+#export RAW_PATH=/home/code-base/tldr_dataset/machine_splits/$id
+export RAW_PATH=$DS_BASE_DIR/$id/
 export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data/
