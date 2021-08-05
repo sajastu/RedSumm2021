@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-id=m_1
+id=m_2
 DS_BASE_DIR=/home/code-base/lrg_split_machines/
 mkdir -p $DS_BASE_DIR
 
@@ -9,10 +9,10 @@ mkdir -p $DS_BASE_DIR
 #file_id=1Xzr3ZUbWLTcxFPUdTAsKwsL_T0PHLSHk #my_machine
 #
 ## m1
-file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
+#file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 
 ## m2
-#file_id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v #my_machine
+file_id=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v #my_machine
 
 ## m3
 #file_id=1ezy40ErwlkFNXlMx38mHItiFqynP6nbd #my_machine
@@ -24,21 +24,21 @@ file_id=18cSS5U1CxyvlaTGeKupZaRXg8Ud9RLuL #Franck -bart
 
 ################ download from Google drive  #############################
 
-#if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
-#    echo 'gdown found'
-#else
-#    echo 'gdown not found... installing'
-#    pip install gdown
-#fi
-#
-#if ! [ -f $DS_BASE_DIR/$file_id.tar ]
-#then
-#  gdown --id $file_id -O $DS_BASE_DIR
-#fi
-#
-#
-#echo "Uncompressing $id.tar"
-#tar -xf $DS_BASE_DIR/$id.tar
+if python -c 'import pkgutil; exit(not pkgutil.find_loader("gdown"))'; then
+    echo 'gdown found'
+else
+    echo 'gdown not found... installing'
+    pip install gdown
+fi
+
+if ! [ -f $DS_BASE_DIR/$file_id.tar ]
+then
+  gdown --id $file_id -O $DS_BASE_DIR/$file_id.tar
+fi
+
+
+echo "Uncompressing $id.tar"
+tar -xf $DS_BASE_DIR/$id.tar
 
 
 ################### Set up Stanford coreNlp #############################
