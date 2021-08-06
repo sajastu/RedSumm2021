@@ -52,7 +52,7 @@ class ReportMgrBase(object):
         logger.info(*args, **kwargs)
 
     def report_training(self, step, num_steps, learning_rate,
-                        report_stats, multigpu=False):
+                        report_stats, multigpu=False, wandb=None):
         """
         This is the user-defined batch-level traing progress
         report function.
@@ -74,7 +74,7 @@ class ReportMgrBase(object):
                 report_stats = \
                     Statistics.all_gather_stats(report_stats)
             self._report_training(
-                step, num_steps, learning_rate, report_stats)
+                step, num_steps, learning_rate, report_stats, wandb=wandb)
             self.progress_step += 1
             return Statistics()
         else:
@@ -120,12 +120,20 @@ class ReportMgr(ReportMgrBase):
                 prefix, self.tensorboard_writer, learning_rate, step)
 
     def _report_training(self, step, num_steps, learning_rate,
-                         report_stats):
+                         report_stats, wandb=None):
         """
         See base class method `ReportMgrBase.report_training`.
         """
         report_stats.output(step, num_steps,
                             learning_rate, self.start_time)
+
+        wandb.log(
+            {
+                "progress_loss": report_stats.xent(),
+                "lr": learning_rate
+            },
+            step=step
+        )
 
         # Log the progress using the number of batches on the x-axis.
         self.maybe_log_tensorboard(report_stats,
@@ -171,6 +179,7 @@ class Statistics(object):
         self.loss = loss
         self.n_docs = n_docs
         self.start_time = time.time()
+
 
     @staticmethod
     def all_gather_stats(stat, max_size=4096):
@@ -270,3 +279,4 @@ class Statistics(object):
         t = self.elapsed_time()
         writer.add_scalar(prefix + "/xent", self.xent(), step)
         writer.add_scalar(prefix + "/lr", learning_rate, step)
+

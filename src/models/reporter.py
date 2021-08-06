@@ -112,11 +112,11 @@ class ReportMgr(ReportMgrBase):
 
     def maybe_log_tensorboard(self, stats, prefix, learning_rate, step):
         if self.tensorboard_writer is not None:
-            stats.log_tensorboard(
+            stats.log_te_report_trainingnsorboard(
                 prefix, self.tensorboard_writer, learning_rate, step)
 
     def _report_training(self, step, num_steps, learning_rate,
-                         report_stats):
+                         report_stats, wandb=None):
         """
         See base class method `ReportMgrBase.report_training`.
         """

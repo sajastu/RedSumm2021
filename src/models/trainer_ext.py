@@ -10,7 +10,7 @@ from models.reporter_ext import ReportMgr, Statistics
 from others.logging import logger
 from others.utils import test_rouge, rouge_results_to_str
 from utils.rouge_score import evaluate_rouge_avg
-
+import wandb
 
 def _tally_parameters(model):
     n_params = sum([p.nelement() for p in model.parameters()])
@@ -124,7 +124,8 @@ class Trainer(object):
             None
         """
         logger.info('Start training...')
-
+        wandb.init(project=self.args.model_path.split('/')[-1], entity='sajastu')
+        wandb.config.update(self.args)
         # step =  self.optim._step + 1
         step = self.optim._step + 1
         true_batchs = []
@@ -161,10 +162,15 @@ class Trainer(object):
                             self.optim.learning_rate,
                             report_stats)
 
+                        self.report_to_wandb(report_stats, step=step, type='train')
+
                         true_batchs = []
                         accum = 0
                         normalization = 0
                         if (step % self.save_checkpoint_steps == 0 and self.gpu_rank == 0):
+                            valid_iter = valid_iter_fct()
+                            val_stats = self.validate(valid_iter=valid_iter)
+                            self.report_to_wandb(val_stats, step=step, type='valid')
                             self._save(step)
 
                         step += 1
@@ -434,10 +440,12 @@ class Trainer(object):
         Simple function to report training stats (if report_manager is set)
         see `onmt.utils.ReportManagerBase.report_training` for doc
         """
+
         if self.report_manager is not None:
+
             return self.report_manager.report_training(
                 step, num_steps, learning_rate, report_stats,
-                multigpu=self.n_gpu > 1)
+                multigpu=self.n_gpu > 1, wandb=wandb)
 
     def _report_step(self, learning_rate, step, train_stats=None,
                      valid_stats=None):
@@ -456,3 +464,12 @@ class Trainer(object):
         """
         if self.model_saver is not None:
             self.model_saver.maybe_save(step)
+
+    def report_to_wandb(self, stats, step, type):
+        wandb.log(
+            {
+                type + '_loss': stats.xent(),
+                type + '_lr': self.optim.learning_rate
+            },
+            step=step
+        )
