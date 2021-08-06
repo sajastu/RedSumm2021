@@ -10,7 +10,6 @@ from models.reporter_ext import ReportMgr, Statistics
 from others.logging import logger
 from others.utils import test_rouge, rouge_results_to_str
 from utils.rouge_score import evaluate_rouge_avg
-import wandb
 
 def _tally_parameters(model):
     n_params = sum([p.nelement() for p in model.parameters()])
@@ -105,7 +104,7 @@ class Trainer(object):
         if (model):
             self.model.train()
 
-    def train(self, train_iter_fct, train_steps, valid_iter_fct=None, valid_steps=-1, wandb=None):
+    def train(self, train_iter_fct, train_steps, valid_iter_fct=None, valid_steps=-1):
         """
         The main training loops.
         by iterating over training data (i.e. `train_iter_fct`)
@@ -161,7 +160,6 @@ class Trainer(object):
                             self.optim.learning_rate,
                             report_stats)
 
-                        self.report_to_wandb(report_stats, step=step, type='train')
 
                         true_batchs = []
                         accum = 0
@@ -169,7 +167,6 @@ class Trainer(object):
                         if (step % self.save_checkpoint_steps == 0 and self.gpu_rank == 0):
                             valid_iter = valid_iter_fct()
                             val_stats = self.validate(valid_iter=valid_iter)
-                            self.report_to_wandb(val_stats, step=step, type='valid')
                             self._save(step)
 
                         step += 1
@@ -444,7 +441,7 @@ class Trainer(object):
 
             return self.report_manager.report_training(
                 step, num_steps, learning_rate, report_stats,
-                multigpu=self.n_gpu > 1, wandb=wandb)
+                multigpu=self.n_gpu > 1)
 
     def _report_step(self, learning_rate, step, train_stats=None,
                      valid_stats=None):
@@ -463,12 +460,3 @@ class Trainer(object):
         """
         if self.model_saver is not None:
             self.model_saver.maybe_save(step)
-
-    def report_to_wandb(self, stats, step, type):
-        wandb.log(
-            {
-                type + '_loss': stats.xent(),
-                type + '_lr': self.optim.learning_rate
-            },
-            step=step
-        )

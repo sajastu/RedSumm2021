@@ -19,7 +19,6 @@ from models.data_loader import load_dataset
 from models.model_builder import ExtSummarizer
 from models.trainer_ext import build_trainer
 from others.logging import logger, init_logger
-import wandb
 
 model_flags = ['hidden_size', 'ff_size', 'heads', 'inter_layers', 'encoder', 'ff_actv', 'use_interval', 'rnn_size']
 
@@ -288,8 +287,5 @@ def train_single_ext(args, device_id):
 
     logger.info(model)
 
-    wandb.init(project=args.model_path.split('/')[-1], entity='sajastu')
-    wandb.config.update(args)
-
     trainer = build_trainer(args, device_id, model, optim)
-    trainer.train(train_iter_fct, args.train_steps, valid_iter_fct=val_iter_fct, wandb=wandb)
+    trainer.train(train_iter_fct, args.train_steps, valid_iter_fct=val_iter_fct)
