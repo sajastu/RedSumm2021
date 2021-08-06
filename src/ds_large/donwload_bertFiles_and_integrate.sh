@@ -18,10 +18,10 @@ URL_m3=https://drive.google.com/file/d/1-PuqDptfdrCQAXSetJkKK-Oj8cj27Ri3/edit
 URL_m4=https://drive.google.com/file/d/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-/edit
 
 ################## first Download bertFiles [m0, ..., m4]
-perl gdown.pl/gdown.pl  $STORE_DIR/m0-bertFiles.tar
-perl gdown.pl/gdown.pl  $STORE_DIR/m1-bertFiles.tar
-perl gdown.pl/gdown.pl  $STORE_DIR/m3-bertFiles.tar
-perl gdown.pl/gdown.pl  $STORE_DIR/m4-bertFiles.tar
+perl gdown/gdownload.pl  $STORE_DIR/m0-bertFiles.tar
+perl gdown/gdownload.pl  $STORE_DIR/m1-bertFiles.tar
+perl gdown/gdownload.pl  $STORE_DIR/m3-bertFiles.tar
+perl gdown/gdownload.pl  $STORE_DIR/m4-bertFiles.tar
 
 
 ################## Uncompressing bertfiles, should note that it should not interfere names
