@@ -2,7 +2,7 @@
 
 ##################  Configs
 
-export STORE_DIR=/home/code-base/large_reddit_bertfiles/
+export STORE_DIR=/home/code-base/large_reddit_bertfiles
 mkdir -p $STORE_DIR
 
 # m0
@@ -15,7 +15,7 @@ URL_m1=https://drive.google.com/file/d/19tenZFat7Sj1_gLaHg1iKf7_Ng_L2Jmj/edit
 URL_m2=https://drive.google.com/file/d/12GhzLqRxBzciBbbSOkv2XzaChzGBT3r2/view
 
 # m3
-URL_m3=https://drive.google.com/file/d/1u5IDMSV8uc34o0bx9B9FjkQOUf7K-RjD/view
+URL_m3=https://drive.google.com/file/d/ /view
 
 # m4
 URL_m4=https://drive.google.com/file/d/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-/edit
@@ -24,8 +24,8 @@ URL_m4=https://drive.google.com/file/d/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-/edit
 #perl gdown/gdownload.pl  $URL_m0 m0-bertFiles.tar
 #perl gdown/gdownload.pl  $URL_m1 m1-bertFiles.tar
 cd gdown
-perl gdownload.pl  $URL_m2 m_2-bertfiles.tar
-perl gdownload.pl  $URL_m3 m_3-bertfiles.tar
+perl gdownload.pl  $URL_m2 $STORE_DIR/m_2-bertfiles.tar
+perl gdownload.pl  $URL_m3 $STORE_DIR/m_3-bertfiles.tar
 
 #perl gdown/gdownload.pl  $URL_m4 m4-bertFiles.tar
 
@@ -36,11 +36,11 @@ perl gdownload.pl  $URL_m3 m_3-bertfiles.tar
 
 #tar -xf m1-bertFiles.tar --directory $STORE_DIR/
 #rm m1-bertFiles.tar
-
-tar -xf m_2-bertfiles.tar --directory $STORE_DIR/
+cd $STORE_DIR
+tar -xf m_2-bertfiles.tar
 rm m_2-bertfiles.tar
 
-tar -xf m_3-bertfiles.tar --directory $STORE_DIR/
+tar -xf m_3-bertfiles.tar
 rm m_3-bertfiles.tar
 
 #tar -xf m4-bertFiles.tar --directory $STORE_DIR/
