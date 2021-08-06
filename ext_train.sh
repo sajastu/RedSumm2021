@@ -3,7 +3,6 @@
 
 
 export BERT_DATA_PATH=/home/code-base/large_reddit_bertfiles/
-#export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/presum-reddit-1024-cnnFinetuned
 export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/bertExt-reddit-1024/
 
 mkdir -p logs
