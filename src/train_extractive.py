@@ -19,6 +19,7 @@ from models.data_loader import load_dataset
 from models.model_builder import ExtSummarizer
 from models.trainer_ext import build_trainer
 from others.logging import logger, init_logger
+import wandb
 
 model_flags = ['hidden_size', 'ff_size', 'heads', 'inter_layers', 'encoder', 'ff_actv', 'use_interval', 'rnn_size']
 
@@ -278,10 +279,17 @@ def train_single_ext(args, device_id):
         return data_loader.Dataloader(args, load_dataset(args, 'train', shuffle=True), args.batch_size, device,
                                       shuffle=True, is_test=False)
 
+    def val_iter_fct():
+            return data_loader.Dataloader(args, load_dataset(args, 'val', shuffle=True), args.batch_size, device,
+                                          shuffle=False, is_test=True)
+
     model = ExtSummarizer(args, device, checkpoint)
     optim = model_builder.build_optim(args, model, checkpoint)
 
     logger.info(model)
 
+    wandb.init(project=args.model_path.split('/')[-1], entity='sajastu')
+    wandb.config.update(args)
+
     trainer = build_trainer(args, device_id, model, optim)
-    trainer.train(train_iter_fct, args.train_steps)
+    trainer.train(train_iter_fct, args.train_steps, valid_iter_fct=val_iter_fct, wandb=wandb)

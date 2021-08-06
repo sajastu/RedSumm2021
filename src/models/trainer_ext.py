@@ -105,7 +105,7 @@ class Trainer(object):
         if (model):
             self.model.train()
 
-    def train(self, train_iter_fct, train_steps, valid_iter_fct=None, valid_steps=-1):
+    def train(self, train_iter_fct, train_steps, valid_iter_fct=None, valid_steps=-1, wandb=None):
         """
         The main training loops.
         by iterating over training data (i.e. `train_iter_fct`)
@@ -124,8 +124,7 @@ class Trainer(object):
             None
         """
         logger.info('Start training...')
-        wandb.init(project=self.args.model_path.split('/')[-1], entity='sajastu')
-        wandb.config.update(self.args)
+
         # step =  self.optim._step + 1
         step = self.optim._step + 1
         true_batchs = []
