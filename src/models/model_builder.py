@@ -185,13 +185,13 @@ class ExtSummarizer(nn.Module):
     def forward(self, src, segs, clss, mask_src, mask_cls):
         try:
             top_vec = self.bert(src, segs, mask_src)
+
+            sents_vec = top_vec[torch.arange(top_vec.size(0)).unsqueeze(1), clss]
+            sents_vec = sents_vec * mask_cls[:, :, None].float()
+            sent_scores = self.ext_layer(sents_vec, mask_cls).squeeze(-1)
+            return sent_scores, mask_cls
         except:
             import pdb;pdb.set_trace()
-        sents_vec = top_vec[torch.arange(top_vec.size(0)).unsqueeze(1), clss]
-        sents_vec = sents_vec * mask_cls[:, :, None].float()
-        sent_scores = self.ext_layer(sents_vec, mask_cls).squeeze(-1)
-        return sent_scores, mask_cls
-
 
 class AbsSummarizer(nn.Module):
     def __init__(self, args, device, checkpoint=None, bert_from_extractive=None):
