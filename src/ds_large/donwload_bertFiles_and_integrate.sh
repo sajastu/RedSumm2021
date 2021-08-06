@@ -12,10 +12,10 @@ URL_m0=https://drive.google.com/file/d/17t1ADPuRdiyDUdTULDtRj59vpviVgAOO/edit
 URL_m1=https://drive.google.com/file/d/19tenZFat7Sj1_gLaHg1iKf7_Ng_L2Jmj/edit
 
 # m2
-URL_m2=https://drive.google.com/file/d/12GhzLqRxBzciBbbSOkv2XzaChzGBT3r2/view?usp=sharing
+URL_m2=https://drive.google.com/file/d/12GhzLqRxBzciBbbSOkv2XzaChzGBT3r2/view
 
 # m3
-URL_m3=https://drive.google.com/file/d/1u5IDMSV8uc34o0bx9B9FjkQOUf7K-RjD/view?usp=sharing
+URL_m3=https://drive.google.com/file/d/1u5IDMSV8uc34o0bx9B9FjkQOUf7K-RjD/view
 
 # m4
 URL_m4=https://drive.google.com/file/d/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-/edit
