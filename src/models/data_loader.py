@@ -1,6 +1,7 @@
 import bisect
 import gc
 import glob
+import os
 import random
 
 import torch
@@ -86,8 +87,20 @@ def load_dataset(args, corpus_type, shuffle):
                     (corpus_type, pt_file, len(dataset)))
         return dataset
 
+    if corpus_type=='valid':
+        corpus_type = 'validation'
+
     # Sort the glob output by file name (by increasing indexes).
-    pts = sorted(glob.glob(args.bert_data_path + '/' + corpus_type + '.[0-9]*.pt'))
+    # pts = sorted(glob.glob(args.bert_data_path + '/' + corpus_type + '.[0-9]*.pt'))
+
+    pts = []
+    for root, dirs, files in os.walk(args.bert_data_path, topdown=False):
+        for name in files:
+            if corpus_type in name:
+                pts.append(os.path.join(root, name))
+    import pdb;pdb.set_trace()
+    pts = sorted(pts)
+
     if pts:
         if (shuffle):
             random.shuffle(pts)
