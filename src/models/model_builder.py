@@ -185,7 +185,6 @@ class ExtSummarizer(nn.Module):
                 for p in self.ext_layer.parameters():
                     if p.dim() > 1:
                         xavier_uniform_(p)
-        import pdb;pdb.set_trace()
         self.to(device)
 
     def forward(self, src, segs, clss, mask_src, mask_cls):
