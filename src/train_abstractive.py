@@ -326,6 +326,11 @@ def train_abs_single(args, device_id):
         return data_loader.Dataloader(args, load_dataset(args, 'train', shuffle=True), args.batch_size, device,
                                       shuffle=True, is_test=False)
 
+    def valid_iter_fct():
+        return data_loader.Dataloader(args, load_dataset(args, 'valid', shuffle=True), args.test_batch_size, device,
+                                      shuffle=True, is_test=False)
+
+
     model = AbsSummarizer(args, device, checkpoint, bert_from_extractive)
     if (args.sep_optim):
         optim_bert = model_builder.build_optim_bert(args, model, checkpoint)
