@@ -62,7 +62,7 @@ mkdir -p $BERT_DATA_PATH
 #if ! [ -f stanford-corenlp-4.2.2.zip ]
 #then
 ##  wget -O stanford-corenlp-4.2.2.zip https://nlp.stanford.edu/software/stanford-corenlp-4.2.2.zip
-#  perl /home/code-base/lrg_split_machines/gdown.pl/gdown.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
+#  perl /home/code-base/lrg_split_machines/gdownload.pl/gdownload.pl https://drive.google.com/file/d/1mH34x7LF9RSYe6CSHP_lywbRBr2mon2B/edit stanford-corenlp-4.2.2.zip
 #  cd $cur_dir
 #fi
 #
