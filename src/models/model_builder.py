@@ -133,12 +133,13 @@ class Bert(nn.Module):
             my_pos_embeddings.weight.data[512:] = self.model.embeddings.position_embeddings.weight.data[-1][None,
                                                   :].repeat(args.max_pos - 512, 1)
             self.model.embeddings.position_embeddings = my_pos_embeddings
-            import pdb;pdb.set_trace()
 
         self.finetune = finetune
 
     def forward(self, x, segs, mask):
         if(self.finetune):
+            import pdb;pdb.set_trace()
+
             top_vec = self.model(input_ids=x, token_type_ids=segs, attention_mask=mask)['last_hidden_state']
             # top_vec, _ = self.model(x, token_type_ids=segs, attention_mask=mask)
         else:
