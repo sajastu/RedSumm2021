@@ -162,12 +162,18 @@ class ExtSummarizer(nn.Module):
                                      num_hidden_layers=args.ext_layers, num_attention_heads=args.ext_heads, intermediate_size=args.ext_ff_size)
             self.bert.model = BertModel(bert_config)
             self.ext_layer = Classifier(self.bert.model.config.hidden_size)
+        # state_dict['bert.embeddings.position_embeddings.weight']
+        # if(args.max_pos>512):
+        #     my_pos_embeddings = nn.Embedding(args.max_pos, self.bert.model.config.hidden_size)
+        #     my_pos_embeddings.weight.data[:512] = self.bert.model.embeddings.position_embeddings.weight.data
+        #     my_pos_embeddings.weight.data[512:] = self.bert.model.embeddings.position_embeddings.weight.data[-1][None,:].repeat(args.max_pos-512,1)
+        #     self.bert.model.embeddings.position_embeddings = my_pos_embeddings
 
-        if(args.max_pos>512):
-            my_pos_embeddings = nn.Embedding(args.max_pos, self.bert.model.config.hidden_size)
-            my_pos_embeddings.weight.data[:512] = self.bert.model.embeddings.position_embeddings.weight.data
-            my_pos_embeddings.weight.data[512:] = self.bert.model.embeddings.position_embeddings.weight.data[-1][None,:].repeat(args.max_pos-512,1)
-            self.bert.model.embeddings.position_embeddings = my_pos_embeddings
+        # my_pos_embeddings = nn.Embedding(1024, 768)
+        # my_pos_embeddings.weight.data[:512] = state_dict['bert.embeddings.position_embeddings.weight']
+        # my_pos_embeddings.weight.data[512:] = state_dict['bert.embeddings.position_embeddings.weight'][-1][None,
+        #                                       :].repeat(args.max_pos - 512, 1)
+        # state_dict['bert.embeddings.position_embeddings.weight'] = my_pos_embeddings
 
         if checkpoint is not None:
             self.load_state_dict(checkpoint['model'], strict=True)
