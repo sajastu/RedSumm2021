@@ -279,7 +279,7 @@ def train_single_ext(args, device_id):
                                       shuffle=True, is_test=False)
 
     def val_iter_fct():
-            return data_loader.Dataloader(args, load_dataset(args, 'valid', shuffle=True), args.batch_size, device,
+            return data_loader.Dataloader(args, load_dataset(args, 'valid', shuffle=True), args.test_batch_size, device,
                                           shuffle=False, is_test=True)
 
     model = ExtSummarizer(args, device, checkpoint)
