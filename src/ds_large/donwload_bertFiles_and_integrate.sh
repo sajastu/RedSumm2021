@@ -20,10 +20,10 @@ URL_m4=https://drive.google.com/file/d/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-/edit
 ################## first Download bertFiles [m0, ..., m4]
 curr=pwd
 cd $STORE_DIR
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  m0-bertFiles.tar
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  m1-bertFiles.tar
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  m3-bertFiles.tar
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  m4-bertFiles.tar
+perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m0 m0-bertFiles.tar
+perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m1 m1-bertFiles.tar
+perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m3 m3-bertFiles.tar
+perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m4 m4-bertFiles.tar
 
 
 ################## Uncompressing bertfiles, should note that it should not interfere names
