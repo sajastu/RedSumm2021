@@ -98,7 +98,6 @@ def load_dataset(args, corpus_type, shuffle):
         for name in files:
             if corpus_type in name:
                 pts.append(os.path.join(root, name))
-    import pdb;pdb.set_trace()
     pts = sorted(pts)
 
     if pts:
