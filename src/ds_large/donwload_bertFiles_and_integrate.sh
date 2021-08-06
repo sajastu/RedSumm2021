@@ -24,8 +24,8 @@ URL_m4=https://drive.google.com/file/d/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-/edit
 #perl gdown/gdownload.pl  $URL_m0 m0-bertFiles.tar
 #perl gdown/gdownload.pl  $URL_m1 m1-bertFiles.tar
 cd gdown
-perl gdownload.pl  $URL_m2 m2-bertFiles.tar
-perl gdownload.pl  $URL_m3 m3-bertFiles.tar
+perl gdownload.pl  $URL_m2 m_2-bertfiles.tar
+perl gdownload.pl  $URL_m3 m_3-bertfiles.tar
 
 #perl gdown/gdownload.pl  $URL_m4 m4-bertFiles.tar
 
@@ -37,11 +37,11 @@ perl gdownload.pl  $URL_m3 m3-bertFiles.tar
 #tar -xf m1-bertFiles.tar --directory $STORE_DIR/
 #rm m1-bertFiles.tar
 
-tar -xf m2-bertFiles.tar --directory $STORE_DIR/
-rm m2-bertFiles.tar
+tar -xf m_2-bertfiles.tar --directory $STORE_DIR/
+rm m_2-bertfiles.tar
 
-tar -xf m3-bertFiles.tar --directory $STORE_DIR/
-rm m3-bertFiles.tar
+tar -xf m_3-bertfiles.tar --directory $STORE_DIR/
+rm m_3-bertfiles.tar
 
 #tar -xf m4-bertFiles.tar --directory $STORE_DIR/
 #rm m4-bertFiles.tar
