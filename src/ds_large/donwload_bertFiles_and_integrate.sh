@@ -2,8 +2,8 @@
 
 ##################  Configs
 
-mkdir -p $STORE_DIR
 export STORE_DIR=/home/code-base/large_reddit_bertfiles/
+mkdir -p $STORE_DIR
 
 # m0
 URL_m0=https://drive.google.com/file/d/17t1ADPuRdiyDUdTULDtRj59vpviVgAOO/edit
