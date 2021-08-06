@@ -3,7 +3,7 @@ export BERT_DATA_PATH=/home/code-base/user_space/datasets/reddit-tifu/bert-data/
 export MODEL_PATH=/home/code-base/user_space/saved_models/bertsum/BertAbs-reddit-1024
 mkdir -p logs
 
-python train.py -task abs -mode train \
+python src/train.py -task abs -mode train \
                 -bert_data_path $BERT_DATA_PATH -dec_dropout 0.2  -model_path $MODEL_PATH \
                 -sep_optim true -lr_bert 0.002 -lr_dec 0.1 -save_checkpoint_steps 100 \
                 -batch_size 5000 -test_batch_size 10000 -train_steps 1500000 -report_every 100 -accum_count 5 \
