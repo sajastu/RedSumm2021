@@ -350,4 +350,4 @@ def train_abs_single(args, device_id):
 
     trainer = build_trainer(args, device_id, model, optim, train_loss)
 
-    trainer.train(train_iter_fct, args.train_steps)
+    trainer.train(train_iter_fct, args.train_steps, valid_iter_fct=valid_iter_fct)
