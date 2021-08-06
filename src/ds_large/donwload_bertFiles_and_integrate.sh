@@ -18,17 +18,22 @@ URL_m3=https://drive.google.com/file/d/1-PuqDptfdrCQAXSetJkKK-Oj8cj27Ri3/edit
 URL_m4=https://drive.google.com/file/d/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-/edit
 
 ################## first Download bertFiles [m0, ..., m4]
-curr=pwd
-cd $STORE_DIR
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m0 m0-bertFiles.tar
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m1 m1-bertFiles.tar
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m3 m3-bertFiles.tar
-perl /tmp/RedSumm2021/src/ds_large/gdown/gdownload.pl  $URL_m4 m4-bertFiles.tar
+perl gdown/gdownload.pl  $URL_m0 m0-bertFiles.tar
+perl gdown/gdownload.pl  $URL_m1 m1-bertFiles.tar
+perl gdown/gdownload.pl  $URL_m3 m3-bertFiles.tar
+perl gdown/gdownload.pl  $URL_m4 m4-bertFiles.tar
 
 
 ################## Uncompressing bertfiles, should note that it should not interfere names
 
-tar -xf $STORE_DIR/m0-bertFiles.tar --directory $STORE_DIR/
-tar -xf $STORE_DIR/m1-bertFiles.tar --directory $STORE_DIR/
-tar -xf $STORE_DIR/m2-bertFiles.tar --directory $STORE_DIR/
-tar -xf $STORE_DIR/m3-bertFiles.tar --directory $STORE_DIR/
+tar -xf m0-bertFiles.tar --directory $STORE_DIR/
+rm m0-bertFiles.tar
+
+tar -xf m1-bertFiles.tar --directory $STORE_DIR/
+rm m1-bertFiles.tar
+
+tar -xf m4-bertFiles.tar --directory $STORE_DIR/
+rm m2-bertFiles.tar
+
+tar -xf m4-bertFiles.tar --directory $STORE_DIR/
+rm m4-bertFiles.tar
