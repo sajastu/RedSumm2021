@@ -351,7 +351,10 @@ class Trainer(object):
 
             sent_scores, mask = self.model(src, segs, clss, mask, mask_cls)
 
-            loss = self.loss(sent_scores, labels.float())
+            try:
+                loss = self.loss(sent_scores, labels.float())
+            except:
+                loss =0
             loss = (loss * mask.float()).sum()
 
             (loss / loss.numel()).backward()
