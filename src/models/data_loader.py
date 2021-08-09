@@ -100,15 +100,17 @@ def load_dataset(args, corpus_type, shuffle):
                 pts.append(os.path.join(root, name))
     pts = sorted(pts)
 
-    if corpus_type == 'train':
-        import pdb;pdb.set_trace()
-        restarted_idx = pts.index('/home/code-base/large_reddit_bertfiles/bert-data-m_4/train.22.bert.pt')
-        pts = pts[restarted_idx:] + pts[:restarted_idx]
+
 
 
     if pts:
         if (shuffle):
             random.shuffle(pts)
+            if corpus_type == 'train':
+                import pdb;
+                pdb.set_trace()
+                restarted_idx = pts.index('/home/code-base/large_reddit_bertfiles/bert-data-m_4/train.22.bert.pt')
+                pts = pts[restarted_idx:] + pts[:restarted_idx]
 
         for pt in pts:
             yield _lazy_dataset_loader(pt, corpus_type)
