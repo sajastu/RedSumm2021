@@ -350,11 +350,11 @@ class Trainer(object):
             mask_cls = batch.mask_cls
 
             sent_scores, mask = self.model(src, segs, clss, mask, mask_cls)
-
             try:
                 loss = self.loss(sent_scores, labels.float())
             except:
-                loss =0
+                continue
+
             loss = (loss * mask.float()).sum()
 
             (loss / loss.numel()).backward()
