@@ -1,10 +1,10 @@
 
 #################  CONFIGS  #############################
-export id=m_1
+export id=m_2
 
 export DS_BASE_DIR=/home/code-base/lrg_split_machines/
 export RAW_PATH=$DS_BASE_DIR/$id/
-export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
+export TOKENIZED_PATH=$DS_BASE_DIR/tokenized_$id/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data-$id/
 
@@ -94,13 +94,12 @@ mkdir -p $BERT_DATA_PATH
 
 #
 #### PREPARING DATA
-#python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
+python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
 #python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
-python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
+#python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
 
 cd $DS_BASE_DIR
 echo "Compressing bert-files at $BERT_DATA_PATH"
-tar -cf $id-bertfiles.tar bert-data-$id/
+tar -cf tokenized_$id.tar tokenized_$id/
 
-gupload $DS_BASE_DIR/$id-bertfiles.tar
-
+gupload tokenized_$id.tar

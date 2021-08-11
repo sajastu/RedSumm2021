@@ -108,7 +108,7 @@ def load_dataset(args, corpus_type, shuffle):
             random.seed(8080)
             random.shuffle(pts)
             if corpus_type == 'train':
-                restarted_idx = pts.index('/home/code-base/large_reddit_bertfiles/bert-data-m_3/train.117.bert.pt')
+                restarted_idx = pts.index('/home/code-base/large_reddit_bertfiles/bert-data-m_3/train.23.bert.pt')
                 pts = pts[restarted_idx:] + pts[:restarted_idx]
 
         for pt in pts:
