@@ -165,7 +165,7 @@ def tokenize(args):
 
     prev_tokenized = []
     for f in glob.glob(tokenized_stories_dir + '/*'):
-        prev_tokenized.append(f.split('/')[-1].replace('.json', ''))
+        prev_tokenized.append(f.split('/')[-1].replace('.json', '').lower())
 
     print('Sorting')
     prev_tokenized = sorted(prev_tokenized)
@@ -174,12 +174,16 @@ def tokenize(args):
     stories = os.listdir(stories_dir)
     # make IO list file
     print("Making list of files to tokenize...")
+    c=0
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in tqdm(stories, total=len(stories)):
-            import pdb;pdb.set_trace()
-            if '-tldr_' in s.lower() and not bi_contains(prev_tokenized, s):
+            if '-tldr_' in s.lower() and not bi_contains(prev_tokenized, s.lower()):
                 # if '-tldr_' in s.lower():
                     f.write("%s\n" % (os.path.join(stories_dir, s)))
+                    c+=1
+
+
+    print(f'Actuall tokeninzing: {c}')
 
     command = ['java', 'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators', 'tokenize,ssplit',
                '-ssplit.newlineIsSentenceBreak', 'always', '-filelist', 'mapping_for_corenlp.txt', '-outputFormat',
