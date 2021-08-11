@@ -176,6 +176,7 @@ def tokenize(args):
     print("Making list of files to tokenize...")
     with open("mapping_for_corenlp.txt", "w") as f:
         for s in tqdm(stories, total=len(stories)):
+            import pdb;pdb.set_trace()
             if '-tldr_' in s.lower() and not bi_contains(prev_tokenized, s):
                 # if '-tldr_' in s.lower():
                     f.write("%s\n" % (os.path.join(stories_dir, s)))
