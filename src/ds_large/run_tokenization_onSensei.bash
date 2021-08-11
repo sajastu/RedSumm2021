@@ -1,8 +1,8 @@
 
 #################  CONFIGS  #############################
-export id=m_2
+export id=m3
 
-export DS_BASE_DIR=/home/code-base/lrg_split_machines/
+export DS_BASE_DIR=/home/code-base/
 export RAW_PATH=$DS_BASE_DIR/$id/
 export TOKENIZED_PATH=$DS_BASE_DIR/tokenized_$id/
 export JSON_PATH=$DS_BASE_DIR/jsons/
