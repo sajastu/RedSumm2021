@@ -52,6 +52,7 @@ if __name__ == '__main__':
     parser.add_argument("-map_path", default='../../data/')
     parser.add_argument("-raw_path", default='../../line_data')
     parser.add_argument("-save_path", default='../../data/')
+    parser.add_argument("-prev_tokenized", default='../../data/')
 
     parser.add_argument("-shard_size", default=25000, type=int)
     parser.add_argument('-min_src_nsents', default=1, type=int)

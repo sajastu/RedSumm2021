@@ -161,7 +161,7 @@ def tokenize(args):
 
 
     stories_dir = os.path.abspath(args.raw_path)
-    tokenized_stories_dir = os.path.abspath(args.save_path)
+    tokenized_stories_dir = os.path.abspath(args.prev_tokenized)
 
     prev_tokenized = []
     for f in glob.glob(tokenized_stories_dir + '/*'):

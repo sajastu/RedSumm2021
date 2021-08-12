@@ -4,7 +4,7 @@ export id=m3
 
 export DS_BASE_DIR=/home/code-base/
 export RAW_PATH=$DS_BASE_DIR/$id/
-export TOKENIZED_PATH=$DS_BASE_DIR/tokenized_$id/
+export TOKENIZED_PATH=$DS_BASE_DIR/user_space/trainman-k8s-storage-349d2c46-5192-4e7b-8567-ada9d1d9b2de/tokenized_$id/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data-$id/
 
@@ -94,7 +94,7 @@ mkdir -p $BERT_DATA_PATH
 
 #
 #### PREPARING DATA
-python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -save_path $TOKENIZED_PATH
+python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -prev_tokenized /home/code-base//tokenized_m3/ -save_path $TOKENIZED_PATH
 #python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
 #python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
 
