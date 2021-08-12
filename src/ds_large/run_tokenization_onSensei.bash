@@ -94,12 +94,13 @@ mkdir -p $BERT_DATA_PATH
 
 #
 #### PREPARING DATA
-python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -prev_tokenized /home/code-base//tokenized_m3/ -save_path /home/code-base//tokenized_m3/
+python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -prev_tokenized $TOKENIZED_PATH -save_path $TOKENIZED_PATH
 #python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
 #python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
 
-cd $DS_BASE_DIR
-echo "Compressing bert-files at $BERT_DATA_PATH"
-tar -cf tokenized_$id.tar tokenized_$id/
-
-gupload tokenized_$id.tar
+#cd $DS_BASE_DIR
+#echo "Compressing bert-files at $BERT_DATA_PATH"
+#tar -cf tokenized_$id.tar tokenized_$id/
+#
+#gupload tokenized_$id.tar
+#
