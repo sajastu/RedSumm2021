@@ -161,10 +161,10 @@ def tokenize(args):
 
 
     stories_dir = os.path.abspath(args.raw_path)
-    tokenized_stories_dir = os.path.abspath(args.prev_tokenized)
+    tokenized_stories_dir = os.path.abspath(args.save_path)
 
     prev_tokenized = []
-    for f in glob.glob(tokenized_stories_dir + '/*'):
+    for f in glob.glob(os.path.abspath(args.prev_tokenized) + '/*'):
         prev_tokenized.append(f.split('/')[-1].replace('.json', '').lower())
 
     print('Sorting')
