@@ -38,8 +38,8 @@ curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4
 curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4zYDAgJkpHbkD5aSjMzRhh6Xo8xJuO9pv9p8Ba07rcZfPCVPKIIuut6huuIODm-94nRXg7n0Zi1e3ZwheUb2cH4xGNmiNxxUWZBGFadia0R9VN8GV61JA" https://www.googleapis.com/drive/v3/files/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-?alt=media -o m4bart.tar
 
 FILE_ID=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v
-TOKEN=ya29.a0ARrdaM_HKDkj7eQBOA51aQ3D3dEpx1OyM6eSQZf2L9ZijxeLQcN46T6RTONS0JBwFldaOgAGyRAcyP6QYBiBXUbAh4xqknFyWLD5FqXZw6m9nueAYk0_Vl2rVyDqhsl_UZzGQOSl4p3JVp5lz5qzeVXGIuaa
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o reddit.tar
+TOKEN=ya29.a0ARrdaM-KzYwtYYaqCKIORt6Yi8HFRJISJlZZqK8Lh7l2LcJXb0zKd6UiIIxumT2CDOe5MAy1ont43A4sWiPeV0fMP6zfLgqwGQruJGH1X6VlAe01z8543LOx5nDmS7VfoF56KcIZ1rYdZrD3bDewkPbH4Prs
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m2.tar
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 

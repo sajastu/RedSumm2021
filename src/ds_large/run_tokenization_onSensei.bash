@@ -1,10 +1,10 @@
 
 #################  CONFIGS  #############################
-export id=m3
+export id=m_2
 
-export DS_BASE_DIR=/home/code-base/
+export DS_BASE_DIR=/home/code-base/lrg_split_machines
 export RAW_PATH=$DS_BASE_DIR/$id/
-export TOKENIZED_PATH=$DS_BASE_DIR/user_space/trainman-k8s-storage-349d2c46-5192-4e7b-8567-ada9d1d9b2de/tokenized_$id/
+export TOKENIZED_PATH=$DS_BASE_DIR/tokenized_$id/
 export JSON_PATH=$DS_BASE_DIR/jsons/
 export BERT_DATA_PATH=$DS_BASE_DIR/bert-data-$id/
 
