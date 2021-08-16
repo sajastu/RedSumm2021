@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-export id=m_2
+export id=m-2021
 
 export DS_BASE_DIR=/home/code-base/lrg_split_machines
 export RAW_PATH=$DS_BASE_DIR/$id/
@@ -82,7 +82,7 @@ mkdir -p $BERT_DATA_PATH
 #
 
 # don't comment
-#export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
+# export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 
 
 

@@ -37,9 +37,18 @@ curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4
 curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4zYDAgJkpHbkD5aSjMzRhh6Xo8xJuO9pv9p8Ba07rcZfPCVPKIIuut6huuIODm-94nRXg7n0Zi1e3ZwheUb2cH4xGNmiNxxUWZBGFadia0R9VN8GV61JA" https://www.googleapis.com/drive/v3/files/1js7oGGE3pzsfibLQB1MjySM4oPVqeNWQ?alt=media -o m3bart.tar
 curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4zYDAgJkpHbkD5aSjMzRhh6Xo8xJuO9pv9p8Ba07rcZfPCVPKIIuut6huuIODm-94nRXg7n0Zi1e3ZwheUb2cH4xGNmiNxxUWZBGFadia0R9VN8GV61JA" https://www.googleapis.com/drive/v3/files/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-?alt=media -o m4bart.tar
 
-FILE_ID=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v
-TOKEN=ya29.a0ARrdaM-KzYwtYYaqCKIORt6Yi8HFRJISJlZZqK8Lh7l2LcJXb0zKd6UiIIxumT2CDOe5MAy1ont43A4sWiPeV0fMP6zfLgqwGQruJGH1X6VlAe01z8543LOx5nDmS7VfoF56KcIZ1rYdZrD3bDewkPbH4Prs
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m2.tar
+TOKEN=ya29.a0ARrdaM_VeEi6JDhKv5r4DqKZvQbCbvfQbVTexHvhHeVrynWhnlbzjtfymzVfPiVGn-9HSpwQLOeZNSZVjMa-OVNaplf41PIbiWuwuWT5rYonNgED0MRxIQHG7So1CSa90_rcYRig8De2b5NFxFMBjEEFQHuM
+FILES=( 1f99kEOM8XHuyszqABHaNdsjVcIAESNzC  1O1LVVagfmEFS98-62DJalxa0I7NqJ5qA 1H8BsAcOtNfMgTQJtBYxxTs4rmKTzGBkQ 1Gm70xpOzWucgCwHsgbFnYkW2mvqEaB1o 1hFopAFDn-Dou7Tk59ub-yxcboVIUnyVg )
+
+for i in "${!FILES[@]}";
+do
+  echo $FILES[$i]
+  curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/"${FILES[$i]}"?alt=media -o stat_m$i.pkl
+done
+
+FILE_ID=1Z_onxIBk2nyN8xbfvvg93qoZr0kshm8i
+TOKEN=ya29.a0ARrdaM8Yfo0DaIWBFO1emk9VTdy1-34uiO8Bloqwbk_tm6dSbgzwFlO71KVul3fatXBdlrkEH3sESaWROUDcmh0NL4gPv8FnoZNMAIJSjDnnaPOPJ5CwoUlmtrWKBIRHccpJV3clnC6OFa7jRdnUWAHdOrbWug
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o submission-p2.tar
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 
