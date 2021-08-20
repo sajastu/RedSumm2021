@@ -28,6 +28,7 @@ for m in ['m2']:
 
     for out in tqdm(pool.imap_unordered(mp_read, id_files), total=len(id_files)):
         json_file_w.write(out)
+        json_file_w.write('\n')
 
     pool.close()
     pool.join()
