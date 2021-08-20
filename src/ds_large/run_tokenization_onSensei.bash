@@ -1,12 +1,12 @@
 
 #################  CONFIGS  #############################
-for idd in m_3
+for idd in m_0
 do
   export id=$idd
 
   export DS_BASE_DIR=/home/code-base/lrg_split_machines
   export RAW_PATH=$DS_BASE_DIR/$id/
-  export TOKENIZED_PATH=$DS_BASE_DIR/tokenized_$id/
+  export TOKENIZED_PATH=$DS_BASE_DIR/tokenized-$id/
   export MOVED_PATH=$DS_BASE_DIR/tokenized_$id-tldrQ/
   export JSON_PATH=$DS_BASE_DIR/tldrQ/jsons-$id/
   export BERT_DATA_PATH=$DS_BASE_DIR/tldrQ/bert-data-$id/
