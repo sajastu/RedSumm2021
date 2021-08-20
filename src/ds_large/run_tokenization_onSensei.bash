@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-for idd in m1 m4
+for idd in m_1 m_4
 do
   export id=$idd
 
