@@ -48,9 +48,9 @@ done
 
 FILE_ID=1aXUQst3WfZ8nnd2ZY_gOzYgNi0FJ3jeb
 FILE_ID=1CAe_0BDjaKIK4YbHVSQTmciem0bkDXRW
-FILE_ID=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v
-TOKEN=ya29.a0ARrdaM-oysRA0hn6cGKNP_RJj3rpRNY02uB7ScRaikhvDfqEcRKdmgxtBB_u-VFeswqHYJplelXyigfGLVFtOWD19E5Svd-7aTYoRb3PNtI34iTwwUKhYfh6V-SW3IlCbxYSXvkjgr6OZvXbmWOp5FeVT574HA
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m2.tar
+FILE_ID=17fYfAUT4woA5LCybxDWUnM8tR1wF067B
+TOKEN=ya29.a0ARrdaM94GtCIkx_xttpPtlBKEpftlGQFzvI3IJVLHjfalJ2cWRwvZdop8ZwS0h6ImpcWdrokqSZo_nebSExVtWUZQQuvlgmfAA6qTV_KJEFmsc_XGaPoWwbB9xwFxyEn1xyx-km3wH_rltw-4dQdoQDJPPzR8g
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m2fullBert.tar
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 
