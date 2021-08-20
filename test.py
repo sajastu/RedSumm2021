@@ -108,23 +108,35 @@ for d in tqdm(train):
     to_be_written.append(d)
     train_c+=1
     if train_c%50000==0:
-        torch.save(to_be_written, bert_write + 'train.' + str(train_c / 50000) + '.pt')
+        torch.save(to_be_written, bert_write + 'train.' + str(int(train_c / 50000)) + '.pt')
         to_be_written = []
+
+if len(to_be_written) > 0:
+    torch.save(to_be_written, bert_write + 'train.' + str(int(train_c / 50000) + 1) + '.pt')
+    to_be_written = []
+
 
 for d in tqdm(validation):
     to_be_written.append(d)
     validation_c+=1
     if train_c%50000==0:
-        torch.save(to_be_written, bert_write + 'validation.' + str(validation_c / 50000) + '.pt')
+        torch.save(to_be_written, bert_write + 'validation.' + str(int(validation_c / 50000)) + '.pt')
         to_be_written = []
+
+if len(to_be_written) > 0:
+    torch.save(to_be_written, bert_write + 'validation.' + str(int(validation_c / 50000) + 1) + '.pt')
+    to_be_written = []
 
 for d in tqdm(test):
     to_be_written.append(d)
     test_c+=1
     if train_c%50000==0:
-        torch.save(to_be_written, bert_write + 'test.' + str(test_c / 50000) + '.pt')
+        torch.save(to_be_written, bert_write + 'test.' + str(int(test_c / 50000)) + '.pt')
         to_be_written = []
 
+if len(to_be_written) > 0:
+    torch.save(to_be_written, bert_write + 'test.' + str(int(test_c / 50000) + 1) + '.pt')
+    to_be_written = []
 
 
 
