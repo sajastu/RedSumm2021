@@ -610,11 +610,10 @@ def move_subset(args):
         splits = json.load(fR)
 
     for split, files in splits.items():
-        for f in files:
+        for f in tqdm(files, total=len(files), desc=f'{split}'):
             try:
-                import pdb;pdb.set_trace()
                 shutil.copy(args.raw_path + f, args.save_path)
-                os.rename(args.save_path + f, args.save_path + split + '-'.join(f.split('-')[1:]))
+                os.rename(args.save_path + f, args.save_path + split + '-' + '-'.join(f.split('-')[1:]))
             except:
                 continue
 
