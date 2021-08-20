@@ -1,8 +1,8 @@
 
 #################  CONFIGS  #############################
-for id in m1 m4
+for idd in m1 m4
 do
-  export id=m-2021
+  export id=$id
 
   export DS_BASE_DIR=/home/code-base/lrg_split_machines
   export RAW_PATH=$DS_BASE_DIR/$id/
