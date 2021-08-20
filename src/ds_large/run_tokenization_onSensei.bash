@@ -2,7 +2,7 @@
 #################  CONFIGS  #############################
 for idd in m1 m4
 do
-  export id=$id
+  export id=$idd
 
   export DS_BASE_DIR=/home/code-base/lrg_split_machines
   export RAW_PATH=$DS_BASE_DIR/$id/
