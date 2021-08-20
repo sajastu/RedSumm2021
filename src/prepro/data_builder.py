@@ -608,7 +608,7 @@ def move_subset(args):
 
     with open('/tmp/th22_splits.json') as fR:
         splits = json.load(fR)
-
+    import pdb;pdb.set_trace()
     for split, files in splits.items():
         for f in tqdm(files, total=len(files), desc=f'{split}'):
             try:
