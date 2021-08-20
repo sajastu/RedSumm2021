@@ -1,22 +1,33 @@
 import json
+import os
+from multiprocessing import Pool, cpu_count
 
 from tqdm import tqdm
 
-json_file_w = open('th22_splits.json', mode='w')
-
-splits = {
-    'test': [],
-    'validation': [],
-    'train': []
-}
-
-for set in ["test", "validation", "train"]:
-    set_ids = []
-    with open(f'/home/code-base/user_space/trainman-k8s-storage-c91414be-d3d1-431d-a2c8-1d040368c6e8/tldrQ/{set}.json') as fR:
+def mp_read(param):
+    with open(param) as fR:
         for l in tqdm(fR):
-            set_ids.append(json.loads(l.strip())['id'])
+            try:
+                ent = json.loads(l.strip())
+                return ent['id']
+            except:
+                continue
 
-    splits[set] = set_ids
+json_file_w = open('/tmp/th22_splits_m2.txt', mode='w')
 
+for m in ['m2']:
+    id_files = []
+    c=0
+    for root, dirs, files in os.walk(f'/home/code-base/user_space/trainman-k8s-storage-349d2c46-5192-4e7b-8567-ada9d1d9b2de/tldr/dataset-{m}/', topdown=False):
+        for name in files:
+            if '.json' in name:
+                id_files.append(os.path.join(root, name))
 
-json.dump(splits, json_file_w)
+    print('reading entire dataset...')
+    pool = Pool(cpu_count())
+
+    for out in tqdm(pool.imap_unordered(mp_read, id_files), total=len(id_files)):
+        json_file_w.write(out)
+
+    pool.close()
+    pool.join()
