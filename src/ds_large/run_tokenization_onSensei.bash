@@ -1,6 +1,6 @@
 
 #################  CONFIGS  #############################
-for idd in m-2021 m_3
+for idd in m_4
 do
   export id=$idd
 

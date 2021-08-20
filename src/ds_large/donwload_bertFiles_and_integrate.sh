@@ -47,8 +47,10 @@ do
 done
 
 FILE_ID=1aXUQst3WfZ8nnd2ZY_gOzYgNi0FJ3jeb
-TOKEN=ya29.a0ARrdaM8rlruq1gPGMpca3jfxmh4nlSmn3fB02cq_AnhVaCTRcesPJmlYGuCYo0G1MGLeaCq30B1UIEnRlhWlP1JTinC957nMr6NSfKY5useLoDBGGxCC8T6WZNWz6XZLza5eHgdSTdQySjtGGeWuBc1dlibw
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o th22_splits.tar
+FILE_ID=1CAe_0BDjaKIK4YbHVSQTmciem0bkDXRW
+FILE_ID=1oRbSyy-aZ3aJ2eVW3KLZLbBfuaCuIm6v
+TOKEN=ya29.a0ARrdaM-oysRA0hn6cGKNP_RJj3rpRNY02uB7ScRaikhvDfqEcRKdmgxtBB_u-VFeswqHYJplelXyigfGLVFtOWD19E5Svd-7aTYoRb3PNtI34iTwwUKhYfh6V-SW3IlCbxYSXvkjgr6OZvXbmWOp5FeVT574HA
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m2.tar
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 
