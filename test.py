@@ -80,8 +80,8 @@ def _mp_read(file):
 
 
 
-bert_dir = '/home/code-base/lrg_split_machines/bert-data-m_2/'
-bert_write = '/home/code-base/lrg_split_machines/bert-data-m_2-tldrQ/'
+bert_dir = '/home/code-base/lrg_split_machines/bert-data-m_0/'
+bert_write = '/home/code-base/lrg_split_machines/bert-data-m_0-tldrQ/'
 
 if not os.path.exists(bert_write):
     os.makedirs(bert_write)
