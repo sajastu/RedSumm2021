@@ -629,7 +629,7 @@ def format_to_lines(args):
     #         temp.append(hashhex(line.strip()))
     #     corpus_mapping[corpus_type] = {key.strip(): 1 for key in temp}
 
-    # train_files, validation_files, test_files = [], [], []
+    train_files, validation_files, test_files = [], [], []
     #
     for f in glob.glob(pjoin(args.raw_path + '/*.json')):
         real_name = f.split('/')[-1]
