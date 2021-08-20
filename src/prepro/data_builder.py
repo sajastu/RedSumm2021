@@ -603,8 +603,8 @@ def _format_to_bert(params):
 def move_subset(args):
     # read split ids
 
-    if not os.path.exists(args.save_dir):
-        os.makedirs(args.save_dur)
+    if not os.path.exists(args.save_path):
+        os.makedirs(args.save_path)
 
     with open('/tmp/th22_splits.json') as fR:
         splits = json.load(fR)
@@ -613,8 +613,8 @@ def move_subset(args):
         for f in files:
             try:
                 import pdb;pdb.set_trace()
-                shutil.copy(args.raw_path + f, args.save_dir)
-                os.rename(args.save_dir + f, args.save_dir + split + '-'.join(f.split('-')[1:]))
+                shutil.copy(args.raw_path + f, args.save_path)
+                os.rename(args.save_path + f, args.save_path + split + '-'.join(f.split('-')[1:]))
             except:
                 continue
 
