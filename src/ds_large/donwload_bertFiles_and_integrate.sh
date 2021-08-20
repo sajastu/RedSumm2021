@@ -37,8 +37,8 @@ curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4
 curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4zYDAgJkpHbkD5aSjMzRhh6Xo8xJuO9pv9p8Ba07rcZfPCVPKIIuut6huuIODm-94nRXg7n0Zi1e3ZwheUb2cH4xGNmiNxxUWZBGFadia0R9VN8GV61JA" https://www.googleapis.com/drive/v3/files/1js7oGGE3pzsfibLQB1MjySM4oPVqeNWQ?alt=media -o m3bart.tar
 curl -H "Authorization: Bearer ya29.a0ARrdaM91PN40_355-xHL_SzqwqptlpAw0r3goLXGe4zYDAgJkpHbkD5aSjMzRhh6Xo8xJuO9pv9p8Ba07rcZfPCVPKIIuut6huuIODm-94nRXg7n0Zi1e3ZwheUb2cH4xGNmiNxxUWZBGFadia0R9VN8GV61JA" https://www.googleapis.com/drive/v3/files/1MZEqFf0_77TDzdWE3PgFnKOzjSeeGXl-?alt=media -o m4bart.tar
 
-TOKEN=ya29.a0ARrdaM_VeEi6JDhKv5r4DqKZvQbCbvfQbVTexHvhHeVrynWhnlbzjtfymzVfPiVGn-9HSpwQLOeZNSZVjMa-OVNaplf41PIbiWuwuWT5rYonNgED0MRxIQHG7So1CSa90_rcYRig8De2b5NFxFMBjEEFQHuM
-FILES=( 1f99kEOM8XHuyszqABHaNdsjVcIAESNzC  1O1LVVagfmEFS98-62DJalxa0I7NqJ5qA 1H8BsAcOtNfMgTQJtBYxxTs4rmKTzGBkQ 1Gm70xpOzWucgCwHsgbFnYkW2mvqEaB1o 1hFopAFDn-Dou7Tk59ub-yxcboVIUnyVg )
+TOKEN=ya29.a0ARrdaM_wK8RY2Uyt839WIo8pXg4LEQuB1NFMORiFfN1I6NhqEihBVw-R5XwE8il2e_vqzKaT1C32Wt51_m-R80GbErrdRhSaQ6NUb5pSHe3E_FifRGEyIXRxpfYSJFLVWedZyqWfT8zjnf5_2qj-s9As1MbZ
+FILES=( 1bGsIMVLfJG4edm5ONyC5mDrdjP7orAU5  1ZpklWig3wggU85WpLkXW54G70tVV44ZI 1bSG1rNm4xzcSrKAibIhhN96DiH6dhwxA 1VsKpbDUkAEC2lxpbHOWsCvsSyS3xS91L 1EKOc-Kni7jxeuztdFs_cHvC1s2DQouZN 1oEK1Za8-qJJYiegwkOLC0nwGvkKkOncB 1msxjS7yGnSMVE118tRZklVX5h37eg7Gg )
 
 for i in "${!FILES[@]}";
 do
@@ -46,9 +46,9 @@ do
   curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/"${FILES[$i]}"?alt=media -o stat_m$i.pkl
 done
 
-FILE_ID=1Z_onxIBk2nyN8xbfvvg93qoZr0kshm8i
-TOKEN=ya29.a0ARrdaM8Yfo0DaIWBFO1emk9VTdy1-34uiO8Bloqwbk_tm6dSbgzwFlO71KVul3fatXBdlrkEH3sESaWROUDcmh0NL4gPv8FnoZNMAIJSjDnnaPOPJ5CwoUlmtrWKBIRHccpJV3clnC6OFa7jRdnUWAHdOrbWug
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o submission-p2.tar
+FILE_ID=1eVktI9jRn5YafLd2ju1S1qJsb5EpHWyh
+TOKEN=ya29.a0ARrdaM9z71aAiXHhWJBAjdhsD1tOnCCs4VIEJ2o_OkH9At6IEI3JTbDn9XwqQ9A_pnFdUc4CU_4axZqUt-b9EWVsQjcKKZzjB_TCCB8wzvLj6S8E0pcJyycM4jNLmxzs70e4eq6LXWdocBHKE2UqdTJauBq0
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o tldrQIds.tar
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 

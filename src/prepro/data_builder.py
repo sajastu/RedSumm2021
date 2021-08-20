@@ -149,6 +149,14 @@ def _add_set_to_filemaes(base_dir):
                 new_file_name = set + '-' + f.split('/')[-1]
                 os.rename(f, base_dir + '/' + set + '/'+ new_file_name)
 
+def bi_contains(lst, item):
+    """ efficient `item in lst` for sorted lists """
+    # if item is larger than the last its not in the list, but the bisect would
+    # find `len(lst)` as the index to insert, so check that first. Else, if the
+    # item is in the list then it has to be at index bisect_left(lst, item)
+    return (item <= lst[-1]) and (lst[bisect_left(lst, item)] == item)
+
+
 
 def tokenize(args):
     from bisect import bisect_left
@@ -592,6 +600,25 @@ def _format_to_bert(params):
     datasets = []
     gc.collect()
 
+def move_subset(args):
+    # read split ids
+
+    if not os.path.exists(args.save_dir):
+        os.makedirs(args.save_dur)
+
+    with open('/tmp/th22_splits.json') as fR:
+        splits = json.load(fR)
+
+    for split, files in splits.items():
+        for f in files:
+            try:
+                import pdb;pdb.set_trace()
+                shutil.copy(args.raw_path + f, args.save_dir)
+                os.rename(args.save_dir + f, args.save_dir + split + '-'.join(f.split('-')[1:]))
+            except:
+                continue
+
+
 
 def format_to_lines(args):
     corpus_mapping = {}
@@ -606,7 +633,22 @@ def format_to_lines(args):
     for f in glob.glob(pjoin(args.raw_path + '/*.json')):
         real_name = f.split('/')[-1]
 
-        corpus_type = real_name.split('-')[0]
+        splits = {}
+        with open('th22_splits.json') as fR:
+            splits = json.load(fR)
+
+        splits['test'] = sorted(splits['test'])
+        splits['validation'] = sorted(splits['validation'])
+        splits['train'] = sorted(splits['train'])
+
+        if bi_contains(splits['test'], real_name):
+            corpus_type='test'
+        elif bi_contains(splits['validation'], real_name):
+            corpus_type='validation'
+        else:
+            corpus_type='train'
+
+        # corpus_type = real_name.split('-')[0]
 
         eval(f'{corpus_type}_files').append(f)
         # real_name = f.split('/')[-1].split('.')[0]
