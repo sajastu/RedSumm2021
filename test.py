@@ -18,7 +18,7 @@ json_file_w = open('/tmp/th22_splits_m2.txt', mode='w')
 for m in ['m2']:
     id_files = []
     c=0
-    for root, dirs, files in os.walk(f'/home/code-base/user_space/trainman-k8s-storage-349d2c46-5192-4e7b-8567-ada9d1d9b2de/tldr/dataset-{m}/', topdown=False):
+    for root, dirs, files in os.walk(f'/home/code-base/user_space/trainman-k8s-storage-349d2c46-5192-4e7b-8567-ada9d1d9b2de/tldrQ/dataset-{m}/', topdown=False):
         for name in files:
             if '.json' in name:
                 id_files.append(os.path.join(root, name))
