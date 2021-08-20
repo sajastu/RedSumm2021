@@ -96,8 +96,12 @@ train, validation, test = [], [], []
 train_c, validation_c, test_c = 0, 0, 0
 for outs in tqdm(pool.imap_unordered(_mp_read, files), total=len(files)):
     for o in outs:
-        import pdb;pdb.set_trace()
-        eval('o[1]').append(o[0])
+        if o[1] == 'train':
+            train.append(o[0])
+        elif o[1]=='validation':
+            validation.append(o[0])
+        elif o[1] == 'test':
+            test.append(o[0])
 
 to_be_written = []
 for d in tqdm(train):
