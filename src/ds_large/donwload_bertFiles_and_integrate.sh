@@ -46,9 +46,9 @@ do
   curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/"${FILES[$i]}"?alt=media -o stat_m$i.pkl
 done
 
-FILE_ID=1eVktI9jRn5YafLd2ju1S1qJsb5EpHWyh
-TOKEN=ya29.a0ARrdaM9z71aAiXHhWJBAjdhsD1tOnCCs4VIEJ2o_OkH9At6IEI3JTbDn9XwqQ9A_pnFdUc4CU_4axZqUt-b9EWVsQjcKKZzjB_TCCB8wzvLj6S8E0pcJyycM4jNLmxzs70e4eq6LXWdocBHKE2UqdTJauBq0
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o th22_splits.json
+FILE_ID=1aXUQst3WfZ8nnd2ZY_gOzYgNi0FJ3jeb
+TOKEN=ya29.a0ARrdaM8rlruq1gPGMpca3jfxmh4nlSmn3fB02cq_AnhVaCTRcesPJmlYGuCYo0G1MGLeaCq30B1UIEnRlhWlP1JTinC957nMr6NSfKY5useLoDBGGxCC8T6WZNWz6XZLza5eHgdSTdQySjtGGeWuBc1dlibw
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o th22_splits.tar
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 

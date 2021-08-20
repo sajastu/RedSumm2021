@@ -8,7 +8,7 @@ do
   export RAW_PATH=$DS_BASE_DIR/$id/
   export TOKENIZED_PATH=$DS_BASE_DIR/tokenized_$id/
   export MOVED_PATH=$DS_BASE_DIR/tokenized_$id-tldrQ/
-  export JSON_PATH=$DS_BASE_DIR/tldrQ/jsons/
+  export JSON_PATH=$DS_BASE_DIR/tldrQ/jsons-$id/
   export BERT_DATA_PATH=$DS_BASE_DIR/tldrQ/bert-data-$id/
 
   mkdir -p /tmp/RedSumm2021/src/logs/
