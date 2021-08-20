@@ -629,27 +629,27 @@ def format_to_lines(args):
     #         temp.append(hashhex(line.strip()))
     #     corpus_mapping[corpus_type] = {key.strip(): 1 for key in temp}
 
-    train_files, validation_files, test_files = [], [], []
-
+    # train_files, validation_files, test_files = [], [], []
+    #
     for f in glob.glob(pjoin(args.raw_path + '/*.json')):
         real_name = f.split('/')[-1]
-
-        splits = {}
-        with open('th22_splits.json') as fR:
-            splits = json.load(fR)
-
-        splits['test'] = sorted(splits['test'])
-        splits['validation'] = sorted(splits['validation'])
-        splits['train'] = sorted(splits['train'])
-
-        if bi_contains(splits['test'], real_name):
-            corpus_type='test'
-        elif bi_contains(splits['validation'], real_name):
-            corpus_type='validation'
-        else:
-            corpus_type='train'
-
-        # corpus_type = real_name.split('-')[0]
+    #
+    #     splits = {}
+    #     with open('th22_splits.json') as fR:
+    #         splits = json.load(fR)
+    #
+    #     splits['test'] = sorted(splits['test'])
+    #     splits['validation'] = sorted(splits['validation'])
+    #     splits['train'] = sorted(splits['train'])
+    #
+    #     if bi_contains(splits['test'], real_name):
+    #         corpus_type='test'
+    #     elif bi_contains(splits['validation'], real_name):
+    #         corpus_type='validation'
+    #     else:
+    #         corpus_type='train'
+    #
+        corpus_type = real_name.split('-')[0]
 
         eval(f'{corpus_type}_files').append(f)
         # real_name = f.split('/')[-1].split('.')[0]
