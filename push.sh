@@ -3,4 +3,4 @@
 
 git add .
 git commit -m "init"
-git push orinig master
+git push origin master
