@@ -349,6 +349,7 @@ class Trainer(object):
             torch.save(checkpoint, checkpoint_path)
             subprocess.call(['gupload', checkpoint_path])
             subprocess.call(['gupload', '/'.join(checkpoint_path.split('/')[:-1]) + '/tesnor_logs/'])
+            subprocess.call(['gupload', '/tmp/RedSumm2021/logs'])
 
             return checkpoint, checkpoint_path
 
