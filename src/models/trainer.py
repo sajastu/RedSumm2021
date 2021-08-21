@@ -347,8 +347,8 @@ class Trainer(object):
         # checkpoint_path = '%s_step_%d.pt' % (FLAGS.model_path, step)
         if (not os.path.exists(checkpoint_path)):
             torch.save(checkpoint, checkpoint_path)
-            import pdb;pdb.set_trace()
-            subprocess.command(['gupload', checkpoint_path])
+            subprocess.call(['gupload', checkpoint_path])
+            subprocess.call(['gupload', '/'.join(checkpoint_path.split('/')[:-1]) + '/tesnor_logs/'])
 
             return checkpoint, checkpoint_path
 
