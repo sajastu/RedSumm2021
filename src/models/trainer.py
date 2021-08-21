@@ -170,8 +170,8 @@ class Trainer(object):
                         accum = 0
                         normalization = 0
                         if (step % self.save_checkpoint_steps == 0 and self.gpu_rank == 0):
-                            # valid_iter = valid_iter_fct()
-                            # self.validate(valid_iter, step=step)
+                            valid_iter = valid_iter_fct()
+                            self.validate(valid_iter, step=step)
                             self._save(step)
 
                         step += 1
