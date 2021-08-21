@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 import numpy as np
 import torch
@@ -346,6 +347,9 @@ class Trainer(object):
         # checkpoint_path = '%s_step_%d.pt' % (FLAGS.model_path, step)
         if (not os.path.exists(checkpoint_path)):
             torch.save(checkpoint, checkpoint_path)
+            import pdb;pdb.set_trace()
+            subprocess.command(['gupload', checkpoint_path])
+
             return checkpoint, checkpoint_path
 
     def _start_report_manager(self, start_time=None):
