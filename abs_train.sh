@@ -1,6 +1,6 @@
 
-export BERT_DATA_PATH=/home/code-base/user_space/trainman-k8s-storage-9f2785bf-6c50-4c4a-867d-d14eaac0b2bf/bert-data/
-export MODEL_PATH=/home/code-base/user_space/trainman-k8s-storage-9f2785bf-6c50-4c4a-867d-d14eaac0b2bf/saved_models/bertsum/BertAbs-reddit-1024-tldrQ/
+export BERT_DATA_PATH=/disk1/sajad/datasets/social/tldrQ/bert-files/
+export MODEL_PATH=/disk1/sajad/sci-trained-models/presum/BertAbs-reddit-1024-tldrQ/
 mkdir -p logs
 
 python src/train.py -task abs -mode train \
