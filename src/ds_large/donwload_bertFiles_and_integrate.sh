@@ -46,9 +46,9 @@ https://drive.google.com/drive/folders/12n3fTqvjrP7X4V29eANUZi3DJs5KlCYo?usp=sha
 
 FILE_ID=1aXUQst3WfZ8nnd2ZY_gOzYgNi0FJ3jeb
 FILE_ID=1CAe_0BDjaKIK4YbHVSQTmciem0bkDXRW
-FILE_ID=12n3fTqvjrP7X4V29eANUZi3DJs5KlCYo
-TOKEN=ya29.a0ARrdaM9DOq0JH5vDo9-D0al0uV4_VLqYKwfRAsBE2QT-W5RfKXCqtZvkvsfsmXJHrf5EqpkwMgfTMua0sjeSsFhflS2LlpusgUrAP9LtXlTkaIeqmrYg5OO3Pw8_S0-mDzpui7EFaGPTGzJ0CPyWt99S2nu7
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m1fullBert
+FILE_ID=1QvMzge3iMZ4mougoPNHa3OESkmQ7lYX3
+TOKEN=ya29.a0ARrdaM_oUmzjFDK48uXTq8rCngodbTQ12agvC5wlNbGFpLQGaQ2c5LUJmlRVklx2BiZKh5oKWatsyqX6s34NMrn5RMO3c25sXf9Pos9lUO6NBXjh6M198QPr5W6b16nvzG3I6E4TxfHmMqSPZ4XckwLVSl5J
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o model_steo_25000.pt
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 
