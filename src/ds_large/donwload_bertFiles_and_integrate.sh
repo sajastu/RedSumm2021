@@ -41,11 +41,14 @@ do
   curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/"${FILES[$i]}"?alt=media -o m$i-tldrQ.tar
 done
 
+
+https://drive.google.com/drive/folders/12n3fTqvjrP7X4V29eANUZi3DJs5KlCYo?usp=sharing
+
 FILE_ID=1aXUQst3WfZ8nnd2ZY_gOzYgNi0FJ3jeb
 FILE_ID=1CAe_0BDjaKIK4YbHVSQTmciem0bkDXRW
-FILE_ID=17t1ADPuRdiyDUdTULDtRj59vpviVgAOO
-TOKEN=ya29.a0ARrdaM_FgO_hdmFVMY8k3FQZDgDys4PZAq-GW4mhqfI0FG-5l4Pr_08OHTMdXrgohlmZYwEnSM2vts2tpWPiHwRpF4W0nPPvYGuSaWBNSPgSCBWyDQLXRESrwcDZbApN5SkjOLiLttLzKiFtPiC_slH-a5x1
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m1fullBert.tar
+FILE_ID=12n3fTqvjrP7X4V29eANUZi3DJs5KlCYo
+TOKEN=ya29.a0ARrdaM9DOq0JH5vDo9-D0al0uV4_VLqYKwfRAsBE2QT-W5RfKXCqtZvkvsfsmXJHrf5EqpkwMgfTMua0sjeSsFhflS2LlpusgUrAP9LtXlTkaIeqmrYg5OO3Pw8_S0-mDzpui7EFaGPTGzJ0CPyWt99S2nu7
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m1fullBert
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 
