@@ -1,5 +1,6 @@
 import json
 import os
+import subprocess
 
 import numpy as np
 import torch
@@ -406,6 +407,13 @@ class Trainer(object):
         # checkpoint_path = '%s_step_%d.pt' % (FLAGS.model_path, step)
         if (not os.path.exists(checkpoint_path)):
             torch.save(checkpoint, checkpoint_path)
+            try:
+                subprocess.call(['gupload', checkpoint_path])
+                subprocess.call(['gupload', '/'.join(checkpoint_path.split('/')[:-1]) + '/tesnor_logs/'])
+                subprocess.call(['gupload', '/tmp/RedSumm2021/logs'])
+            except:
+                pass
+
             return checkpoint, checkpoint_path
 
     def _start_report_manager(self, start_time=None):
