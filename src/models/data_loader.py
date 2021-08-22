@@ -104,9 +104,9 @@ def load_dataset(args, corpus_type, shuffle):
         if (shuffle):
             random.seed(8080)
             random.shuffle(pts)
-            # if corpus_type == 'train':
-            #     restarted_idx = pts.index('/home/code-base/large_reddit_bertfiles/bert-data-m_3/train.23.bert.pt')
-            #     pts = pts[restarted_idx:] + pts[:restarted_idx]
+            if corpus_type == 'train':
+                restarted_idx = pts.index('/home/code-base/user_space/trainman-k8s-storage-5ddccee4-32ad-4e32-ba2d-1d06b71f80b0/datasets/tldrQ/bert-files/bert-data-m_4/train.1.bert.pt')
+                pts = pts[restarted_idx:] + pts[:restarted_idx]
 
         for pt in pts:
             yield _lazy_dataset_loader(pt, corpus_type)
