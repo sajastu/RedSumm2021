@@ -1,8 +1,8 @@
 
 
 
-python3 train.py -task abs \
-                -mode oracle \
+python3 train.py -task ext \
+                -mode test \
                 -test_batch_size 10000 \
                 -bert_data_path /disk1/sajad/datasets/social/tldrQ/bert-data-0/ \
                 -log_file ../logs/val_ext \
