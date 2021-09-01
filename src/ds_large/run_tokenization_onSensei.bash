@@ -1,17 +1,16 @@
 
 #################  CONFIGS  #############################
-for idd in m_0
-do
-  export id=$idd
+#for idd in m_0
+#do
+  export id=0
 
-  export DS_BASE_DIR=/home/code-base/lrg_split_machines
-  export RAW_PATH=$DS_BASE_DIR/$id/
-  export TOKENIZED_PATH=$DS_BASE_DIR/tokenized-$id/
-  export MOVED_PATH=$DS_BASE_DIR/tokenized_$id-tldrQ/
-  export JSON_PATH=$DS_BASE_DIR/tldrQ/jsons-$id/
-  export BERT_DATA_PATH=$DS_BASE_DIR/tldrQ/bert-data-$id/
+  export DS_BASE_DIR=/disk1/sajad/datasets/reddit/tldr-9+/tmp_files/
+  export RAW_PATH=$DS_BASE_DIR/highlights-test/
+  export TOKENIZED_PATH=$DS_BASE_DIR/tokenized/
+  export JSON_PATH=$DS_BASE_DIR/tldr-9+/jsons-$id/
+  export BERT_DATA_PATH=$DS_BASE_DIR/tldr-9+/bert-data-$id/
 
-  mkdir -p /tmp/RedSumm2021/src/logs/
+  mkdir -p ~/packages/adobe/RedSumm2021/src/logs/
   mkdir -p $DS_BASE_DIR
   mkdir -p $TOKENIZED_PATH
   mkdir -p $JSON_PATH
@@ -84,7 +83,8 @@ do
   #
 
   # don't comment
-  # export CLASSPATH=/home/code-base/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
+  # export CLASSPATH=/home/sajad/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
+  # export CLASSPATH=/home/sajad/packages/toolkits/stanford-corenlp-4.2.2/stanford-corenlp-4.2.2.jar
 
 
 
@@ -96,17 +96,17 @@ do
 
   #
   #### PREPARING DATA
-#  python /tmp/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -prev_tokenized $TOKENIZED_PATH -save_path $TOKENIZED_PATH
-  python /tmp/RedSumm2021/src/preprocess.py -mode move_subset -raw_path $TOKENIZED_PATH -save_path $MOVED_PATH -n_cpus 64 -use_bert_basic_tokenizer false
-  python /tmp/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $MOVED_PATH -save_path $JSON_PATH -n_cpus 64 -use_bert_basic_tokenizer false
-  python /tmp/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 64 -log_file ../logs/preprocess.log
+  python3 ~/packages/adobe/RedSumm2021/src/preprocess.py -mode tokenize -raw_path $RAW_PATH -prev_tokenized $TOKENIZED_PATH -save_path $TOKENIZED_PATH
+#  python3 ~/packages/adobe/RedSumm2021/src/preprocess.py -mode move_subset -raw_path $TOKENIZED_PATH -save_path $MOVED_PATH -n_cpus 20 -use_bert_basic_tokenizer false
+  python3 ~/packages/adobe/RedSumm2021/src/preprocess.py -mode format_to_lines -raw_path $TOKENIZED_PATH -save_path $JSON_PATH -n_cpus 20 -use_bert_basic_tokenizer false
+  python3 ~/packages/adobe/RedSumm2021/src/preprocess.py -mode format_to_bert -raw_path $JSON_PATH -save_path $BERT_DATA_PATH  -lower -n_cpus 20 -log_file ../logs/preprocess.log
 
-  cd $DS_BASE_DIR/tldrQ/
-  echo "Compressing bert-files at $BERT_DATA_PATH"
-
-  tar -cf bert-data-$id-tldrQ.tar bert-data-$id/
-
-  gupload bert-data-$id-tldrQ.tar
-
-done
+#  cd $DS_BASE_DIR/tldrQ/
+#  echo "Compressing bert-files at $BERT_DATA_PATH"
+#
+#  tar -cf bert-data-$id-tldrQ.tar bert-data-$id/
+#
+#  gupload bert-data-$id-tldrQ.tar
+#
+#done
 #

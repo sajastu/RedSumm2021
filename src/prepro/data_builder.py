@@ -649,8 +649,8 @@ def format_to_lines(args):
     #     else:
     #         corpus_type='train'
     #
-        corpus_type = real_name.split('-')[0]
-
+        # corpus_type = real_name.split('-')[0]
+        corpus_type='test'
         eval(f'{corpus_type}_files').append(f)
         # real_name = f.split('/')[-1].split('.')[0]
         # if (real_name in corpus_mapping['valid']):
