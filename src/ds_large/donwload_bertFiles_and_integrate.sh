@@ -32,10 +32,9 @@ perl gdownload.pl  $URL_m2 $STORE_DIR/m_2-bertfiles.tar
 ################## Uncompressing bertfiles, should note that it should not interfere names
 
 
-TOKEN=ya29.a0ARrdaM-4wpoDdKuUlFRJUWLvXz8G1VpK-HcXbpryi4QPjxW88FykNtJmUmQgkUfrcbobjwAOt0WFu5lUw8-hsWPqbxf7LC99FZPbUQCerhZI5Rvugh6kU86Ma4yBo5gNoWnUA2vC_dbYu7i2noq4JyRborD1
+TOKEN=ya29.a0ARrdaM_FgO_hdmFVMY8k3FQZDgDys4PZAq-GW4mhqfI0FG-5l4Pr_08OHTMdXrgohlmZYwEnSM2vts2tpWPiHwRpF4W0nPPvYGuSaWBNSPgSCBWyDQLXRESrwcDZbApN5SkjOLiLttLzKiFtPiC_slH-a5x1
 FILES=( 1Hzb0wjTkd-OYqA1zhY-_KE0rBVf3yjA0 1aSqMkWIzJbIJySP7hb0y-MWat0FoB3Xk 1pIgqjOrirjxYGhlHSt9ZoB8nGSQ6MvtG 1tnyxsikxFUKT0w-uo80P84rGrhzcuGbO 1LEE33xhmHt1fD4lHwHTKbWfoGbFp8gLe 1Uk1zeM4XvChO0kewZzdoJYZwgDqQx4OP )
 
-FILES=( 1Hzb0wjTkd-OYqA1zhY-_KE0rBVf3yjA0 1LEE33xhmHt1fD4lHwHTKbWfoGbFp8gLe 1Uk1zeM4XvChO0kewZzdoJYZwgDqQx4OP 1aSqMkWIzJbIJySP7hb0y-MWat0FoB3Xk 1pIgqjOrirjxYGhlHSt9ZoB8nGSQ6MvtG 1tnyxsikxFUKT0w-uo80P84rGrhzcuGbO )
 for i in "${!FILES[@]}";
 do
   echo $FILES[$i]
@@ -45,9 +44,11 @@ done
 
 https://drive.google.com/drive/folders/12n3fTqvjrP7X4V29eANUZi3DJs5KlCYo?usp=sharing
 
-FILE_ID=1S1UsUc0vomFRWpPl7a0pf9U83Pqq6UcC
-TOKEN=ya29.a0ARrdaM_YIJ1wIpHSA9uQ0GCg8Lc7Hc6TysEcTi9-S0nYU14UmJtPZXoQJnsfWbC3FP-9JJVSXcBzKBooQ15h7XUJuy38l6qrmbxlUlQPY6JckHr1nsfOddD_Y-mWTBeLqnzlLu6DdVy9QF-W1hDNqUPEMuOX
-curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o dl.tar
+FILE_ID=1aXUQst3WfZ8nnd2ZY_gOzYgNi0FJ3jeb
+FILE_ID=1CAe_0BDjaKIK4YbHVSQTmciem0bkDXRW
+FILE_ID=12n3fTqvjrP7X4V29eANUZi3DJs5KlCYo
+TOKEN=ya29.a0ARrdaM9DOq0JH5vDo9-D0al0uV4_VLqYKwfRAsBE2QT-W5RfKXCqtZvkvsfsmXJHrf5EqpkwMgfTMua0sjeSsFhflS2LlpusgUrAP9LtXlTkaIeqmrYg5OO3Pw8_S0-mDzpui7EFaGPTGzJ0CPyWt99S2nu7
+curl -H "Authorization: Bearer $TOKEN" https://www.googleapis.com/drive/v3/files/$FILE_ID?alt=media -o m1fullBert
 
 https://drive.google.com/open?id=14v75CTKcdkBHv9e70k5L3HkQRZyjpPnu # ext model large
 

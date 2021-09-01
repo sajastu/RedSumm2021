@@ -99,13 +99,14 @@ def load_dataset(args, corpus_type, shuffle):
             if corpus_type in name:
                 pts.append(os.path.join(root, name))
     pts = sorted(pts)
+
     if pts:
         if (shuffle):
             random.seed(8080)
             random.shuffle(pts)
-            if corpus_type == 'train':
-                restarted_idx = pts.index('/disk1/sajad/datasets/social/tldrQ/bert-files/bert-data-m_4/train.1.bert.pt')
-                pts = pts[restarted_idx:] + pts[:restarted_idx]
+            # if corpus_type == 'train':
+            #     restarted_idx = pts.index('/home/code-base/large_reddit_bertfiles/bert-data-m_3/train.23.bert.pt')
+            #     pts = pts[restarted_idx:] + pts[:restarted_idx]
 
         for pt in pts:
             yield _lazy_dataset_loader(pt, corpus_type)
